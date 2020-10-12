@@ -1,0 +1,59 @@
+<main role="main" class="container my-auto">
+    <div class="row">
+        <div id="login" class="col-lg-4 offset-lg-4 col-md-6 offset-md-3
+            col-12">
+         
+            <h1 class="text-center"><span class="badge badge-pill badge-secondary">MARKETPLACE</span></h1>
+             
+            <div class="alert alert-warning" role="alert" *ngIf="isError"> 
+                   Ingresar todos los Campos
+            </div>
+            
+            <img class="img-fluid mx-auto d-block rounded" src="https://leadsfac.com/wp-content/uploads/2019/10/marketplace-3.jpg" alt="">
+            <form #formLogin="ngForm" (ngSubmit)="onLogin(formLogin)">
+                
+                
+                <div class="form-group">
+                    <label for="correo">Correo</label>
+                    <input id="correo"   name="correo_nombre"class="form-control" type="text"placeholder="Correo"
+                       #correo="ngModel" required  minlength="4"  maxlength="40" 
+                         [(ngModel)]="usuario.correo" autocomplete="off" >
+                </div>
+                <div class="alert alert-danger" role="alert" *ngIf="correo.touched && !correo.valid">
+                    <div *ngIf="correo.errors.required"><h6>Ingrese Correo</h6></div>
+                    <div *ngIf="correo.errors.minlength"><h6>Correo tiene menos de 4 caracteres</h6></div>
+                    
+                </div>
+                
+
+
+
+
+
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input id="password" name="password"class="form-control" type="password" placeholder="Contraseña"
+                     #pass="ngModel"  minlength="3"  maxlength="40" 
+                    [(ngModel)]="usuario.contrasenia" autocomplete="off" required>
+                </div>
+                <div class="alert alert-danger" role="alert" *ngIf="pass.touched && !pass.valid">
+                        <div *ngIf="pass.errors.required"><h6>Ingresar Contraseña</h6></div>
+                        <div *ngIf="pass.errors.minlength"><h6>Correo tiene menos de 4 caracteres</h6></div>
+                        
+                </div>
+                    
+
+
+
+                <div class="text-center">
+                <button type="submit" class="btn btn-success mb-2 btn-block" >
+                    Entrar
+                </button>
+            <br>
+                <a routerLink="/estudiante" >Registrar Usuario</a>
+            </div>
+                
+            </form>
+        </div>
+    </div>
+</main>

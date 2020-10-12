@@ -1,0 +1,86 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+    
+    <a class="navbar-brand" routerLink="/perfil" ><i class="fas fa-user-graduate"></i> Proyecto <!-- modifique el titulo y la ruta -->
+    <h2 class="text-center">Bienvenido {{usuario_activo}}</h2></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">  <!-- ml-auto       -->
+        
+
+
+
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"*ngIf="estudiante_funcion">
+                <i class="fas fa-dice-d6"></i>  Operaciones de Estudiante
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="nav-link"  *ngIf="true" routerLink="/asignar"><i class="far fa-address-card"></i> Asignación Curso</a>
+              <div class="dropdown-divider"></div>
+
+              
+
+              <a class="dropdown-item" routerLink="/ticket">crear Ticket</a>
+              <a class="dropdown-item" routerLink="/ver-notas">Ver Notas de Actividades</a>
+            </div>
+          </li>
+
+ 
+
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"*ngIf="auxiliar_funcion">
+              <i class="fas fa-dice-d6"></i>  Gestión de Auxiliar
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/evaluacion">Crear Evaluación</a>
+            <a class="dropdown-item" routerLink="/actividad">Crear Actividades</a>
+            <a class="dropdown-item" routerLink="/actividades/lista/calificar">Calificar Actividades</a>
+            
+            
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" routerLink="/auxiliar-cursos">Cursos Asignados</a>
+            
+            <a class="dropdown-item" >Crear notas</a>
+            <a class="dropdown-item" >Asistencia</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"*ngIf="admin_funcion">
+              <i class="fas fa-dice-d6"></i>  Gestión de Administrador
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/horario">Gestión Horario</a>
+            <a class="dropdown-item" routerLink="/seccion">Gestión Sección</a>
+            <a class="dropdown-item" routerLink="/auxiliar">Gestión Auxiliar</a>
+
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" routerLink="/curso">Gestión Curso</a>
+            <a class="dropdown-item" routerLink="/asig_auxiliar">Asignar auxiliar</a>
+            <a class="dropdown-item" routerLink="/lista_usuarios">Gestión de Usuarios</a>
+            <a class="dropdown-item" routerLink="/ticket/admin">Seguimiento de Ticket</a>
+            <a class="dropdown-item" routerLink="/auxiliares">Busqueda de Auxiliares</a>
+            <a class="dropdown-item" routerLink="/auxiliares-desasignar">Desasignar Auxiliares</a>
+          </div>
+        </li>
+
+
+
+
+
+
+
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+       
+        <button class="btn btn-outline-success my-2 my-sm-0" (click)="logOut()" routerLink="/login" >Cerrar Sesión</button>
+      </form>
+    </div>
+
+  </nav>
