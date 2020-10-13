@@ -109,7 +109,6 @@ router.delete("/deleteUser/:codu", async (req, res) => {
 
 
 
-
 ///////////////////////////////////////////////////////////////////////////////      PRODUCTOS
 
 
@@ -143,9 +142,10 @@ router.get('/api/producto/perfil_productos/:id', async (req, res) => {
     res.send(Users);
 })
 
-//obtengo todos los productos publicados menos el del usuario logueado
-router.get('/getProducto', async (req, res) => {
-    sql = "select id_producto,producto,estado from producto"; 
+//obtengo solamente un producto en base a su id
+router.get('/api/producto/producto_crear/:id', async (req, res) => {
+    const {id}= req.params;
+    sql = "select * from producto where id_producto ="+id; 
 
     let result = await BD.Open(sql, [], false);
   Produc = [];
@@ -165,10 +165,59 @@ router.get('/getProducto', async (req, res) => {
       Produc.push(procucSchema);
     })
 
-    res.send(Produc);
+    res.send(Produc[0]);
+})
+
+// Guardar un Producto
+router.post('/api/producto/producto_crear/',async (req, res) => {
+    const { producto,estado,fk_usuario,precio,detalle,fk_categoria, foto } = req.body;
+    console.log(req.body);
+    sql = `insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto) values(:producto,:estado,:fk_usuario,:precio,:detalle,:fk_categoria, :foto)`
+
+    await BD.Open(sql, [producto,estado,fk_usuario,precio,detalle,fk_categoria, foto], true)
+    .then ( (res) =>{
+        console.log(res); res.statusCode=200;
+    },
+    (err) =>{console.log(err); res.statusCode=500;}
+);
+
+    res.json({
+        "producto":producto,
+        "estado":estado,
+        "fk_usuario":fk_usuario,
+        "precio":precio,
+        "detalle":detalle,
+        "fk_categoria":fk_categoria,
+        "foto": foto
+    })
 })
 
 
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////      CATEGORIAS
+///OBTENGO TODAS LAS CATEGORIAS
+//para varios registros
+router.get('/api/categoria/getCategorias', async (req, res) => {
+    sql = "select * from categoria";
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_categoria": user[0],            
+            "categoria": user[1]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.json(Users);
+})
 
 
 module.exports = router;

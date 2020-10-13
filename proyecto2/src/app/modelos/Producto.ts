@@ -5,10 +5,6 @@ export interface Producto   {
     fk_usuario?: number;
     precio?: number;
     detalle?: string;
-    fk_categoria?: number,
-    foto?: string,
-    
-    nombre?:string,
-    apellido?:string,
-    categoria?:string
+    fk_categoria?: Number,
+    foto?: string
 }

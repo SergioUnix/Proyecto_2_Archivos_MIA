@@ -1,7 +1,7 @@
 <div class="col-md-12" *ngIf="estudiante_funcion">
     <div class="card text-center">
         <form>
-            <h2> <label for="exampleInputEmail1">Cursos Asignados</label></h2>
+            <h2> <label for="exampleInputEmail1">Productos Disponibles</label></h2>
         </form>
 
 
@@ -16,13 +16,13 @@
     </div>
 
 
-<div class="col-md-12" *ngFor="let pro of productos">
+<div class="col-md-4" *ngFor="let pro of productos">
     <div class="card text-center">
         <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
                 <i class="fas fa-id-card-alt"></i>
             <h3>{{pro.producto}} --- Precio {{pro.precio}}</h3>
 
-            <button class="btn btn-outline-warning" >
+            <button class="btn btn-outline-warning"  *ngIf="admin_funcion" >
                     Bloquear Producto
                 </button>
         </div>
@@ -32,7 +32,11 @@
             <i class="fas fa-photo-video"></i>
             <p>Estado  : {{pro.estado}}</p>
             <p>Precio de Producto :  {{pro.precio}}</p>
-            <a class="btn btn-info btn-block" *ngIf="admin_funcion">
+            <p> Categoria:  {{pro.categoria}}</p>
+            <p>Propietario :  {{pro.nombre}}  {{pro.apellido}} </p>
+            <p>Detalle :  {{pro.detalle}}</p>
+            
+            <a class="btn btn-info btn-block">
                 <i class="fas fa-pen"></i> Editar Producto
             </a>
             <a class="btn btn-warning btn-block" >

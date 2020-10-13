@@ -12,14 +12,13 @@ import { ProductoService } from 'src/app/servicios/producto.service';
 export class PerfilComponent implements OnInit {
   @HostBinding('class') classes='row';  //necesario para desplegar un juego a la par de otro 
   public admin_funcion = false;
-  public auxiliar_funcion = false;
+  public cliente__funcion = false;
   public estudiante_funcion = false;
   public usuario_activo='';
   public buscar='';
 
 
   public isExito=false; 
-  asig_cursos: any=[]
 
   ///productos
   productos: any=[];
@@ -104,16 +103,13 @@ export class PerfilComponent implements OnInit {
   onCheckUser(): void {
     if (this.usuariosService.getSesionTipo()=='1') {
       this.admin_funcion = true; 
-      this.auxiliar_funcion=true;
+      this.cliente__funcion=true;
       this.estudiante_funcion=true;   
     } else if(this.usuariosService.getSesionTipo()=='2') {
       this.admin_funcion = true; 
-      this.auxiliar_funcion=true;
+      this.cliente__funcion=true;
       this.estudiante_funcion=true;    
-    }else if(this.usuariosService.getSesionTipo()=='3') {
-      this.estudiante_funcion = true;
-      this.auxiliar_funcion=false;
-  }}
+    }}
 
 
 

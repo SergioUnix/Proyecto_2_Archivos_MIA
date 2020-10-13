@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class ProductoService {
   // Creo una variable con mi dirección
-  API_URI = 'http://localhost:3000/api';
+   //API_URI = 'http://localhost:3000/api';
+  API_URI = '/api';
 
 constructor(private http: HttpClient) { }
 
@@ -17,8 +18,23 @@ constructor(private http: HttpClient) { }
 getProductos(id: string){
 return this.http.get(`${this.API_URI}/producto/perfil_productos/${id}`);
  }
+//metodo para obtener un producto
+getProducto(id: string){
+ return this.http.get(`${this.API_URI}/producto/producto_crear/${id}`);
+
+}
+//metodo para pedir categorias del sistema
+getCategorias(){
+  return this.http.get(`${this.API_URI}/categoria/getCategorias`);
+   }
 
 
+
+   
+//meodo para guardar un producto
+saveProducto(producto:Producto){
+return this.http.post(`${this.API_URI}/producto/producto_crear/`, producto);
+}
 
 
 
@@ -34,16 +50,7 @@ getProductosVendidos(){
   return this.http.get(`${this.API_URI}/productos/carrito`);
    }
 
-//metodo para obtener un producto
-getProducto(id: string){
- return this.http.get(`${this.API_URI}/productos/${id}`);
 
-}
-//metodo para guardar un producto
-saveProducto(producto:Producto){
-return this.http.post(`${this.API_URI}/productos`, producto);
-
-}
 //metodo de borrar
 deleteProducto(id: string){
  return this.http.delete(`${this.API_URI}/productos/${id}`);

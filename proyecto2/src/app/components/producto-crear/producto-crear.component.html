@@ -1,0 +1,54 @@
+<div class="col-md-4 offset-md-2">
+    <div class="card">
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <h3>{{accion}}</h3>
+                </div>
+                <div class="form-group">
+                    <label>Datos del Producto</label>
+                    <input type="text" [(ngModel)]="producto.producto" name="nombre" placeholder="Nombre" class="form-control" autofocus required>
+                </div>
+
+                <div class="form-group">
+                        <input type="text" [(ngModel)]="producto.precio" name="precio" placeholder="Precio" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" [(ngModel)]="producto.detalle" name="detalle" placeholder="Detalle" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" [(ngModel)]="producto.foto" name="foto" placeholder="Foto" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="producto.fk_categoria">Categorias Disponibles</label>
+                    <select id="aux" name="aux" class="form-control" [(ngModel)]="producto.fk_categoria">
+                        <option *ngFor="let cat of categorias" [value]="cat.id_categoria" selected>
+                            {{cat.id_categoria }} --- {{cat.categoria}} </option>
+
+                    </select>
+                </div>
+
+
+                <button class="btn btn-success btn-block" (click)="edit ? updateProducto() : saveNewProducto()">
+                    Guardar
+
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+   <!-- Esta es una previsualizacion a lo que voy a guardar      -->
+
+   <div class="col-md-4 offset-md-2">
+        <div class="card card-body text-center">
+            <h3>Vista previa</h3>
+            <h3>{{producto.id_producto}}. {{producto.producto == '' ? 'Producto Nombre ' : producto.producto}}</h3>
+            <p>{{producto.estado == '' ? 'Estado Producto  ' : producto.estado}}</p>
+            <p>{{producto.precio == 0 ? 'Precio de Producto ' : producto.precio}}</p>
+            <p>{{producto.detalle == '' ? 'Detalle de Producto ' : producto.detalle}}</p>
+            <p>{{producto.foto == '' ? 'Foto de Producto ' : producto.foto}}</p>
+            <p>{{producto.fk_categoria == 0 ? 'Id_Categoria de Producto ' : producto.fk_categoria}}</p>
+        </div>
+    </div>

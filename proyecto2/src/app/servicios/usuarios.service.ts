@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 })
 export class UsuariosService {
   // Creo una variable con mi dirección
-  API_URI = 'http://localhost:3000/api';
-
+  //API_URI = 'http://localhost:3000/api';
+  API_URI = '/api';
   public logeado=null;   ///me dice si el usuario esta loogeado
 
 
