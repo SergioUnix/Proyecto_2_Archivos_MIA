@@ -1,0 +1,95 @@
+
+<main role="main">
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">{{producto.producto}}</h1>
+      <h4>{{producto.detalle}}}</h4>
+      
+      <img [src]="producto.foto" class="bd-placeholder-img card-img-top" width="20%" height="20%"focusable="false" role="img">
+      
+      <a class="btn btn-outline-warning my-2" >
+        <i class="far fa-thumbs-up"></i> like
+      </a>
+      <a class="btn btn-outline-light my-2" >
+      <i class="fas fa-pen"></i> Don't Like
+      </a>
+   
+    </div>
+  </div>
+  <div class="alert alert-success" role="alert" *ngIf="isExito">Se comento exitosamente</div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Comentarios</h2>
+        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+   
+        
+
+
+        <form #formPubli="ngForm" (ngSubmit)="onPublicar(formPubli)">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Crear Comentario</label>
+            <input id="nombre" name="nombre" class="form-control" type="text" placeholder="comentario"
+                [(ngModel)]="comentario.comentario" required autocomplete="off" #nombre="ngModel" required minlength="1"
+                maxlength="250">
+            <small id="emailHelp" class="form-text text-muted">Escribe un comentario no mayor a 250 caracteres</small>
+            <div class="alert alert-danger" role="alert" *ngIf="nombre.touched && !nombre.valid">
+                <div *ngIf="nombre.errors.required">
+                    <h6>Campo Obligatorio</h6>
+                </div>
+                <div *ngIf="nombre.errors.minlength">
+                    <h6>Campo tiene menos de 1 caracteres</h6>
+                </div>
+    
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Responder</button>
+    </form>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+      <div class="col-md-4">
+        <h2>Chat Producto</h2>
+        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div>
+      <div class="col-md-4">
+        <h2>Denunciar</h2>
+        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div>
+    </div>
+
+    <hr>
+
+  </div> <!-- /container -->
+
+</main>

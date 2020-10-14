@@ -142,7 +142,37 @@ router.get('/api/producto/perfil_productos/:id', async (req, res) => {
     res.send(Users);
 })
 
-//obtengo solamente un producto en base a su id
+//obtengo todos los productos Creados por Mi 
+router.get('/api/producto/producto_mio/:id', async (req, res) => {
+    const {id}= req.params;
+    sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, usuario.nombre, usuario.apellido, categoria.categoria     from producto    inner join usuario on producto.fk_usuario= usuario.id_usuario    inner join categoria on producto.fk_categoria = categoria.id_categoria    
+    where usuario.id_usuario =`+id; 
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_producto": user[0],            
+            "producto": user[1],
+            "estado" : user[2],  
+            "fk_usuario": user[3] ,     
+            "precio": user[4],  
+            "detalle": user[5],  
+            "fk_categoria": user[6],
+            "foto":user[7],
+            "nombre": user[8], 
+            "apellido": user[9],  
+            "categoria": user[10]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+//obtengo solamente un producto en base a su id_producto
 router.get('/api/producto/producto_crear/:id', async (req, res) => {
     const {id}= req.params;
     sql = "select * from producto where id_producto ="+id; 

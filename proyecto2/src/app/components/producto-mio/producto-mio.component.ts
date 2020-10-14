@@ -1,23 +1,23 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
-//import { AsigEstuService} from 'src/app/servicios/asig-estu.service';
+
 import { Router, ActivatedRoute } from '@angular/router';
 import { UsuariosService } from 'src/app/servicios/usuarios.service';
 import { ProductoService } from 'src/app/servicios/producto.service';
 
 @Component({
-  selector: 'app-perfil',
-  templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.css']
+  selector: 'app-producto-mio',
+  templateUrl: './producto-mio.component.html',
+  styleUrls: ['./producto-mio.component.css']
 })
-export class PerfilComponent implements OnInit {
+export class ProductoMioComponent implements OnInit {
   @HostBinding('class') classes='row';  //necesario para desplegar un juego a la par de otro 
   public admin_funcion = false;
   public cliente_funcion = false;
-
+ 
   public usuario_activo='';
   public buscar='';
 
-  public oculto=false;
+
 
 
   public isExito=false; 
@@ -66,7 +66,7 @@ export class PerfilComponent implements OnInit {
 
      productosVecinos(){    //mando a llamar productos que no fueron creados por el usuario logueado
       let  id= this.usuariosService.getSesionCod();
-      this.productosService.getProductos(id).subscribe(  /// 
+      this.productosService.getProductosMIO(id).subscribe(  /// 
         res => {
           this.productos = res;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
          },
@@ -106,11 +106,11 @@ export class PerfilComponent implements OnInit {
     if (this.usuariosService.getSesionTipo()=='1') {
       this.admin_funcion = true; 
       this.cliente_funcion=true;
-    
+      
     } else if(this.usuariosService.getSesionTipo()=='2') {
       this.admin_funcion = true; 
       this.cliente_funcion=true;
-
+      
     }}
 
 

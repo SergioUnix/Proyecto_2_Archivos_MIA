@@ -10,8 +10,7 @@ export class NavigationComponent implements OnInit {
 
 
   public admin_funcion = false;
-  public auxiliar_funcion = false;
-  public estudiante_funcion = false;
+  public cliente_funcion = false;
   public usuario_activo='';
   public buscar='';
 
@@ -42,16 +41,13 @@ export class NavigationComponent implements OnInit {
   onCheckUser(): void {
     if (this.usuariosService.getSesionTipo()=='1') {
       this.admin_funcion = true; 
-      this.auxiliar_funcion=true;
-      this.estudiante_funcion=true;   
+      this.cliente_funcion=true;
+   
     } else if(this.usuariosService.getSesionTipo()=='2') {
       this.admin_funcion = true; 
-      this.auxiliar_funcion=true;
-      this.estudiante_funcion=true;     
-    }else if(this.usuariosService.getSesionTipo()=='3') {
-      this.estudiante_funcion = true;
-      this.auxiliar_funcion=false;
-  }}
+      this.cliente_funcion=true;
+        
+    }}
 
 
  

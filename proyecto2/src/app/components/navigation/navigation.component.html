@@ -15,17 +15,17 @@
 
 
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"*ngIf="estudiante_funcion">
-                <i class="fas fa-dice-d6"></i>  Operaciones de Usuarios
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"*ngIf="cliente_funcion">
+              <h4> <i class="fas fa-dice-d6"></i>  Operaciones de Usuarios</h4>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="nav-link"  *ngIf="true" routerLink="/productos/agregar"><i class="far fa-address-card"></i> Crear Producto</a>
+                <a class="nav-link"  *ngIf="true" routerLink="/productos/agregar"><h4> <i class="far fa-address-card"></i> Producto</h4></a>
               <div class="dropdown-divider"></div>
 
               
 
-              <a class="dropdown-item" routerLink="/ticket">crear Ticket</a>
-              <a class="dropdown-item" routerLink="/ver-notas">Ver Notas de Actividades</a>
+              <a class="dropdown-item" routerLink="productos/mio"><h4> Ver Mis productos</h4></a>
+              <a class="dropdown-item" routerLink="/ver-notas"><h4> Ver Notas de Actividades</h4></a>
             </div>
           </li>
 
@@ -34,7 +34,7 @@
 
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"*ngIf="auxiliar_funcion">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-dice-d6"></i>  Carrito de Compras
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -52,7 +52,7 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"*ngIf="admin_funcion">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-dice-d6"></i>  Gestión de Administrador
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">

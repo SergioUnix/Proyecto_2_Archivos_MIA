@@ -13,7 +13,9 @@ import {UsuariosService} from './servicios/usuarios.service';
 import {ProductoService} from './servicios/producto.service';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
-import { ProductoCrearComponent } from './components/producto-crear/producto-crear.component'; /// instancio el servicio
+import { ProductoCrearComponent } from './components/producto-crear/producto-crear.component';
+import { ProductoMioComponent } from './components/producto-mio/producto-mio.component';
+import { DetalleComponent } from './components/detalle/detalle.component'; /// instancio el servicio
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { ProductoCrearComponent } from './components/producto-crear/producto-cre
     LoginComponent,
     NavigationComponent,
     PerfilComponent,
-    ProductoCrearComponent
+    ProductoCrearComponent,
+    ProductoMioComponent,
+    DetalleComponent
 
 
 

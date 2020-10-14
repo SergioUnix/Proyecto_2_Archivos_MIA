@@ -27,15 +27,15 @@ getProducto(id: string){
 getCategorias(){
   return this.http.get(`${this.API_URI}/categoria/getCategorias`);
    }
-
-
-
    
 //meodo para guardar un producto
 saveProducto(producto:Producto){
 return this.http.post(`${this.API_URI}/producto/producto_crear/`, producto);
 }
-
+//metodo para pedir productos que solo halla hecho el usuario logueado
+getProductosMIO(id: string){
+  return this.http.get(`${this.API_URI}/producto/producto_mio/${id}`);
+   }
 
 
 
