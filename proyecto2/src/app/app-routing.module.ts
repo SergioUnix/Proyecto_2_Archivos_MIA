@@ -6,6 +6,9 @@ import {PerfilComponent} from './components/perfil/perfil.component';
 import {ProductoCrearComponent} from './components/producto-crear/producto-crear.component';
 import {ProductoMioComponent} from './components/producto-mio/producto-mio.component';
 import {DetalleComponent} from './components/detalle/detalle.component';
+import {DenunciaCrearComponent} from './components/denuncia-crear/denuncia-crear.component';
+import {ChatComponent} from './components/chat/chat.component';
+
 
 const routes: Routes = [
 
@@ -43,6 +46,14 @@ const routes: Routes = [
   {
   path: 'detalle/:id',
   component: DetalleComponent     
+  },
+  {
+  path: 'denuncia/:id',
+  component: DenunciaCrearComponent     
+  },
+  {
+  path: 'chat/:id',
+  component: ChatComponent    
   }
   
 

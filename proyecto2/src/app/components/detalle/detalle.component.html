@@ -7,32 +7,34 @@
       <h1 class="display-3">{{producto.producto}}</h1>
       <h4>{{producto.detalle}}}</h4>
       
-      <img [src]="producto.foto" class="bd-placeholder-img card-img-top" width="20%" height="20%"focusable="false" role="img">
+      <img [src]="producto.foto" class="bd-placeholder-img card-img-top" width="400" height="500"focusable="false" role="img">
       
-      <a class="btn btn-outline-warning my-2" >
-        <i class="far fa-thumbs-up"></i> like
+      <a class="btn btn-outline-info my-2 my-sm-0" (click)="crearlike()">
+        <i class="far fa-thumbs-up"></i>{{contadorLikes.contador}} Like
       </a>
-      <a class="btn btn-outline-light my-2" >
-      <i class="fas fa-pen"></i> Don't Like
+      <a class="btn btn-outline-primary my-2 my-sm-0" (click)="crearDislike()">
+        <i class="far fa-thumbs-down"></i>{{contadorDisLikes.contador}} Don't Like
       </a>
    
     </div>
   </div>
-  <div class="alert alert-success" role="alert" *ngIf="isExito">Se comento exitosamente</div>
+ 
 
   <div class="container">
     <!-- Example row of columns -->
     <div class="row">
       <div class="col-md-4">
         <h2>Comentarios</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+        <div class="alert alert-success" role="alert" *ngIf="isExito">Se comento exitosamente</div>
+        <img src="data:image/png;base64,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" class="bd-placeholder-img card-img-top" width="100" height="200"focusable="false" role="img">
+        <p>Puedes crear tu comentario en este apartado si deseas opinar sobre nuestro producto</p>
    
         
 
 
         <form #formPubli="ngForm" (ngSubmit)="onPublicar(formPubli)">
         <div class="form-group">
-            <label for="exampleInputEmail1">Crear Comentario</label>
+            <label for="exampleInputEmail1"  class="text-success">Crear Comentario</label>
             <input id="nombre" name="nombre" class="form-control" type="text" placeholder="comentario"
                 [(ngModel)]="comentario.comentario" required autocomplete="off" #nombre="ngModel" required minlength="1"
                 maxlength="250">
@@ -47,10 +49,40 @@
     
             </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Responder</button>
+        <button type="submit" class="btn btn-outline-info my-2">Comentar</button>
     </form>
     
 
+
+
+
+
+
+    <div class="alert alert-warning" role="alert" *ngIf="isError2">Datos incompletos para comentar</div>
+    <div class="alert alert-warning" role="alert" *ngIf="isError">No hay Comentarios</div>
+
+    <div class="col-md-12" *ngFor="let publi of comentarios">
+        <div class="card text-center">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+               <i class="fas fa-sms"></i>  {{publi.nombre}}: {{publi.apellido}} 
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                  <h6 class="text-info">Fecha de enviado: {{publi.fecha_creacion | date: 'yyy-MM-dd'}}</h6>                 
+                 
+              </div>
+
+            </div>
+            <img [src]="" class="card-img-top">
+
+            <div class="card-body">
+                <h4>
+                    <p> {{publi.comentario}}</p>
+                </h4>
+
+
+            </div>
+        </div>
+
+    </div>
 
 
 
@@ -78,13 +110,19 @@
       </div>
       <div class="col-md-4">
         <h2>Chat Producto</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+        <img src="https://www.antevenio.com/wp-content/uploads/2020/03/chat-marketing.jpg" class="bd-placeholder-img card-img-top" width="100" height="300"focusable="false" role="img">
+        <p>Este apartado de chat es para tener una conversaciòn entre el dueño del producto y tu persona.</p>
+        <a class="btn btn-info my-2 my-sm-0" [routerLink]="['/chat', producto.id_producto]">
+          <i class="fas fa-comments"></i> Abrir Chat
+        </a>
       </div>
       <div class="col-md-4">
         <h2>Denunciar</h2>
-        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+        <img src="https://vetmarketportal.com.ar/uploads/noticias/5/20200617104716_denuncia.jpg" class="bd-placeholder-img card-img-top" width="100" height="150"focusable="false" role="img">
+        <p>Aca puedes crear una denuncia que va directamente al administrador de la pagina, notificando alguna anomalia sobre este producto.</p>
+        <a class="btn btn-info my-2 my-sm-0" [routerLink]="['/denuncia', producto.id_producto]">
+          <i class="fas fa-radiation"></i> Crear una Denuncia
+        </a>
       </div>
     </div>
 

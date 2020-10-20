@@ -15,7 +15,9 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { ProductoCrearComponent } from './components/producto-crear/producto-crear.component';
 import { ProductoMioComponent } from './components/producto-mio/producto-mio.component';
-import { DetalleComponent } from './components/detalle/detalle.component'; /// instancio el servicio
+import { DetalleComponent } from './components/detalle/detalle.component';
+import { DenunciaCrearComponent } from './components/denuncia-crear/denuncia-crear.component';
+import { ChatComponent } from './components/chat/chat.component'; /// instancio el servicio
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { DetalleComponent } from './components/detalle/detalle.component'; /// i
     PerfilComponent,
     ProductoCrearComponent,
     ProductoMioComponent,
-    DetalleComponent
+    DetalleComponent,
+    DenunciaCrearComponent,
+    ChatComponent
 
 
 

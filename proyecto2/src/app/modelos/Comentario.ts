@@ -3,5 +3,5 @@ export interface Comentario   {
     comentario?: string;
     fk_producto?: number;
     fk_usuario?: number;
-    fecha?: string
+    fecha_creacion?: string
 }

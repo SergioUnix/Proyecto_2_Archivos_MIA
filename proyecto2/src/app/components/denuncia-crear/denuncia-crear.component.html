@@ -1,0 +1,101 @@
+<div class="col-md-12">
+    <div class="card text-center">
+            <form>
+                    <h2> <label for="exampleInputEmail1">Crear una denuncia</label></h2>
+            </form>
+    
+    
+    </div>
+    </div>
+    
+
+
+<div class="col-md-4 offset-md-2">
+    <div class="card">
+        <div class="card-body">
+                        <div class="alert alert-warning" role="alert" *ngIf="isError"> 
+                            Llenar todos los campos
+                       </div>
+                       <div class="alert alert-success" role="alert" *ngIf="isExito">
+                        Guardado exitosamente
+                      </div>
+
+
+
+            <form  #formTicket="ngForm" (ngSubmit)="onDenunciar(formTicket)">
+                    <div class="form-group">
+                            <h3>Escribir denuncia</h3>
+                        </div>
+   
+                            <div class="form-group">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"
+                                type="text" [(ngModel)]="denuncia.descripcion" 
+                                #cuerpo="ngModel" required  minlength="1"  maxlength="300" 
+                                name="cuerpo" placeholder="Cuerpo" class="form-control" autofocus required autocomplete="off"
+                                ></textarea>
+                              </div>
+
+
+                            <div class="alert alert-danger" role="alert" *ngIf="cuerpo.touched && !cuerpo.valid">
+                                <div *ngIf="cuerpo.errors.required"><h6>Campo Obligatorio</h6></div>
+                                <div *ngIf="cuerpo.errors.minlength"><h6>Campo tiene menos de 1 caracteres</h6></div>
+                                
+                            </div>
+
+
+
+                <button type = "submit" class="btn btn-info btn-block" >
+                    Guardar denuncia
+
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+
+
+   <!-- Esta es una previsualizacion a lo que voy a guardar      -->
+
+
+    
+<div class="col-md-12">
+<div class="card text-center">
+        <form>
+                <h2> <label for="exampleInputEmail1">Denuncias Guardadas que ha hecho sobre este producto</label></h2>
+        </form>
+
+
+</div>
+</div>
+
+
+
+
+
+<div class="col-md-4" *ngFor="let dec of denuncias">
+    <div class="card text-center">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <i class="far fa-clock"></i>codigo: {{dec.id_denuncia}}  fecha: {{dec.fecha_creacion | date: 'yyy-MM-dd'}} 
+            <button class="btn btn-danger" (click)="deleteDenuncia(dec.id_denuncia)">
+                Eliminar
+            </button>
+        </div>
+        <img [src]="" class="card-img-top">
+
+        <div class="card-body">
+            <h4>
+                <p class="text-primary">Descripcion :</p> <p>{{dec.descripcion}}</p>
+                <p class="text-primary">Creador :</p><p>{{dec.nombre}}</p>
+                <p class="text-primary">Producto Denunciado :</p><p>{{dec.producto}}</p>
+                <p class="text-primary">Estado de la denuncia :</p><p>{{dec.estado}}</p>
+            </h4>
+
+        </div>
+    </div>
+
+</div>
+
+

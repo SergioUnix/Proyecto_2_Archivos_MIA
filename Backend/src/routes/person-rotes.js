@@ -4,49 +4,9 @@ const BD = require('../config/configbd');
 
 ///////////////////////////////////////////////////////////////////////////////      USUARIOS
 
-//para varios registros
-router.get('/getUsers', async (req, res) => {
-    sql = "select * from usuario";
 
-    let result = await BD.Open(sql, [], false);
-    Users = [];
 
-    result.rows.map(user => {
-        let userSchema = {
-            "id_usuario": user[0],            
-            "nombre": user[1],
-            "apellido" : user[2],  
-            "correo": user[3] ,     
-            "contrasenia": user[4],  
-            "confirmacion": user[5],  
-            "nac": user[6],  
-            "pais": user[7], 
-            "foto": user[8],  
-            "creditos": user[9],
-            "fk_tipo": user[10]
-        }
 
-        Users.push(userSchema);
-    })
-
-    res.json(Users);
-})
-
-//CREATE
-
-router.post('/addUser', async (req, res) => {
-    const { username, firstname, lastname } = req.body;
-
-    sql = "insert into person(username,firstname,lastname) values (:username,:firstname,:lastname)";
-
-    await BD.Open(sql, [username, firstname, lastname], true);
-
-    res.status(200).json({
-        "username": username,
-        "firstname": firstname,
-        "lastname": lastname
-    })
-})
 
 //UPDATE
 router.put("/updateUser", async (req, res) => {
@@ -66,16 +26,7 @@ router.put("/updateUser", async (req, res) => {
 })
 
 
-//DELETE
-router.delete("/deleteUser/:codu", async (req, res) => {
-    const { codu } = req.params;
 
-    sql = "update person set state=0 where codu=:codu";
-
-    await BD.Open(sql, [codu], true);
-
-    res.json({ "msg": "Usuario Eliminado" })
-})
 
 //login solo traigo un registro
     router.get("/api/usuario/:correo/:pass", async (req, res) => {
@@ -225,6 +176,39 @@ router.post('/api/producto/producto_crear/',async (req, res) => {
 
 
 
+//obtengo todos los comentarios de un producto dado su id_producto
+router.get('/api/producto/detalle/:id', async (req, res) => {
+    const {id}= req.params;
+    sql = `select id_comentario,comentario,fk_producto,fk_usuario,fecha_creacion,usuario.nombre,usuario.apellido from comentario
+    inner join usuario on comentario.fk_usuario = usuario.id_usuario where fk_producto=`+id; 
+  //  sql = `select * from publicacion`;
+
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_comentario": user[0],            
+            "comentario": user[1],
+            "fk_producto": user[2] ,     
+            "fk_usuario": user[3] ,     
+            "fecha_creacion": user[4],  
+            "nombre": user[5],    //nombre de quien fue el que comento 
+            "apellido": user[6]   // -- de quien fue el que comento
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+
+
+
+
 
 
 
@@ -248,6 +232,266 @@ router.get('/api/categoria/getCategorias', async (req, res) => {
 
     res.json(Users);
 })
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////   COMENTARIOS
+router.post('/api/comentario/detalle/',async (req, res) => {
+    const { comentario,fk_producto,fk_usuario } = req.body;
+    console.log(req.body);
+   // sql = `insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto) values(:producto,:estado,:fk_usuario,:precio,:detalle,:fk_categoria, :foto)`
+    sql = `insert into comentario (comentario,fk_producto,fk_usuario) values(:comentario,:fk_producto,:fk_usuario)`;
+
+    await BD.Open(sql, [comentario,fk_producto,fk_usuario], true)
+    .then ( (res) =>{
+        console.log(res); res.statusCode=200;
+    },
+    (err) =>{console.log(err); res.statusCode=500;}
+);
+
+    res.json({
+        "comentario":comentario,
+        "fk_producto":fk_producto,
+        "fk_usuario":fk_usuario
+    })
+})      
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////    Likes
+//obtengo el conteo de likes dado un id_producto
+router.get('/api/likes/detalle/:id', async (req, res) => {
+    const {id}= req.params;
+    sql = `select count(id_likes) as contador from likes where fk_producto=`+id; 
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "contador": user[0]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users[0]);
+})
+//obtengo el conteo de Dislikes dado un id_producto .....
+router.get('/api/Dislikes/detalle/:id', async (req, res) => {
+    const {id}= req.params;
+    sql = `select count(id_Dislikes) as contador from Dislikes where fk_producto=`+id; 
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "contador": user[0]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users[0]);
+})
+
+
+//Si devuelve un arreglo mayor a 0 significa que el usuario ya hizo like .... verifica like dado el id_usuario
+router.get('/api/likes/detalle/verifico/:id/:cod', async (req, res) => {
+    const {id}= req.params;
+    const {cod}=req.params;
+    sql = `select * from likes where fk_usuario=`+id+ `and fk_producto=`+cod; 
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+    result.rows.map(user => {
+        let userSchema = {
+            "id_likes": user[0],
+            "fecha_creacion": user[1],
+            "fk_producto": user[2],
+            "fk_usuario": user[3]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+//Creo un like 
+router.post('/api/likes/detalle/crear',async (req, res) => {
+    const { fk_producto,fk_usuario} = req.body;
+    console.log(req.body);
+   // sql = `insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto) values(:producto,:estado,:fk_usuario,:precio,:detalle,:fk_categoria, :foto)`
+    sql = `insert into likes (fk_producto,fk_usuario) values(:fk_producto,:fk_usuario)`;
+
+    await BD.Open(sql, [fk_producto,fk_usuario], true)
+    .then ( (res) =>{
+        console.log(res); res.statusCode=200;
+    },
+    (err) =>{console.log(err); res.statusCode=500;}
+);
+
+    res.json({
+        "fk_producto":fk_producto,
+        "fk_usuario":fk_usuario
+    })
+})
+
+//Elimino un Like dado el id_usuario y el id_producto
+router.delete("/api/likes/detalle/eliminar/:id/:cod", async (req, res) => {
+    const { id } = req.params;
+    const { cod } = req.params;
+
+    sql = `delete from likes where fk_usuario=`+id +`and fk_producto=`+cod;
+
+    await BD.Open(sql, [], true);
+
+    res.json({ "msg": "like Eliminado " })
+})
+
+
+
+//Creo un Dislike 
+router.post('/api/Dislikes/detalle/crear',async (req, res) => {
+    const { fk_producto,fk_usuario} = req.body;
+    console.log(req.body);
+    sql = `insert into Dislikes (fk_producto,fk_usuario) values(:fk_producto,:fk_usuario)`;
+
+    await BD.Open(sql, [fk_producto,fk_usuario], true)
+    .then ( (res) =>{
+        console.log(res); res.statusCode=200;
+    },
+    (err) =>{console.log(err); res.statusCode=500;}
+);
+
+    res.json({
+        "fk_producto":fk_producto,
+        "fk_usuario":fk_usuario
+    })
+})
+
+//Elimino un DisLike dado el id_usuario y el id_producto
+router.delete("/api/Dislikes/detalle/eliminar/:id/:cod", async (req, res) => {
+    const { id } = req.params;
+    const { cod } = req.params;
+
+    sql = `delete from Dislikes where fk_usuario=`+id +`and fk_producto=`+cod;
+
+    await BD.Open(sql, [], true);
+
+    res.json({ "msg": "Dislike Eliminado " })
+})
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////  Denuncias
+//Creo una denuncia 
+router.post('/api/denuncias/denuncia-crear/crear',async (req, res) => {
+    const { descripcion,fk_admin, fk_usuario,fk_producto,fk_estado} = req.body;
+    console.log(req.body);
+   // sql = `insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto) values(:producto,:estado,:fk_usuario,:precio,:detalle,:fk_categoria, :foto)`
+    sql = `INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values(:descripcion,:fk_admin, :fk_usuario,:fk_producto,:fk_estado)`;
+
+    await BD.Open(sql, [descripcion,fk_admin, fk_usuario,fk_producto,fk_estado], true)
+    .then ( (res) =>{
+        console.log(res); res.statusCode=200;
+    },
+    (err) =>{console.log(err); res.statusCode=500;}
+);
+
+    res.json({
+        "descripcion":descripcion,
+        "fk_admin":fk_admin,
+        "fk_usuario":fk_usuario,
+        "fk_producto":fk_producto,
+        "fk_estado":fk_estado
+    })
+})
+
+//obtengo todos las denuncias de un producto dado su id_producto y id_usuario;
+router.get('/api/denuncias/dencia-crear/:pro/:id', async (req, res) => {
+    const {id}= req.params;
+    const {pro}= req.params;
+    sql = `
+    select denuncia.id_denuncia, denuncia.descripcion, denuncia.fecha_creacion,
+    denuncia.fk_admin,denuncia.fk_usuario,denuncia.fk_producto,denuncia.fk_estado, usuario.nombre, producto.producto,estado.estado 
+    from denuncia
+    inner join usuario on usuario.id_usuario= denuncia.fk_usuario
+    inner join producto on producto.id_producto = denuncia.fk_producto
+    inner join estado on estado.id_estado = denuncia.fk_estado
+    where denuncia.fk_producto =`+pro+ `and denuncia.fk_usuario =`+id; 
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_denuncia": user[0],            
+            "descripcion": user[1],
+            "fecha_creacion": user[2] ,     
+            "fk_admin": user[3] ,     
+            "fk_usuario": user[4] ,     
+            "fk_producto": user[5] ,     
+            "fk_estado": user[6],
+            "nombre": user[7],
+            "producto": user[8],
+            "estado":user[9] 
+    }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+//Eliminar una denuncia
+router.delete("/api/denuncias/dencia-crear/:id", async (req, res) => {    
+    const { id } = req.params;
+    sql = `delete from denuncia where id_denuncia=`+id;
+    await BD.Open(sql, [], true);
+    res.json({ "msg": "Denuncia Eliminada " })
+})
+
+
+
+//obtengo los chats dado el id_cliente , id_vendedor, id_producto
+router.get('/api/chat/chat/:cli/:ven/:pro', async (req, res) => {
+    const {cli}= req.params;
+    const {ven}= req.params;
+    const {pro}= req.params;
+    sql = `select chat.id_chat,chat.mensaje,chat.fk_vendedor,chat.fk_cliente,chat.fk_producto,chat.fecha_creacion,
+    usuario.nombre
+    from chat
+    inner join usuario on usuario.id_usuario = chat.fk_vendedor 
+    where fk_vendedor=`+ven+` and fk_cliente =`+cli+` and fk_producto=`+pro+`  or 
+    fk_vendedor=`+cli+` and fk_cliente =`+ven+` and fk_producto=`+pro; 
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_chat": user[0],            
+            "mensaje": user[1],
+            "fk_vendedor": user[2] ,     
+            "fk_cliente": user[3] ,     
+            "fk_producto": user[4] ,     
+            "fecha_creacion": user[5] ,     
+            "nombre": user[6]
+    }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+
 
 
 module.exports = router;
