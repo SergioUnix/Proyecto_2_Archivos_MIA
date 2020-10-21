@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';     /// modulo encargado de hac
 import {Producto} from '../modelos/Producto';          //importo tipo interfaz producto
 import {Comentario} from '../modelos/Comentario';          //importo tipo interfaz comentario
 import {Likes} from '../modelos/Like';
+import {Chat} from '../modelos/Chat';
 import {DisLikes} from '../modelos/DisLikes';
 import {Denuncia} from '../modelos/Denuncia';
 import { Observable } from 'rxjs';
@@ -99,6 +100,10 @@ getChats(cli: string,ven:string,pro:string){
 }
 
  
+//guardar un Chat
+saveChat(chat:Chat){
+  return this.http.post(`${this.API_URI}/chat/chat/crear/`, chat);
+  }
 
 
 
@@ -110,19 +115,6 @@ getChats(cli: string,ven:string,pro:string){
 
 
 
-
-
-
-//metodo para pedir productos
-getProductosVendidos(){
-  return this.http.get(`${this.API_URI}/productos/carrito`);
-   }
-
-
-//metodo de borrar
-deleteProducto(id: string){
- return this.http.delete(`${this.API_URI}/productos/${id}`);
-}
 //metodo de actualizar producto
 updateProducto(id:string, updatedProducto:Producto):Observable<Producto> {
  return this.http.put(`${this.API_URI}/productos/${id}`, updatedProducto);
@@ -133,20 +125,6 @@ updateProducto(id:string, updatedProducto:Producto):Observable<Producto> {
 updateProductoCarrito(id:string) {
   return this.http.put(`${this.API_URI}/productos/carrito/${id}`,[]);
       }
-//metodo de actualizar producto
-updateProductoCarritoDis(id:string) {
-  return this.http.put(`${this.API_URI}/productos/carritoDis/${id}`,[]);
-      }
-//metodo de actualizar producto
-updateProductoCarritoVen(id:string) {
-  return this.http.put(`${this.API_URI}/productos/carritoVen/${id}`,[]);
-      }        
-
-       //metodo para obtener productos
-getBuscar(id: string){
-return this.http.get(`${this.API_URI}/productos/buscar/${id}`);
-}
-
 
 
 

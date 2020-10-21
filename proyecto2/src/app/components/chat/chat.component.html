@@ -1,11 +1,14 @@
 
 <div class="container">
-    <h3 class=" text-center">Messaging</h3>
+    <h3 class=" text-center">Chat Con Vendedor</h3>
     <div class="messaging">
           <div class="inbox_msg">
 
 
-            
+            <div class="inbox_people">
+              <img src="https://tapsmart-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/group-imessages-1.png" class="bd-placeholder-img card-img-top" width="100" height="600"focusable="false" role="img">
+            </div>
+                 <!--        
             <div class="inbox_people">
               <div class="headind_srch">
                 <div class="recent_heading">
@@ -92,7 +95,7 @@
                 </div>
               </div>
             </div>
-
+  -->
            
 
 
@@ -101,60 +104,64 @@
 
                 <div class="incoming_msg" *ngFor="let men of mensajes">
                  
-                  <div class="received_msg" *ngIf="men.fk_cliente == 3; else false">
-                     <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="incoming_msg_img"   *ngIf="men.fk_cliente == producto.fk_usuario; else false" > <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="received_msg" *ngIf="men.fk_cliente == producto.fk_usuario; else false">                     
                     <div class="received_withd_msg">
-                      <p>{{men.fk_cliente}}</p>
+                      <p>{{men.nombre}} {{men.apellido}}</p>
                       <p>{{men.mensaje}}</p>
-                      <span class="time_date"> 11:01 AM    |    June 9</span></div>
+                      <span class="time_date"> {{men.fecha_creacion |date:"dd-MM-yyyy h:mm:ss a" }}</span></div>
                   </div>
 
-                 <div class="outgoing_msg" *ngIf="men.fk_cliente == 2; else false" >
-                  <div class="sent_msg">
-                    <p>{{men.fk_cliente}}</p>
+                 <div class="outgoing_msg" *ngIf="men.fk_cliente == id_cliente; else false" >
+                   <div class="sent_msg">
                     <p>{{men.mensaje}}</p>
-                    <span class="time_date"> 11:01 AM    |    June 9</span> </div>
+                    <span class="time_date"> {{men.fecha_creacion |date:"dd-MM-yyyy h:mm:ss a" }}</span>
+                    </div>
+                 </div>
+
                 </div>
 
 
-                </div>
+              <br>
+              <br>
 
 
-                
-                <div class="incoming_msg">
-                  <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                  <div class="received_msg">
-                    <div class="received_withd_msg">
-                      <p>Test, which is a new approach to have</p>
-                      <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
-                  </div>
-                </div>
-                <div class="outgoing_msg">
-                  <div class="sent_msg">
-                    <p>Apollo University, Delhi, India Test</p>
-                    <span class="time_date"> 11:01 AM    |    Today</span> </div>
-                </div>
-                <div class="incoming_msg">
-                  <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                  <div class="received_msg">
-                    <div class="received_withd_msg">
-                      <p>We work directly with our designers and suppliers,
-                        and sell direct to you, which means quality, exclusive
-                        products, at a price anyone can afford.</p>
-                      <span class="time_date"> 11:01 AM    |    Today</span></div>
-                  </div>
-                </div>
-              </div>
+
               <div class="type_msg">
-                <div class="input_msg_write">
-                  <input type="text" class="write_msg" placeholder="Type a message" />
-                  <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
-                </div>
+                 <form #formPubli="ngForm" (ngSubmit)="onPublicar(formPubli)">
+                  <div class="form-group">
+                      
+                      <input id="nombre" name="nombre" class="form-group col-md-10" type="text" placeholder="comentario"
+                          [(ngModel)]="chat.mensaje" required autocomplete="off" #nombre="ngModel" required minlength="1"
+                          maxlength="300"><button type="submit" class="btn btn-outline-info my-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                      <small id="emailHelp" class="form-text text-muted">Escribe un comentario no mayor a 300 caracteres</small>
+                      <div class="alert alert-danger" role="alert" *ngIf="nombre.touched && !nombre.valid">
+                          <div *ngIf="nombre.errors.required">
+                              <h6>Campo Obligatorio</h6>
+                          </div>
+                          <div *ngIf="nombre.errors.minlength">
+                              <h6>Campo tiene menos de 1 caracteres</h6>
+                          </div>
+              
+                      </div>
+                  </div>
+                  
+                </form>
+              </div>
+
+
+
+              
+
+
+
+
+
               </div>
             </div>
           </div>
           
-          
-          <p class="text-center top_spac"> Design by <a target="_blank" href="#">Sunil Rajput</a></p>
+         
+          <p class="text-center top_spac"> Chat <a target="_blank" href="#">Cliente / Vendedor</a></p>
           
         </div></div>

@@ -457,7 +457,7 @@ router.delete("/api/denuncias/dencia-crear/:id", async (req, res) => {
     res.json({ "msg": "Denuncia Eliminada " })
 })
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////     Chat
 
 //obtengo los chats dado el id_cliente , id_vendedor, id_producto
 router.get('/api/chat/chat/:cli/:ven/:pro', async (req, res) => {
@@ -465,7 +465,7 @@ router.get('/api/chat/chat/:cli/:ven/:pro', async (req, res) => {
     const {ven}= req.params;
     const {pro}= req.params;
     sql = `select chat.id_chat,chat.mensaje,chat.fk_vendedor,chat.fk_cliente,chat.fk_producto,chat.fecha_creacion,
-    usuario.nombre
+    usuario.nombre, usuario.apellido, usuario.foto
     from chat
     inner join usuario on usuario.id_usuario = chat.fk_vendedor 
     where fk_vendedor=`+ven+` and fk_cliente =`+cli+` and fk_producto=`+pro+`  or 
@@ -481,7 +481,9 @@ router.get('/api/chat/chat/:cli/:ven/:pro', async (req, res) => {
             "fk_cliente": user[3] ,     
             "fk_producto": user[4] ,     
             "fecha_creacion": user[5] ,     
-            "nombre": user[6]
+            "nombre": user[6],
+            "apellido": user[7],
+            "foto": user[8]
     }
 
         Users.push(userSchema);
@@ -490,6 +492,29 @@ router.get('/api/chat/chat/:cli/:ven/:pro', async (req, res) => {
     res.send(Users);
 })
 
+
+
+//Creo una denuncia 
+router.post('/api/chat/chat/crear',async (req, res) => {
+    const {mensaje,fk_vendedor,fk_cliente,fk_producto} = req.body;
+    console.log(req.body);
+   // sql = `insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto) values(:producto,:estado,:fk_usuario,:precio,:detalle,:fk_categoria, :foto)`
+    sql = `INSERT into chat (mensaje,fk_vendedor,fk_cliente,fk_producto) values(:mensaje,:fk_vendedor,:fk_cliente,:fk_producto)`;
+
+    await BD.Open(sql, [mensaje,fk_vendedor,fk_cliente,fk_producto], true)
+    .then ( (res) =>{
+        console.log(res); res.statusCode=200;
+    },
+    (err) =>{console.log(err); res.statusCode=500;}
+);
+
+    res.json({
+        "mensaje":mensaje,
+        "fk_vendedor":fk_vendedor,
+        "fk_cliente":fk_cliente,
+        "fk_producto":fk_producto
+    })
+})
 
 
 
