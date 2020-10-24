@@ -183,9 +183,6 @@ const params =this.activatedRoute.snapshot.params;
     getMensajes(){   
      
       let id_cliente=Number(this.usuariosService.getSesionCod());
-      // console.log(id_cliente.toString())  
-       //console.log(this.producto.fk_usuario.toString())
-       //console.log(this.id_producto.toString())
       this.productosService.getChats(id_cliente.toString(),this.producto.fk_usuario.toString(),this.id_producto.toString()).subscribe(  
         res => {
         this.mensajes= res;    ///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista

@@ -2,31 +2,32 @@ const { Router } = require('express');
 const router = Router();
 const BD = require('../config/configbd');
 
-///////////////////////////////////////////////////////////////////////////////      USUARIOS
+const path = require('path');
+const multer = require('multer');
+const fs = require('fs');
 
 
 
-
-
-//UPDATE
-router.put("/updateUser", async (req, res) => {
-    const { codu, username, firstname, lastname } = req.body;
-
-    sql = "update person set username=:username, firstname=:firstname, lastname=:lastname where codu=:codu";
-
-    await BD.Open(sql, [username, firstname, lastname,codu], true);
-
-    res.status(200).json({
-        "codu": codu,
-        "username": username,
-        "firstname": firstname,
-        "lastname": lastname
-    })
-
+const storage = multer.diskStorage({
+    //destination: path.join(__dirname, '../public/uploads'),
+    destination: 'uploads/',
+    filename:  (req, file, cb) => {
+        cb(null, file.originalname);
+    }
 })
+const uploadImage = multer({
+    storage,
+    limits: {fileSize: 10000000} //10 megas
+}).single('photo');
 
 
+// RENDER FORM UPLOAD
+router.get('/images/upload', (req, res) => {
+    res.render('index');
+});
 
+router.get('/images', (req, res) => {});
+///////////////////////////////////////////////////////////////////////////////      USUARIOS
 
 //login solo traigo un registro
     router.get("/api/usuario/:correo/:pass", async (req, res) => {
@@ -66,7 +67,8 @@ router.put("/updateUser", async (req, res) => {
 //obtengo todos los productos publicados menos el del usuario logueado
 router.get('/api/producto/perfil_productos/:id', async (req, res) => {
     const {id}= req.params;
-    sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, usuario.nombre, usuario.apellido, categoria.categoria     from producto    inner join usuario on producto.fk_usuario= usuario.id_usuario    inner join categoria on producto.fk_categoria = categoria.id_categoria    
+    sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, producto.palabras, producto.user_compra, usuario.nombre, usuario.apellido, categoria.categoria    
+     from producto    inner join usuario on producto.fk_usuario= usuario.id_usuario    inner join categoria on producto.fk_categoria = categoria.id_categoria    
     where usuario.id_usuario !=`+id +`and producto.estado ='Sin Bloquear'`; 
 
     let result = await BD.Open(sql, [], false);
@@ -82,9 +84,11 @@ router.get('/api/producto/perfil_productos/:id', async (req, res) => {
             "detalle": user[5],  
             "fk_categoria": user[6],
             "foto":user[7],
-            "nombre": user[8], 
-            "apellido": user[9],  
-            "categoria": user[10]
+            "palabras": user[8],
+            "user_compra": user[9],
+            "nombre": user[10], 
+            "apellido": user[11],  
+            "categoria": user[12]
         }
 
         Users.push(userSchema);
@@ -140,7 +144,9 @@ router.get('/api/producto/producto_crear/:id', async (req, res) => {
             "precio": pro[4],  
             "detalle": pro[5],  
             "fk_categoria": pro[6],
-            "foto":pro[7]
+            "foto":pro[7],
+            "palabras":pro[8],
+            "user_compra":pro[9]
         }
 
       Produc.push(procucSchema);
@@ -148,31 +154,124 @@ router.get('/api/producto/producto_crear/:id', async (req, res) => {
 
     res.send(Produc[0]);
 })
+ 
 
 // Guardar un Producto
-router.post('/api/producto/producto_crear/',async (req, res) => {
-    const { producto,estado,fk_usuario,precio,detalle,fk_categoria, foto } = req.body;
-    console.log(req.body);
-    sql = `insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto) values(:producto,:estado,:fk_usuario,:precio,:detalle,:fk_categoria, :foto)`
+router.post('/api/producto/producto_crear/',uploadImage,async (req, res) => {
+    const { producto,estado,fk_usuario,precio,detalle,fk_categoria,foto, palabras, user_compra } = req.body;
 
-    await BD.Open(sql, [producto,estado,fk_usuario,precio,detalle,fk_categoria, foto], true)
-    .then ( (res) =>{
-        console.log(res); res.statusCode=200;
-    },
-    (err) =>{console.log(err); res.statusCode=500;}
-);
+    let aux=req.file.path;  
+    
+   console.log(req.file);
+   console.log(req.body);
+    
+   console.log(req.file.path);
+   console.log(aux);
 
-    res.json({
+     sql = `insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto, palabras, user_compra) values(:producto,:estado,:fk_usuario,:precio,:detalle,:fk_categoria, :aux, :palabras, :user_compra)`
+     
+     
+     await BD.Open(sql, [producto,estado,fk_usuario,precio,detalle,fk_categoria, aux, palabras, user_compra], true)
+     .then ( (res) =>{
+         console.log(res); res.statusCode=200;
+     },
+     (err) =>{console.log(err); res.statusCode=500;}
+ ); 
+  
+     res.json({
+         "producto":producto,
+         "estado":estado,
+         "fk_usuario":fk_usuario,
+         "precio":precio,
+         "detalle":detalle,
+         "fk_categoria":fk_categoria,
+         "foto": aux,
+         "palabras": palabras,
+         "user_compra": user_compra
+ 
+     })
+
+})
+
+// Guardar un Producto   Segunda opcion
+ router.post('/api/producto/producto_crear/con/objeto',async (req, res) => {
+    const { producto,estado,fk_usuario,precio,detalle,fk_categoria,foto, palabras, user_compra } = req.body;
+
+    sql = `insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto, palabras, user_compra) values(:producto,:estado,:fk_usuario,:precio,:detalle,:fk_categoria, :aux, :palabras, :user_compra)`
+     
+     
+     await BD.Open(sql, [producto,estado,fk_usuario,precio,detalle,fk_categoria, foto, palabras, user_compra], true)
+     .then ( (res) =>{
+         console.log(res); res.statusCode=200;
+     },
+     (err) =>{console.log(err); res.statusCode=500;}
+ ); 
+  
+     res.json({
+         "producto":producto,
+         "estado":estado,
+         "fk_usuario":fk_usuario,
+         "precio":precio,
+         "detalle":detalle,
+         "fk_categoria":fk_categoria,
+         "foto": foto,
+         "palabras": palabras,
+         "user_compra": user_compra
+ 
+     })
+
+})
+
+//UPDATE un solo producto
+router.put('/api/producto/producto_crear/actualizar', async (req, res) => {
+    const {producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra,id_producto } = req.body;
+
+    sql = `update producto set producto=:producto,estado=:estado,fk_usuario=:fk_usuario,precio=:precio,detalle=:detalle,fk_categoria=:fk_categoria, foto=:foto,palabras=:palabras,user_compra=:user_compra 
+    where id_producto=:id_producto`;
+    await BD.Open(sql, [producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra,id_producto], true);
+
+    res.status(200).json({
         "producto":producto,
         "estado":estado,
         "fk_usuario":fk_usuario,
         "precio":precio,
         "detalle":detalle,
         "fk_categoria":fk_categoria,
-        "foto": foto
+        "foto": foto,
+        "palabras": palabras,
+        "user_compra": user_compra
     })
+
 })
 
+//UPDATE un solo producto pero mandandole una nueva imagen
+router.put('/api/producto/producto_crear/actualizar/imagen',uploadImage, async (req, res) => {
+    const {producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra,id_producto } = req.body;
+    let aux=req.file.path;  
+    
+    console.log(req.file);
+    console.log(req.body);
+     
+    console.log(req.file.path);
+    console.log(aux);
+
+    sql = `update producto set producto=:producto,estado=:estado,fk_usuario=:fk_usuario,precio=:precio,detalle=:detalle,fk_categoria=:fk_categoria, foto=:aux,palabras=:palabras,user_compra=:user_compra 
+    where id_producto=:id_producto`;
+    await BD.Open(sql, [producto,estado,fk_usuario,precio,detalle,fk_categoria, aux,palabras,user_compra,id_producto], true);
+
+    res.status(200).json({
+        "producto":producto,
+        "estado":estado,
+        "fk_usuario":fk_usuario,
+        "precio":precio,
+        "detalle":detalle,
+        "fk_categoria":fk_categoria,
+        "foto": aux,
+        "palabras": palabras,
+        "user_compra": user_compra
+    })
+
+})
 
 
 
@@ -515,6 +614,16 @@ router.post('/api/chat/chat/crear',async (req, res) => {
         "fk_producto":fk_producto
     })
 })
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////  Para las fotos
+
 
 
 

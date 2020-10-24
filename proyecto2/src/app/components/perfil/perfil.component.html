@@ -41,13 +41,14 @@
                     Bloquear Producto
                 </button>
         </div>
-        <img [src]="pro.foto" class="bd-placeholder-img card-img-top" width="100%" height="225"focusable="false" role="img">
+        <img [src]="API_URI + pro.foto" class="bd-placeholder-img card-img-top" width="100%" height="225"focusable="false" role="img">
            <div class="card-body">
             <p>Estado  : {{pro.estado}}</p>
             <p>Precio de Producto :  {{pro.precio}}</p>
             <p> Categoria:  {{pro.categoria}}</p>
             <p>Propietario :  {{pro.nombre}}  {{pro.apellido}} </p>
             <p>Detalle :  {{pro.detalle}}</p>
+            <p>Palabras clave :  {{pro.palabras}}</p>
             
             <a class="btn btn-info btn-block" *ngIf="oculto" [routerLink]="['productos/modificar', pro.id_producto]">
                 <i class="fas fa-pen"></i> Editar Producto Funcion Admin

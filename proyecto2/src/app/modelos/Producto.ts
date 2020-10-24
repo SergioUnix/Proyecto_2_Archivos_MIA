@@ -6,5 +6,7 @@ export interface Producto   {
     precio?: number;
     detalle?: string;
     fk_categoria?: Number,
-    foto?: string
+    foto?: string,
+    palabras?: string,
+    user_compra?: Number
 }

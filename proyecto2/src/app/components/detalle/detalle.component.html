@@ -5,7 +5,7 @@
   <div class="jumbotron">
     <div class="container">
       <h1 class="display-3">{{producto.producto}}</h1>
-      <h4>{{producto.detalle}}}</h4>
+      <h4>{{producto.detalle}}</h4>
       
       <img [src]="producto.foto" class="bd-placeholder-img card-img-top" width="400" height="500"focusable="false" role="img">
       
@@ -15,6 +15,9 @@
       <a class="btn btn-outline-primary my-2 my-sm-0" (click)="crearDislike()">
         <i class="far fa-thumbs-down"></i>{{contadorDisLikes.contador}} Don't Like
       </a>
+
+      <h2>Precio: {{producto.precio}}</h2> <br>
+      <h3>Palabras Clave: {{producto.palabras}}</h3>
    
     </div>
   </div>
@@ -66,7 +69,7 @@
             <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
                <i class="fas fa-sms"></i>  {{publi.nombre}}: {{publi.apellido}} 
                 <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-                  <h6 class="text-info">Fecha de enviado: {{publi.fecha_creacion | date: 'yyy-MM-dd'}}</h6>                 
+                  <h6 class="text-info">Fecha de enviado: {{publi.fecha_creacion | date: 'dd-MM-yyyy h:mm:ss a'}}</h6>                 
                  
               </div>
 

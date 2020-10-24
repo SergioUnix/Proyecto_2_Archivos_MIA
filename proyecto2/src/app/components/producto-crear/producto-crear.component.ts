@@ -4,6 +4,11 @@ import { Producto } from 'src/app/modelos/Producto';   //importo el tipo de dato
 import {ProductoService} from '../../servicios/producto.service'; ///importo el servicio
 import {UsuariosService} from '../../servicios/usuarios.service'; 
 
+
+interface HtmlInputEvent extends Event{
+  target: HTMLInputElement & EventTarget;
+}
+
 @Component({
   selector: 'app-producto-crear',
   templateUrl: './producto-crear.component.html',
@@ -12,9 +17,13 @@ import {UsuariosService} from '../../servicios/usuarios.service';
 export class ProductoCrearComponent implements OnInit {
 
 
+  public API_URI = 'https://www.trucosgalaxy.net/wp-content/uploads/2017/08/cargando.gif';
+
   @HostBinding('class') classes='row';  //necesario para desplegar un producto a la par de otro 
 
   categorias: any=[];
+  file:File;
+  photoSelected: string  | ArrayBuffer;
 
   producto: Producto ={  
       id_producto: 0,
@@ -24,7 +33,9 @@ export class ProductoCrearComponent implements OnInit {
       precio: 0,
       detalle: '',
       fk_categoria: 0,
-      foto: ''     
+      foto: 'uploads/default/notProducto.jpg',
+      palabras:'',
+      user_compra: 0  
   };
 
   edit:boolean =false;  ///si este esta en falso significa que quiero guardar un elemento, si esta en verdadero quiero actualizar un producto
@@ -51,6 +62,7 @@ export class ProductoCrearComponent implements OnInit {
              console.log(res)
             this.producto=res; ///cuando accedo ala ruta game/edit/id ,, aca hago el objeto con el id recibido y eso me muestra en visualizacion
             this.edit= true;
+            this.API_URI='http://localhost:3000/';
             this.accion='Actualizar Producto'
            },
            err => console.error(err)
@@ -63,44 +75,95 @@ export class ProductoCrearComponent implements OnInit {
 
 
 
-  /////guardo el juego
-  saveNewProducto(){
 
-  delete this.producto.id_producto;
-  this.producto.estado='Sin Bloquear';
-  this.producto.fk_usuario =Number(this.usuariosService.getSesionCod());
-  this.producto.precio = Number(this.producto.precio);
-  this.producto.fk_categoria =Number(this.producto.fk_categoria);
-  console.log(this.producto);
-  this.productosService.saveProducto(this.producto)
+
+  updateProducto(){
+
+    if(this.file==null){    console.log('si es null jaja');
+
+    this.productosService.updateProducto(this.producto)
+    .subscribe(
+    res =>{
+      console.log(res);
+    this.router.navigate(['/productos/mio']);
+    },
+    err => console.error(err)
+  )
+   
+
+    }else{
+      console.log('no es nulo....')
+      this.productosService.updateProducto2(this.producto.id_producto,this.producto.producto,this.producto.estado,this.producto.fk_usuario,this.producto.precio,this.producto.detalle,this.producto.fk_categoria, this.producto.foto , this.producto.palabras, this.producto.user_compra, this.file)
+      .subscribe(
+        res=> {
+         console.log(res);
+          this.router.navigate(['/productos/mio']);
+        },
+        err=> console.error(err)
+  
+      ) 
+
+
+
+
+
+
+   }
+
+  }
+
+  
+
+onPhotoSelected(event:HtmlInputEvent):void{
+  if(event.target.files && event.target.files[0]) {
+  this.file=<File>event.target.files[0];
+  //imagen prev
+  const reader =new FileReader();
+  reader.onload= e=> this.photoSelected =reader.result;
+  reader.readAsDataURL(this.file);
+  }
+}
+
+
+  /////prueba exitosa, sirve para guardar un producto
+  save(){
+
+    delete this.producto.id_producto;
+    this.producto.estado='Sin Bloquear';
+    this.producto.fk_usuario =Number(this.usuariosService.getSesionCod());
+    this.producto.precio = Number(this.producto.precio);
+    this.producto.fk_categoria =Number(this.producto.fk_categoria);
+    console.log(this.producto);
+    console.log('verifico si se metio en el objeto')
+    console.log(this.file)
+    if(this.file==null){    console.log('si es null jaja');
+    this.productosService.saveProducto2(this.producto)
     .subscribe(
       res=> {
-        console.log(res);
-        this.router.navigate(['/perfil']);
+       console.log(res);
+        this.router.navigate(['/productos/mio']);
       },
       err=> console.error(err)
 
     ) 
-  }
-
-  updateProducto(){
-    const numero =this.producto.id_producto;
-    delete this.producto.id_producto;
-    console.log(this.producto);
-    this.productosService.updateProducto(numero.toString(), this.producto)
-      .subscribe(
-      res =>{
-        console.log(res);
-        this.router.navigate(['/productos']);
+  
+  
+  }else{
+    this.productosService.saveProducto(this.producto.producto,this.producto.estado,this.producto.fk_usuario,this.producto.precio,this.producto.detalle,this.producto.fk_categoria, this.producto.foto , this.producto.palabras, this.producto.user_compra, this.file)
+    .subscribe(
+      res=> {
+       console.log(res);
+      this.router.navigate(['/productos/mio']);
       },
-      err => console.error(err)
+      err=> console.error(err)
 
-    )
+    ) 
+
+
   }
-
-
-
-
+   
+    }
+  
 
 
 

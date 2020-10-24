@@ -35,9 +35,56 @@ getCategorias(){
    }
    
 //meodo para guardar un producto
-saveProducto(producto:Producto){
-return this.http.post(`${this.API_URI}/producto/producto_crear/`, producto);
+//saveProducto(producto:Producto, file:File){
+ // const fd= new FormData();
+ // fd.append('image', file);
+//return this.http.post(`${this.API_URI}/producto/producto_crear/`, [producto,fd]);
+//}
+
+saveProducto(producto:string,estado:string,fk_usuario:Number,precio:Number,detalle:string,fk_categoria:Number, foto:string , palabras:string, user_compra:Number,photo:File){
+  const fd =new FormData();
+  fd.append('producto',producto);
+  fd.append('estado',estado);
+  fd.append('fk_usuario',fk_usuario.toString());
+  fd.append('precio',precio.toString());
+  fd.append('detalle',detalle);
+  fd.append('fk_categoria',fk_categoria.toString());
+  fd.append('foto',foto);
+  fd.append('palabras',palabras);
+  fd.append('user_compra',user_compra.toString());
+  fd.append('photo',photo);
+  return this.http.post(`${this.API_URI}/producto/producto_crear/`, fd);
+
+
 }
+//Actualizar un Producto  enviando un objeto
+saveProducto2(producto:Producto):Observable<Producto> {
+  return this.http.post(`${this.API_URI}/producto/producto_crear/con/objeto`, producto);  
+  }
+
+
+//Actualizar un Producto  enviando un objeto
+updateProducto(updatedProducto:Producto):Observable<Producto> {
+  return this.http.put(`${this.API_URI}/producto/producto_crear/actualizar`, updatedProducto);  
+  }
+
+  //Actualizar un Producto Segunda opcion Enviando una Imagen hacia el backend
+updateProducto2(id_producto:Number,producto:string,estado:string,fk_usuario:Number,precio:Number,detalle:string,fk_categoria:Number, foto:string , palabras:string, user_compra:Number,photo:File){
+  const fd =new FormData();
+  fd.append('id_producto',id_producto.toString());
+  fd.append('producto',producto);
+  fd.append('estado',estado);
+  fd.append('fk_usuario',fk_usuario.toString());
+  fd.append('precio',precio.toString());
+  fd.append('detalle',detalle);
+  fd.append('fk_categoria',fk_categoria.toString());
+  fd.append('foto',foto);
+  fd.append('palabras',palabras);
+  fd.append('user_compra',user_compra.toString());
+  fd.append('photo',photo);
+  return this.http.put(`${this.API_URI}/producto/producto_crear/actualizar/imagen`, fd);  
+  }
+
 //metodo para pedir productos que solo halla hecho el usuario logueado
 getProductosMIO(id: string){
   return this.http.get(`${this.API_URI}/producto/producto_mio/${id}`);
@@ -105,6 +152,17 @@ saveChat(chat:Chat){
   return this.http.post(`${this.API_URI}/chat/chat/crear/`, chat);
   }
 
+////////////////////////////////para photos
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -116,7 +174,7 @@ saveChat(chat:Chat){
 
 
 //metodo de actualizar producto
-updateProducto(id:string, updatedProducto:Producto):Observable<Producto> {
+updateProductozzz(id:string, updatedProducto:Producto):Observable<Producto> {
  return this.http.put(`${this.API_URI}/productos/${id}`, updatedProducto);
  
  }

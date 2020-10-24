@@ -14,11 +14,14 @@
                     <label for="producto.fk_categoria">Precio</label>
                         <input type="text" [(ngModel)]="producto.precio" name="precio" placeholder="Precio" class="form-control" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group">      <label for="">Detalle del producto</label>
                     <input type="text" [(ngModel)]="producto.detalle" name="detalle" placeholder="Detalle" class="form-control" required>
                 </div>
-                <div class="form-group">
-                    <input type="text" [(ngModel)]="producto.foto" name="foto" placeholder="Foto" class="form-control" required>
+           <!--      <div class="form-group">
+                    <input type="text"  [(ngModel)]="producto.foto" name="foto" placeholder="Foto" class="form-control" required>
+                </div>   -->
+                <div class="form-group">     <label for="">Palabras clave</label>
+                    <input type="text" [(ngModel)]="producto.palabras" name="palabras" placeholder="Palabras Clave" class="form-control" required>
                 </div>
 
                 <div class="form-group">
@@ -30,8 +33,12 @@
                     </select>
                 </div>
 
+                <label for="">Click en la imagen para elegir</label>
+                <input type="file" class="d-none" (change)="onPhotoSelected($event)" #photoInput>
+                <img [src]="photoSelected  || 'assets/notProducto.jpg'" alt="No Image" class ="img-fluid" (click)="photoInput.click()">
 
-                <button class="btn btn-success btn-block" (click)="edit ? updateProducto() : saveNewProducto()">
+
+                <button class="btn btn-success btn-block" (click)="edit ? updateProducto() : save()">
                     {{accion}}
 
                 </button>
@@ -46,10 +53,12 @@
         <div class="card card-body text-center">
             <h3 class="text-primary">Vista previa</h3>
             <h3>{{producto.id_producto == 0 ? 'ID ' : producto.id_producto}} -- {{producto.producto == '' ? 'Producto Nombre ' : producto.producto}}</h3>
-            <p>{{producto.estado == '' ? 'Estado Producto  ' : producto.estado}}</p>
-            <p>{{producto.precio == 0 ? 'Precio de Producto ' : producto.precio}}</p>
-            <p>{{producto.detalle == '' ? 'Detalle de Producto ' : producto.detalle}}</p>
-            <p>{{producto.foto == '' ? 'Foto de Producto ' : producto.foto}}</p>
-            <p>{{producto.fk_categoria == 0 ? 'Id_Categoria de Producto ' : producto.fk_categoria}}</p>
+            <h5 class="text-info">Estado :</h5> <p>{{producto.estado == '' ? 'Estado Producto  ' : producto.estado}}</p>
+            <h5 class="text-info">Precio :</h5> <p>{{producto.precio == 0 ? 'Precio de Producto ' : producto.precio}}</p>
+            <h5 class="text-info">Direccion foto :</h5> <p>{{producto.foto == '' ? 'Foto de Producto ' : producto.foto}}</p>
+            <h5 class="text-info">Detalle :</h5><p>{{producto.detalle == '' ? 'Detalle de Producto ' : producto.detalle}}</p>
+            <h5 class="text-info">ID categoria :</h5><p>{{producto.fk_categoria == 0 ? 'Id_Categoria de Producto ' : producto.fk_categoria}}</p>
+            <h5 class="text-info">Imagen Guardada :</h5>
+            <img [src]="API_URI + producto.foto" class="bd-placeholder-img card-img-top" width="100%" height="225"focusable="false" role="img">
         </div>
     </div>

@@ -3,18 +3,21 @@
 CREATE TABLE tipo(
    id_tipo number primary key,
    tipo VARCHAR2(100)
-); COMMIT WORK;
-CREATE SEQUENCE tip_uno START WITH 1 INCREMENT BY 1; COMMIT WORK;
+); 
+CREATE SEQUENCE tip_uno START WITH 1 INCREMENT BY 1; 
 
 CREATE TRIGGER T_tipo BEFORE INSERT ON tipo
 for EACH ROW BEGIN
 SELECT tip_uno.NEXTVAL INTO :NEW.id_tipo from DUAL;
-END; COMMIT WORK;
+END;
+COMMIT WORK;
 
 
-INSERT into tipo (tipo) values('Administrador'); COMMIT WORK;
-INSERT into tipo (tipo) values('Cliente'); COMMIT WORK;
-/* select * from tipo; */
+INSERT into tipo (tipo) values('Administrador');
+INSERT into tipo (tipo) values('Cliente'); 
+
+COMMIT WORK;
+select * from tipo;
 
 
 
@@ -29,40 +32,42 @@ CREATE TABLE usuario(
    nac DATE,  
    pais VARCHAR2(300), 
    foto VARCHAR2(300),  
-   creditos NUMBER,
+   creditos Decimal(7,2),
    fk_tipo NUMBER,
    CONSTRAINT fk_fk_tipo FOREIGN KEY (fk_tipo) REFERENCES tipo (id_tipo)
-); COMMIT WORK;
-CREATE SEQUENCE usu_uno START WITH 1 INCREMENT BY 1; COMMIT WORK;
+); 
+CREATE SEQUENCE usu_uno START WITH 1 INCREMENT BY 1; 
 
 CREATE TRIGGER T_usuario BEFORE INSERT ON usuario
 for EACH ROW BEGIN
 SELECT usu_uno.NEXTVAL INTO :NEW.id_usuario from DUAL;
-END; COMMIT WORK;
+END;
+COMMIT WORK;
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('sergio','ramirez','sergiounix@gmail.com','1234','Confirmado',TO_DATE('01-03-2019','DD-MM-YYYY'),'Guatemala','https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2018/08/fotos-perfil-whatsapp_16.jpg?itok=fl2H3Opv',
-10000,1); COMMIT WORK;
+10000,1); 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('madelyn','barraza','madelynunix@gmail.com','1234','Confirmado',TO_DATE('02-04-2019','DD-MM-YYYY'),'España','https://i.pinimg.com/originals/97/90/1f/97901f198a9c09efd3b095b08fc8d8e2.png',
-10000,2); COMMIT WORK;
+10000,2); 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('alejandro','lorenty','alejandrounix@gmail.com','1234','Confirmado',TO_DATE('03-05-2019','DD-MM-YYYY'),'Panama','https://ep01.epimg.net/elpais/imagenes/2018/12/14/album/1544777592_679099_1544990800_noticia_normal.jpg',
 10000,2); COMMIT WORK;
 select * from usuario;
 
 
- /* tipo*/
+
+ /* categoria*/
 CREATE TABLE categoria(
    id_categoria number primary key,
    categoria VARCHAR2(100)
-); COMMIT WORK;
-CREATE SEQUENCE cat_uno START WITH 1 INCREMENT BY 1; COMMIT WORK;
+);
+CREATE SEQUENCE cat_uno START WITH 1 INCREMENT BY 1;
 
 CREATE TRIGGER T_categoria BEFORE INSERT ON categoria
 for EACH ROW BEGIN
 SELECT cat_uno.NEXTVAL INTO :NEW.id_categoria from DUAL;
-END; COMMIT WORK;
-
-insert into categoria (categoria) values('Zapateria'); COMMIT WORK;
-insert into categoria (categoria) values('Electrodomesticos'); COMMIT WORK;
+END; 
+COMMIT WORK;
+insert into categoria (categoria) values('Zapateria'); 
+insert into categoria (categoria) values('Electrodomesticos'); 
 select * from categoria; 
 
  /* Tabla Producto*/
@@ -71,32 +76,42 @@ CREATE TABLE producto(
    producto VARCHAR2(100),
    estado VARCHAR2(300),  
    fk_usuario NUMBER,     
-   precio NUMBER,  
+   precio Decimal(7,2),  
    detalle VARCHAR2(450),     
    fk_categoria NUMBER,
    foto VARCHAR2(600),
+   palabras VARCHAR2(100),
+   user_compra Number,
    CONSTRAINT fk_fk_usuario FOREIGN KEY (fk_usuario) REFERENCES usuario (id_usuario),
    CONSTRAINT fk_fk_categoria FOREIGN KEY (fk_categoria) REFERENCES categoria (id_categoria)
-); COMMIT WORK;
-CREATE SEQUENCE pro_uno START WITH 1 INCREMENT BY 1; COMMIT WORK;
+   ON DELETE CASCADE
+);
+CREATE SEQUENCE pro_uno START WITH 1 INCREMENT BY 1; 
 
 CREATE TRIGGER T_producto BEFORE INSERT ON producto
 for EACH ROW BEGIN
 SELECT pro_uno.NEXTVAL INTO :NEW.id_producto from DUAL;
-END; COMMIT WORK;
+END; 
+COMMIT WORK;
 
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria,foto) values('Nike','Sin Bloquear',2,'500','producto importado de USA',1, 'https://brandemia.org/sites/default/files/grupo_imagen_logo_2.jpg'); COMMIT WORK;
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria,foto) values('Flexi','Sin Bloquear',2,'1000','Zapatos de Calidad en precio Normal',1, 'https://brandemia.org/sites/default/files/grupo_imagen_logo_2.jpg'); COMMIT WORK;
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto) values('Fila','Sin Bloquear',2,'1500','Zapatos de diferente calidad y diferentes colores',1, 'https://brandemia.org/sites/default/files/grupo_imagen_logo_2.jpg'); COMMIT WORK;
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto) values('Nature','Sin Bloquear',2,'1200','Marca registrada',1, 'https://brandemia.org/sites/default/files/grupo_imagen_logo_2.jpg'); COMMIT WORK;
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto) values('Chanel','Sin Bloquear',2,'1400','Zapato de dama de alta calidad',1, 'https://brandemia.org/sites/default/files/grupo_imagen_logo_2.jpg'); COMMIT WORK;
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Nike','Sin Bloquear',2,'500.50','producto importado de USA',1, 'uploads/nike.jpg','zapatos calzado',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Flexi','Sin Bloquear',2,'1000.50','Zapatos de Calidad en precio Normal',1, 'uploads/flexi.jpg','flexible comodo',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Fila','Sin Bloquear',2,'1500.20','Zapatos de diferente calidad y diferentes colores',1, 'uploads/fila.jpg','deportivo suave',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Nature','Sin Bloquear',2,'1200.50','Marca registrada',1, 'uploads/nature.jpg','natural caro',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Chanel','Sin Bloquear',2,'1400.50','Zapato de dama de alta calidad',1, 'uploads/chanel.jpg','mujer elegante',0); 
 
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria,foto) values('Licuadora Oster','Sin Bloquear',3,'750','Producto en Oferta pensado para el hogar',2,'https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Grupo_Imagen_Multimedia.2016.png'); COMMIT WORK;
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria,foto) values('Microondas Mabe','Sin Bloquear',3,'2200','Producto de calidad para cocina',2,'https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Grupo_Imagen_Multimedia.2016.png'); COMMIT WORK;
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto) values('Refrigeradora LG','Sin Bloquear',3,'5500','Refrigerador con 10 años de garantia para tu cocina',2,'https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Grupo_Imagen_Multimedia.2016.png'); COMMIT WORK;
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto) values('Cafetera Samsung','Sin Bloquear',3,'600','Cafetera de lujo diseñada para tu hogar',2,'https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Grupo_Imagen_Multimedia.2016.png'); COMMIT WORK;
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto) values('Lavadora LG','Sin Bloquear',3,'4500','Producto con 10 años de garantia para tu hogar',2,'https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Grupo_Imagen_Multimedia.2016.png'); COMMIT WORK;
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Licuadora Oster','Sin Bloquear',3,'750.50','Producto en Oferta pensado para el hogar',2,'uploads/oster.jpg','cocina calidad',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Microondas Mabe','Sin Bloquear',3,'2200.50','Producto de calidad para cocina',2,'uploads/microMabe.jpg','duradero calidad',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Refrigeradora LG','Sin Bloquear',3,'5500.50','Refrigerador con 10 años de garantia para tu cocina',2,'uploads/refriLg.jpg','cocina frio',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Cafetera Samsung','Sin Bloquear',3,'600.50','Cafetera de lujo diseñada para tu hogar',2,'uploads/cafeSamsung.jpg','cafe caliente',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Lavadora LG','Sin Bloquear',3,'4500.50','Producto con 10 años de garantia para tu hogar',2,'uploads/lavaLg.jpg','hogar electro',0);
 select * from producto;
+
+
+
+update producto set detalle='producto importado de USA a precio fijo', estado='Sin Bloquear'
+ where id_producto=1;
+
 
 
 select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, usuario.nombre, usuario.apellido, categoria.categoria 
@@ -119,25 +134,27 @@ CREATE TABLE comentario(
    comentario VARCHAR2(250),
    fk_producto NUMBER,
    fk_usuario NUMBER,   
-   fecha_creacion DATE DEFAULT SYSDATE,
+   fecha_creacion TimesTamp DEFAULT SYSDATE,
    CONSTRAINT fk_com_usuario FOREIGN KEY (fk_usuario) REFERENCES usuario (id_usuario),
    CONSTRAINT fk_com_producto FOREIGN KEY (fk_producto) REFERENCES producto (id_producto)
-); COMMIT WORK;
-CREATE SEQUENCE com_uno START WITH 1 INCREMENT BY 1; COMMIT WORK;
+   ON DELETE CASCADE
+); 
+CREATE SEQUENCE com_uno START WITH 1 INCREMENT BY 1; 
 
 CREATE TRIGGER T_comentario BEFORE INSERT ON comentario
 for EACH ROW BEGIN
 SELECT com_uno.NEXTVAL INTO :NEW.id_comentario from DUAL;
-END; COMMIT WORK;
+END;
 
-insert into comentario (comentario,fk_producto,fk_usuario) values('cualquier comentario hacia el producto 6',6,2); COMMIT WORK;
-insert into comentario (comentario,fk_producto,fk_usuario) values('cualquier comentario hacia el producto 6',6,1); COMMIT WORK;
-insert into comentario (comentario,fk_producto,fk_usuario) values('segundo comentario comentario hacia el producto 6',6,2); COMMIT WORK;
+insert into comentario (comentario,fk_producto,fk_usuario) values('cualquier comentario hacia el producto 6',6,2);
+insert into comentario (comentario,fk_producto,fk_usuario) values('cualquier comentario hacia el producto 6',6,1); 
+insert into comentario (comentario,fk_producto,fk_usuario) values('segundo comentario comentario hacia el producto 6',6,2);
 
 
-insert into comentario (comentario,fk_producto,fk_usuario) values('cualquier comentario hacia el producto 7',7,1); COMMIT WORK;
-insert into comentario (comentario,fk_producto,fk_usuario) values('cualquier comentario hacia el producto 7',7,3); COMMIT WORK;
-insert into comentario (comentario,fk_producto,fk_usuario) values('segundo comentario hacia el producto 7',7,3); COMMIT WORK;
+insert into comentario (comentario,fk_producto,fk_usuario) values('cualquier comentario hacia el producto 7',7,1); 
+insert into comentario (comentario,fk_producto,fk_usuario) values('cualquier comentario hacia el producto 7',7,3); 
+insert into comentario (comentario,fk_producto,fk_usuario) values('segundo comentario hacia el producto 7',7,3); 
+COMMIT WORK;
 
 
 
@@ -154,22 +171,24 @@ select id_comentario,comentario,fk_producto,fk_usuario,fecha_creacion,usuario.no
  /* like*/
 CREATE TABLE likes(
    id_likes number primary key,
-   fecha_creacion DATE DEFAULT SYSDATE,
+   fecha_creacion TimesTamp DEFAULT SYSDATE,
    fk_producto NUMBER,
    fk_usuario NUMBER,      
    CONSTRAINT fk_like_usuario FOREIGN KEY (fk_usuario) REFERENCES usuario (id_usuario),
    CONSTRAINT fk_like_producto FOREIGN KEY (fk_producto) REFERENCES producto (id_producto)
-); COMMIT WORK;
-CREATE SEQUENCE lik_uno START WITH 1 INCREMENT BY 1; COMMIT WORK;
+   ON DELETE CASCADE
+); 
+CREATE SEQUENCE lik_uno START WITH 1 INCREMENT BY 1;
 
 CREATE TRIGGER T_likes BEFORE INSERT ON likes
 for EACH ROW BEGIN
 SELECT lik_uno.NEXTVAL INTO :NEW.id_likes from DUAL;
-END; COMMIT WORK;
+END;
+COMMIT WORK;
 
-insert into likes (fk_producto,fk_usuario) values(6,2); COMMIT WORK;
-insert into likes (fk_producto,fk_usuario) values(6,1); COMMIT WORK;
-insert into likes (fk_producto,fk_usuario) values(6,3); COMMIT WORK;
+insert into likes (fk_producto,fk_usuario) values(6,2);
+insert into likes (fk_producto,fk_usuario) values(6,1); 
+insert into likes (fk_producto,fk_usuario) values(6,3); 
 select * from likes; 
 
 
@@ -184,18 +203,20 @@ select * from likes where fk_usuario=2 and fk_producto=6;
  /* like*/
 CREATE TABLE Dislikes(
    id_Dislikes number primary key,
-   fecha_creacion DATE DEFAULT SYSDATE,
+   fecha_creacion TimesTamp DEFAULT SYSDATE,
    fk_producto NUMBER,
    fk_usuario NUMBER,      
    CONSTRAINT fk_Dislike_usuario FOREIGN KEY (fk_usuario) REFERENCES usuario (id_usuario),
    CONSTRAINT fk_Dislike_producto FOREIGN KEY (fk_producto) REFERENCES producto (id_producto)
-); COMMIT WORK;
-CREATE SEQUENCE Dis_uno START WITH 1 INCREMENT BY 1; COMMIT WORK;
+   ON DELETE CASCADE
+); 
+CREATE SEQUENCE Dis_uno START WITH 1 INCREMENT BY 1;
 
 CREATE TRIGGER T_Dislikes BEFORE INSERT ON Dislikes
 for EACH ROW BEGIN
 SELECT Dis_uno.NEXTVAL INTO :NEW.id_Dislikes from DUAL;
-END; COMMIT WORK;
+END; 
+COMMIT WORK;
 
 
 select * from Dislikes; 
@@ -204,6 +225,64 @@ select * from Dislikes;
 
 
 
+ /* estado*/
+CREATE TABLE estado(
+   id_estado number primary key,
+   estado VARCHAR2(100)
+); 
+CREATE SEQUENCE est_uno START WITH 1 INCREMENT BY 1;
+
+CREATE TRIGGER T_estado BEFORE INSERT ON estado
+for EACH ROW BEGIN
+SELECT est_uno.NEXTVAL INTO :NEW.id_estado from DUAL;
+END; 
+
+
+INSERT into estado (estado) values('Aceptado'); 
+INSERT into estado (estado) values('Rechazado');
+INSERT into estado (estado) values('Pendiente'); 
+COMMIT WORK;
+select * from estado; 
+
+
+
+
+
+
+ /* Denuncia*/
+CREATE TABLE denuncia(
+   id_denuncia number primary key,
+   descripcion VARCHAR2(300),
+   fecha_creacion DATE DEFAULT SYSDATE,
+   fk_admin NUMBER,
+   fk_usuario NUMBER,
+   fk_producto NUMBER,
+   fk_estado NUMBER,
+   CONSTRAINT fk_de_admin FOREIGN KEY (fk_admin) REFERENCES usuario (id_usuario),   
+   CONSTRAINT fk_de_usuario FOREIGN KEY (fk_usuario) REFERENCES usuario (id_usuario),
+   CONSTRAINT fk_de_producto FOREIGN KEY (fk_producto) REFERENCES producto (id_producto),
+   CONSTRAINT fk_de_estado FOREIGN KEY (fk_estado) REFERENCES estado (id_estado)
+   ON DELETE CASCADE
+); 
+CREATE SEQUENCE den_uno START WITH 1 INCREMENT BY 1; 
+
+CREATE TRIGGER T_denuncia BEFORE INSERT ON denuncia
+for EACH ROW BEGIN
+SELECT den_uno.NEXTVAL INTO :NEW.id_denuncia from DUAL;
+END; 
+COMMIT WORK;
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('este producto no cumple con las especificaciones',1,2,6,3); 
+
+select denuncia.id_denuncia, denuncia.descripcion, denuncia.fecha_creacion,
+denuncia.fk_admin,denuncia.fk_usuario,denuncia.fk_producto,denuncia.fk_estado, usuario.nombre, producto.producto,estado.estado 
+from denuncia
+inner join usuario on usuario.id_usuario= denuncia.fk_usuario
+inner join producto on producto.id_producto = denuncia.fk_producto
+inner join estado on estado.id_estado = denuncia.fk_estado
+where denuncia.fk_producto =6 and denuncia.fk_usuario =2;
+
+select * from denuncia; 
+delete from denuncia where id_denuncia=2;
 
 
 
@@ -212,11 +291,66 @@ select * from Dislikes;
 
 
 
+ /* Chat */
+CREATE TABLE chat(
+   id_chat number primary key,
+   mensaje VARCHAR2(300),
+   fk_vendedor NUMBER,
+   fk_cliente NUMBER,
+   fk_producto NUMBER,      
+   fecha_creacion TimesTamp DEFAULT SYSDATE,
+   CONSTRAINT fk_chat_vendedor FOREIGN KEY (fk_vendedor) REFERENCES usuario (id_usuario),   
+   CONSTRAINT fk_chat_cliente FOREIGN KEY (fk_cliente) REFERENCES usuario (id_usuario),
+   CONSTRAINT fk_chat_producto FOREIGN KEY (fk_producto) REFERENCES producto (id_producto)
+   ON DELETE CASCADE
+);       
+CREATE SEQUENCE cha_uno START WITH 1 INCREMENT BY 1;
+
+CREATE TRIGGER T_chat BEFORE INSERT ON chat
+for EACH ROW BEGIN
+SELECT cha_uno.NEXTVAL INTO :NEW.id_chat from DUAL;
+END; 
+COMMIT WORK;
+
+INSERT into chat (mensaje,fk_vendedor,fk_cliente,fk_producto) values('Mensaje para chatear prueba',3,2,6);
+INSERT into chat (mensaje,fk_vendedor,fk_cliente,fk_producto) values('Mensaje de respuesta del producto',2,3,6);
+INSERT into chat (mensaje,fk_vendedor,fk_cliente,fk_producto) values('esto es solo para probar chat',3,2,6);
+INSERT into chat (mensaje,fk_vendedor,fk_cliente,fk_producto) values('esta bien pues',2,3,6);
+
+select * from chat;
+
+select chat.id_chat,chat.mensaje,chat.fk_vendedor,chat.fk_cliente,chat.fk_producto,chat.fecha_creacion,
+usuario.nombre
+from chat
+inner join usuario on usuario.id_usuario = chat.fk_vendedor 
+where fk_vendedor=3 and fk_cliente =2 and fk_producto=6  or fk_vendedor=2 and fk_cliente =3 and fk_producto=6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Drop SEQUENCE cha_uno; DROP TABLE chat;
+Drop SEQUENCE den_uno; DROP TABLE denuncia;
+Drop SEQUENCE est_uno; DROP TABLE estado;
 Drop SEQUENCE Dis_uno; DROP TABLE Dislikes;
 Drop SEQUENCE lik_uno; DROP TABLE likes;
 Drop SEQUENCE com_uno; DROP TABLE comentario;
-DROP TRIGGER T_producto; DROP SEQUENCE pro_uno; drop table producto; 
-DROP TRIGGER T_categoria; DROP SEQUENCE cat_uno;  drop table categoria;
-DROP TRIGGER T_usuario; DROP SEQUENCE usu_uno; drop table usuario; 
-DROP TRIGGER T_tipo;DROP SEQUENCE tip_uno; drop table tipo; 
+DROP SEQUENCE pro_uno; drop table producto; 
+DROP SEQUENCE cat_uno;  drop table categoria;
+DROP SEQUENCE usu_uno; drop table usuario; 
+DROP TRIGGER T_tipo; DROP SEQUENCE tip_uno; drop table tipo; 
 
+/*  para borrar y dejar null seria asi .....   ON DELETE SET NULL */
+
+
+
+select * from usuario where correo='madelynunix@gmail.com' and contrasenia=1234;

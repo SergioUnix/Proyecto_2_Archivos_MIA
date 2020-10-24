@@ -24,7 +24,7 @@ export class ProductoMioComponent implements OnInit {
 
   ///productos
   productos: any=[];
-
+  public API_URI='http://localhost:3000/';
 
   constructor(private usuariosService:UsuariosService,private productosService:ProductoService, private router: Router,private activatedRoute:ActivatedRoute) { }
 
