@@ -17,8 +17,7 @@ interface HtmlInputEvent extends Event{
 export class ProductoCrearComponent implements OnInit {
 
 
-  public API_URI = 'https://www.trucosgalaxy.net/wp-content/uploads/2017/08/cargando.gif';
-
+  public API_URI='http://localhost:3000/';
   @HostBinding('class') classes='row';  //necesario para desplegar un producto a la par de otro 
 
   categorias: any=[];

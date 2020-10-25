@@ -1,10 +1,5 @@
 
 
-<div class="alert alert-success" role="alert" *ngIf="isExito">
-       Curso Desasignado
-    </div>
-
-
 
 
 
@@ -17,6 +12,9 @@
             <a href="#" class="btn btn-primary my-2"><h4> CARRITO DE COMPRAS </h4> </a>
             <a href="#" class="btn btn-secondary my-2">mensaje</a>
           </p>
+          <div class="form-group">
+            <input type="text" class="form-control" name="filterPost" placeholder="Search..." [(ngModel)]="filterPost">
+        </div>
         </div>
       </section>
     
@@ -29,7 +27,7 @@
 
 
 
-        <div class="col-md-4"*ngFor="let pro of productos">
+        <div class="col-md-4"*ngFor="let pro of productos | filter:filterPost" >
             <div class="card mb-4 shadow-sm">
 
 
@@ -37,18 +35,17 @@
         <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
          <h3>{{pro.producto}}</h3>
 
-            <button class="btn btn-outline-warning"  *ngIf="admin_funcion" >
-                    Bloquear Producto
-                </button>
+       
         </div>
-        <img [src]="API_URI + pro.foto" class="bd-placeholder-img card-img-top" width="100%" height="225"focusable="false" role="img">
+           <img [src]="API_URI + pro.foto" class="bd-placeholder-img card-img-top" width="100%" height="225"focusable="false" role="img">
            <div class="card-body">
-            <p>Estado  : {{pro.estado}}</p>
-            <p>Precio de Producto :  {{pro.precio}}</p>
-            <p> Categoria:  {{pro.categoria}}</p>
-            <p>Propietario :  {{pro.nombre}}  {{pro.apellido}} </p>
-            <p>Detalle :  {{pro.detalle}}</p>
-            <p>Palabras clave :  {{pro.palabras}}</p>
+            <p>Estado  : {{pro.estado}} 
+            <br>  Precio de Producto :  {{pro.precio}}   
+            <br> Categoria:  {{pro.categoria}}
+            <br>Propietario :  {{pro.nombre}}  {{pro.apellido}}
+            <br>Detalle :  {{pro.detalle}}
+            <br>Palabras clave :  {{pro.palabras}}
+            </p>
             
             <a class="btn btn-info btn-block" *ngIf="oculto" [routerLink]="['productos/modificar', pro.id_producto]">
                 <i class="fas fa-pen"></i> Editar Producto Funcion Admin
@@ -59,12 +56,55 @@
             <a class="btn btn-primary my-2" >
             <i class="fas fa-plus"></i> Agregar a Carrito
             </a>
+            <h2 class="text-warning">Q. {{pro.precio}} </h2> 
+            </div>
+           
+
         </div>
 
-    </div>
     <br>
     <br>
     <br>
+</div>
+
+
+
+
+<div class="col-md-4"*ngFor="let pro of TodosLosproductos | filter:filterPost">
+  <div class="card mb-4 shadow-sm">
+
+
+
+<div class="card-header bg-success  text-white d-flex justify-content-between align-items-center">
+<h3>{{pro.producto}}</h3>
+
+  <button class="btn btn-outline-warning" (click)="cambiar(pro.id_producto)" *ngIf="admin_funcion" >  Bloquear</button>
+  <button class="btn btn-outline-danger" (click)="cambiarBloqueo(pro.id_producto)" *ngIf="admin_funcion" >  Desbloquear</button>
+
+
+
+</div>
+ <img [src]="API_URI + pro.foto" class="bd-placeholder-img card-img-top" width="100%" height="225"focusable="false" role="img">
+ <div class="card-body">
+  <p>Estado  : {{pro.estado}} 
+    <br>  Precio de Producto :  {{pro.precio}}   
+    <br> Categoria:  {{pro.categoria}}
+    <br>Propietario :  {{pro.nombre}}  {{pro.apellido}}
+    <br>Detalle :  {{pro.detalle}}
+    <br>Palabras clave :  {{pro.palabras}}
+    </p>
+
+  <a class="btn btn-outline-danger" *ngIf="oculto" [routerLink]="['productos/modificar', pro.id_producto]">
+      <i class="fas fa-pen"></i> Editar Producto Funcion Admin
+  </a>
+  <a class="btn btn-outline-danger my-2" [routerLink]="['/detalle', pro.id_producto]">
+      <i class="fas fa-pen"></i> Detalle
+  </a>
+  <a class="btn btn-outline-danger my-2" >
+  <i class="fas fa-plus"></i> Agregar a Carrito
+  </a>
+  </div>
+
 </div>
 
 

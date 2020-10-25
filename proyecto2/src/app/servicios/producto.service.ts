@@ -19,6 +19,10 @@ export class ProductoService {
 
 constructor(private http: HttpClient) { }
 
+//metodo para pedir productos de todos los usuario...... lo ve el usuario Administrador
+getProductosAll(){
+  return this.http.get(`${this.API_URI}/producto/perfil_productos/all`);
+   }
 
 //metodo para pedir productos que no son del usuario logueado
 getProductos(id: string){
@@ -152,8 +156,14 @@ saveChat(chat:Chat){
   return this.http.post(`${this.API_URI}/chat/chat/crear/`, chat);
   }
 
-////////////////////////////////para photos
 
+  //Actualizar un Producto solamente el estado del producto
+  updateEstado(id_producto:Number,estado:string){
+    const fd =new FormData();
+    fd.append('id_producto',id_producto.toString());
+    fd.append('estado',estado);
+    return this.http.put(`${this.API_URI}/producto/perfil/bloquear`, fd);  
+    }
 
 
 

@@ -17,7 +17,14 @@ import { ProductoCrearComponent } from './components/producto-crear/producto-cre
 import { ProductoMioComponent } from './components/producto-mio/producto-mio.component';
 import { DetalleComponent } from './components/detalle/detalle.component';
 import { DenunciaCrearComponent } from './components/denuncia-crear/denuncia-crear.component';
-import { ChatComponent } from './components/chat/chat.component'; /// instancio el servicio
+import { ChatComponent } from './components/chat/chat.component';
+import { FilterPipe } from './pipes/filter.pipe';
+import { RegistroClienteComponent } from './components/registro-cliente/registro-cliente.component'; /// instancio el servicio
+
+
+////importo pipes
+
+
 
 @NgModule({
   declarations: [
@@ -29,7 +36,10 @@ import { ChatComponent } from './components/chat/chat.component'; /// instancio 
     ProductoMioComponent,
     DetalleComponent,
     DenunciaCrearComponent,
-    ChatComponent
+    ChatComponent,
+    FilterPipe,
+    RegistroClienteComponent,
+  
 
 
 

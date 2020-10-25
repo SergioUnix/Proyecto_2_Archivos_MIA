@@ -7,7 +7,7 @@
       <h1 class="display-3">{{producto.producto}}</h1>
       <h4>{{producto.detalle}}</h4>
       
-      <img [src]="producto.foto" class="bd-placeholder-img card-img-top" width="400" height="500"focusable="false" role="img">
+      <img [src]="API_URI + producto.foto" class="bd-placeholder-img card-img-top" width="400" height="500"focusable="false" role="img">
       
       <a class="btn btn-outline-info my-2 my-sm-0" (click)="crearlike()">
         <i class="far fa-thumbs-up"></i>{{contadorLikes.contador}} Like

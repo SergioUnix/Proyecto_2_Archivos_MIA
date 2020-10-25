@@ -3,6 +3,9 @@
         <form>
             <h2> <label for="exampleInputEmail1">Productos que han sido Creados por mi</label></h2>
         </form>
+        <div class="form-group">
+            <input type="text" class="form-control" name="filterPost" placeholder="Search..." [(ngModel)]="filterPost">
+        </div>
 
 
     </div>
@@ -16,7 +19,7 @@
     </div>
 
 
-<div class="col-md-4" *ngFor="let pro of productos">
+<div class="col-md-4" *ngFor="let pro of productos | filter:filterPost">
     <div class="card text-center">
         <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
                
@@ -28,11 +31,13 @@
 
         <div class="card-body">
            
-            <p>Estado  : {{pro.estado}}</p>
-            <p>Precio de Producto :  {{pro.precio}}</p>
-            <p> Categoria:  {{pro.categoria}}</p>
-            <p>Propietario :  {{pro.nombre}}  {{pro.apellido}} </p>
-            <p>Detalle :  {{pro.detalle}}</p>
+                <p>Estado  : {{pro.estado}} 
+                <br>  Precio de Producto :  {{pro.precio}}   
+                <br> Categoria:  {{pro.categoria}}
+                <br>Propietario :  {{pro.nombre}}  {{pro.apellido}}
+                <br>Detalle :  {{pro.detalle}}
+                <br>Palabras clave :  {{pro.palabras}}
+                </p>
             
             <a class="btn btn-info btn-block" [routerLink]="['productos/modificar', pro.id_producto]">
                 <i class="fas fa-pen"></i> Editar Producto

@@ -86,6 +86,31 @@ setlog(){
 loginUsuario(correo: string, pass:string ){
   return this.http.get(`${this.API_URI}/usuario/'${correo}'/${pass}`);
   }
+//metodo para guardar 
+saveUsuario(usuario:Usuario){
+return this.http.post(`${this.API_URI}/usuario/registro/con/objeto`, usuario);
+
+}
+saveUsuario2(nombre:string,apellido:string,correo:string,contrasenia:string,confirmacion:string,nac:string,pais:string, foto:string,creditos:string,fk_tipo:Number,photo:File){
+  const fd =new FormData();
+  fd.append('nombre',nombre);
+  fd.append('apellido',apellido);
+  fd.append('correo',correo);
+  fd.append('contrasenia',contrasenia);
+  fd.append('confirmacion',confirmacion);
+  fd.append('nac',nac);
+  fd.append('pais',pais);
+  fd.append('foto',foto);
+  fd.append('creditos',creditos);
+  fd.append('fk_tipo',fk_tipo.toString());
+  fd.append('photo',photo);
+  return this.http.post(`${this.API_URI}/usuario/registro/con/foto`, fd);
+
+
+}
+
+
+
 
 
 
@@ -111,11 +136,7 @@ getUsuario(id: string){
 return this.http.get(`${this.API_URI}/usuarios/${id}`);
 }
 
-//metodo para guardar 
-saveUsuario(usuario:Usuario){
-return this.http.post(`${this.API_URI}/usuarios`, usuario);
 
-}
 //metodo de borrar
 deleteUsuario(id: string){
 return this.http.delete(`${this.API_URI}/usuarios/${id}`);

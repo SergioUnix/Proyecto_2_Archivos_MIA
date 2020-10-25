@@ -26,6 +26,10 @@ export class ProductoMioComponent implements OnInit {
   productos: any=[];
   public API_URI='http://localhost:3000/';
 
+
+  filterPost ='';
+
+
   constructor(private usuariosService:UsuariosService,private productosService:ProductoService, private router: Router,private activatedRoute:ActivatedRoute) { }
 
   ngOnInit() {

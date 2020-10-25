@@ -2,10 +2,12 @@ const { Router } = require('express');
 const router = Router();
 const BD = require('../config/configbd');
 
+////////////////////////////////////////////////////////////////////////////////////// Para las Fotos
+
+
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
-
 
 
 const storage = multer.diskStorage({
@@ -61,7 +63,142 @@ router.get('/images', (req, res) => {});
 
 
 
+
+// Guardar un Producto segunda opcion con foto
+router.post('/api/usuario/registro/con/foto',uploadImage,async (req, res) => {
+    const { nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo} = req.body;
+
+    let aux=req.file.path;  
+    
+   console.log(req.file);
+   console.log(req.body);
+    
+   console.log(req.file.path);
+   console.log(aux);
+
+     sql = `insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) 
+     values(:nombre,:apellido,:correo,:contrasenia,:confirmacion,TO_DATE(:nac,'DD-MM-YYYY'),:pais,:aux,:creditos,:fk_tipo)`
+     
+     await BD.Open(sql, [nombre,apellido,correo,contrasenia,confirmacion,nac,pais,aux,creditos,fk_tipo], true)
+     .then ( (res) =>{
+         console.log(res); res.statusCode=200;
+     },
+     (err) =>{console.log(err); res.statusCode=500;}
+ ); 
+  
+     res.json({
+        "nombre":nombre,
+         "apellido":apellido,
+         "correo":correo,
+         "contrasenia":contrasenia,
+         "confirm,cion":confirmacion,
+         "nac":nac,
+         "pais":pais,
+         "foto":aux,
+         "creditos":creditos,
+         "fk_tipo":fk_tipo
+ 
+     })
+
+})
+
+// Guardar un Usuario  Primera opcion por medio de un objeto
+ router.post('/api/usuario/registro/con/objeto',async (req, res) => {
+    const { nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo} = req.body;
+
+    sql = `insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) 
+    values(:nombre,:apellido,:correo,:contrasenia,:confirmacion,TO_DATE(:nac,'DD-MM-YYYY'),:pais,:foto,:creditos,:fk_tipo)`
+     
+     
+     await BD.Open(sql, [nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo], true)
+     .then ( (res) =>{
+         console.log(res); res.statusCode=200;
+     },
+     (err) =>{console.log(err); res.statusCode=500;}
+ ); 
+  
+     res.json({
+         "nombre":nombre,
+         "apellido":apellido,
+         "correo":correo,
+         "contrasenia":contrasenia,
+         "confirm,cion":confirmacion,
+         "nac":nac,
+         "pais":pais,
+         "foto":foto,
+         "creditos":creditos,
+         "fk_tipo":fk_tipo
+        
+     })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////      PRODUCTOS
+
+
+
+//obtengo todos los productos ,,, lo visualiza el usuario Administrador
+router.get('/api/producto/perfil_productos/all', async (req, res) => {
+    const {id}= req.params;
+    sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, producto.palabras, producto.user_compra, usuario.nombre, usuario.apellido, categoria.categoria    
+     from producto    inner join usuario on producto.fk_usuario= usuario.id_usuario    inner join categoria on producto.fk_categoria = categoria.id_categoria`; 
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_producto": user[0],            
+            "producto": user[1],
+            "estado" : user[2],  
+            "fk_usuario": user[3] ,     
+            "precio": user[4],  
+            "detalle": user[5],  
+            "fk_categoria": user[6],
+            "foto":user[7],
+            "palabras": user[8],
+            "user_compra": user[9],
+            "nombre": user[10], 
+            "apellido": user[11],  
+            "categoria": user[12]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
 
 
 //obtengo todos los productos publicados menos el del usuario logueado
@@ -100,7 +237,7 @@ router.get('/api/producto/perfil_productos/:id', async (req, res) => {
 //obtengo todos los productos Creados por Mi 
 router.get('/api/producto/producto_mio/:id', async (req, res) => {
     const {id}= req.params;
-    sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, usuario.nombre, usuario.apellido, categoria.categoria     from producto    inner join usuario on producto.fk_usuario= usuario.id_usuario    inner join categoria on producto.fk_categoria = categoria.id_categoria    
+    sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle, palabras,fk_categoria, producto.foto, usuario.nombre, usuario.apellido, categoria.categoria     from producto    inner join usuario on producto.fk_usuario= usuario.id_usuario    inner join categoria on producto.fk_categoria = categoria.id_categoria    
     where usuario.id_usuario =`+id; 
 
     let result = await BD.Open(sql, [], false);
@@ -113,12 +250,13 @@ router.get('/api/producto/producto_mio/:id', async (req, res) => {
             "estado" : user[2],  
             "fk_usuario": user[3] ,     
             "precio": user[4],  
-            "detalle": user[5],  
-            "fk_categoria": user[6],
-            "foto":user[7],
-            "nombre": user[8], 
-            "apellido": user[9],  
-            "categoria": user[10]
+            "detalle": user[5],
+            "palabras": user[6],  
+            "fk_categoria": user[7],
+            "foto":user[8],
+            "nombre": user[9], 
+            "apellido": user[10],  
+            "categoria": user[11]
         }
 
         Users.push(userSchema);
@@ -617,12 +755,24 @@ router.post('/api/chat/chat/crear',async (req, res) => {
 
 
 
+////////////////////////////////////////////////////////   Bloquear Productos
+
+//UPDATE un solo producto pero solamente su estado >>> Sin Bloquear, Bloqueado
+router.put('/api/producto/perfil/bloquear',uploadImage, async (req, res) => {
+    const {estado,id_producto } = req.body;
+    console.log(req.body);
+
+    sql = `update producto set estado=:estado
+            where id_producto=:id_producto`;
+    await BD.Open(sql, [estado,id_producto], true);
+
+    res.status(200).json({
+        "estado":estado
+        })
+
+})
 
 
-
-
-
-///////////////////////////////////////////////////////////  Para las fotos
 
 
 

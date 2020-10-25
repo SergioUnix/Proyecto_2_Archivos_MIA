@@ -22,9 +22,14 @@ export class PerfilComponent implements OnInit {
 
   public isExito=false; 
 
+  //usuarios de todo el sistema
+  TodosLosproductos: any=[];
+
   ///productos
   productos: any=[];
   public API_URI='http://localhost:3000/';
+
+  filterPost ='';
 
 
   constructor(private usuariosService:UsuariosService,private productosService:ProductoService, private router: Router,private activatedRoute:ActivatedRoute) { }
@@ -36,6 +41,11 @@ export class PerfilComponent implements OnInit {
   this.loginExist();
   //mando a llamar productos que no fueron creados por el usuario logueado
   this.productosVecinos();
+
+
+
+  //llamo todos los productos del sistema , solo el admin tiene que verlos
+  this.productosAll();
 
   
 
@@ -52,8 +62,32 @@ export class PerfilComponent implements OnInit {
 
 
 
+      //cambiar de estado un producto
+      cambiar(id_producto:Number){   
+       console.log(id_producto);
+        this.productosService.updateEstado(id_producto,'Bloquear').subscribe(  /// 
+          res => {
+            console.log("Estado Cambio");
+            this.productosVecinos;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
+           },
+          err => console.error(err)
+        );
+         }
 
 
+
+             //cambiar de estado un producto
+      cambiarBloqueo(id_producto:Number){   
+        console.log(id_producto);
+         this.productosService.updateEstado(id_producto,'Sin Bloquear').subscribe(  /// 
+           res => {
+             console.log("Estado Cambio");
+             this.productosVecinos;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
+            },
+           err => console.error(err)
+         );
+          }
+  
 
 
 
@@ -77,7 +111,15 @@ export class PerfilComponent implements OnInit {
 
 
 
-
+       productosAll(){    //mando a llamar productos que no fueron creados por el usuario logueado
+        let  id= this.usuariosService.getSesionCod();
+        this.productosService.getProductosAll().subscribe(  /// 
+          res => {
+            this.TodosLosproductos = res;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
+           },
+          err => console.error(err)
+        );
+         }
 
 
 

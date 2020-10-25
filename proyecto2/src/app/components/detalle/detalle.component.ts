@@ -32,7 +32,7 @@ export class DetalleComponent implements OnInit {
   id_producto=0;
 
 
-
+  public API_URI='http://localhost:3000/';
 
 
   comentarios: any=[];
