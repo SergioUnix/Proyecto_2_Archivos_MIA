@@ -104,7 +104,7 @@ photoSelected: string  | ArrayBuffer;
     .subscribe(
       res=> {
       console.log(res);
-      // this.router.navigate(['/productos/mio']);
+      this.router.navigate(['/login']);
       },
       err=> console.error(err)
 
@@ -116,7 +116,7 @@ photoSelected: string  | ArrayBuffer;
    .subscribe(
       res=> {
       console.log(res);
-   //  this.router.navigate(['/productos/mio']);
+  this.router.navigate(['/login']);
      },
     err=> console.error(err)
 

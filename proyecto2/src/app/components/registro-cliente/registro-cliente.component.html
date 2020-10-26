@@ -1,7 +1,13 @@
 <main role="main" class="container my-auto">
     <div class="row">
+        
         <div id="login" class="col-lg-4 offset-lg-4 col-md-6 offset-md-3
             col-12">
+            
+            <a class="btn btn-danger my-2" [routerLink]="['/login']">
+                <i class="fas fa-backward"></i> Ir a Login
+            </a>
+
             <h2 class="text-center">   Registro de Estudiante</h2>
 
                    <div class="alert alert-warning" role="alert" *ngIf="isError"> 

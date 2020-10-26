@@ -86,6 +86,13 @@ setlog(){
 loginUsuario(correo: string, pass:string ){
   return this.http.get(`${this.API_URI}/usuario/${correo}/${pass}`);
   }
+  
+  //recupero un usuario por medio del correo..... sirve para la recuperacion de contrasenia
+recuperarUsuario(correo: string){
+  return this.http.get(`${this.API_URI}/usuario/recuperar/recuperar/${correo}`);
+  }
+
+
 //metodo para guardar 
 saveUsuario(usuario:Usuario){
 return this.http.post(`${this.API_URI}/usuario/registro/con/objeto`, usuario);
@@ -126,6 +133,21 @@ confirmarUsuario(correo: string, pass:string,nombre:string,apellido:string ){
     return this.http.put(`${this.API_URI}/usuario/verificar/confirmacion`, fd);  
     }
 
+///Datos enviados en correo para setear la contraseña
+    enviarRestablecerContrasenia(nombre:string,apellido:string,correo:string,contrasenia:string,confirmacion:string,nac:string,pais:string, foto:string,creditos:string,fk_tipo:Number){
+      const fd =new FormData();
+      fd.append('nombre',nombre);
+      fd.append('apellido',apellido);
+      fd.append('correo',correo);
+      fd.append('contrasenia',contrasenia);
+      fd.append('confirmacion',confirmacion);
+      fd.append('nac',nac);
+      fd.append('pais',pais);
+      fd.append('foto',foto);
+      fd.append('creditos',creditos);
+      fd.append('fk_tipo',fk_tipo.toString());
+      return this.http.post(`${this.API_URI}/usuario/registro/recupera/enviar`, fd);
+    }
 
 
 
@@ -134,33 +156,5 @@ confirmarUsuario(correo: string, pass:string,nombre:string,apellido:string ){
 
 
 
-
-
-
-//metodo para pedir 
-getUsuarios(){
-return this.http.get(`${this.API_URI}/usuarios`);
-}
-
-//metodo para pedir Auxiliare
-getUsuarios_auxiliares(){
-  return this.http.get(`${this.API_URI}/usuarios/auxiliar/lista/aux/`);
-  }
-
-//metodo para obtener 
-getUsuario(id: string){
-return this.http.get(`${this.API_URI}/usuarios/${id}`);
-}
-
-
-//metodo de borrar
-deleteUsuario(id: string){
-return this.http.delete(`${this.API_URI}/usuarios/${id}`);
-}
-//metodo de actualizar 
-updateUsuario(id:string, updatedUsuario:Usuario):Observable<any> {
-return this.http.put(`${this.API_URI}/usuarios/${id}`, updatedUsuario);
-
-}
 
 }

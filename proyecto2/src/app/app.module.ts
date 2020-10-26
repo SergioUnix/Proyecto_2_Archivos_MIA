@@ -20,7 +20,9 @@ import { DenunciaCrearComponent } from './components/denuncia-crear/denuncia-cre
 import { ChatComponent } from './components/chat/chat.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { RegistroClienteComponent } from './components/registro-cliente/registro-cliente.component';
-import { ConfirmarEmailComponent } from './components/confirmar-email/confirmar-email.component'; /// instancio el servicio
+import { ConfirmarEmailComponent } from './components/confirmar-email/confirmar-email.component';
+import { RecuperarPassComponent } from './components/recuperar-pass/recuperar-pass.component';
+import { SetearPassComponent } from './components/setear-pass/setear-pass.component'; /// instancio el servicio
 
 
 ////importo pipes
@@ -41,6 +43,8 @@ import { ConfirmarEmailComponent } from './components/confirmar-email/confirmar-
     FilterPipe,
     RegistroClienteComponent,
     ConfirmarEmailComponent,
+    RecuperarPassComponent,
+    SetearPassComponent,
   
 
 

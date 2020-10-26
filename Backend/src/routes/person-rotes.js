@@ -69,8 +69,8 @@ router.post("/api/usuario/verificar",uploadImage, async (req, res) => {
     const {correo,pass,nombre,apellido}= req.body;
     console.log(req.body)
   
-    sql = `select * from usuario where correo='`+correo+ `' and contrasenia=`+pass +` and nombre= '`+nombre+`' and apellido='`+apellido+`'`;
-
+    sql = `select * from usuario where correo='`+correo+ `' and contrasenia='`+pass +`' and nombre='`+nombre+`' and apellido='`+apellido+`'`;
+    console.log(sql);
     let result = await BD.Open(sql, [], false);
     Users = [];
 
@@ -95,6 +95,38 @@ router.post("/api/usuario/verificar",uploadImage, async (req, res) => {
 
 })
 
+//Usuario para recuperar contrasenia .... solamente uso el correo
+router.get("/api/usuario/recuperar/recuperar/:correo", async (req, res) => {
+    const {correo}= req.params;
+    console.log(correo)    
+    sql = "select * from usuario where correo ='"+correo+"' and confirmacion ='Confirmado'";
+    console.log(sql)
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_usuario": user[0],            
+            "nombre": user[1],
+            "apellido" : user[2],  
+            "correo": user[3] ,     
+            "contrasenia": user[4],  
+            "confirmacion": user[5],  
+            "nac": user[6],  
+            "pais": user[7], 
+            "foto": user[8],  
+            "creditos": user[9],
+            "fk_tipo": user[10]
+        }
+        Users.push(userSchema);
+    })
+
+    res.json(Users[0]);
+})
+
+
+
 //UPDATE ... despues de confirmar con el anterir Cambio el estato del usuario a Confirmado
 router.put('/api/usuario/verificar/confirmacion',uploadImage, async (req, res) => {
     const {confirmacion,id_usuario } = req.body;
@@ -117,12 +149,13 @@ router.put('/api/usuario/verificar/confirmacion',uploadImage, async (req, res) =
 router.post('/api/usuario/registro/con/foto',uploadImage,async (req, res) => {
     const { nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo} = req.body;
     var transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
+        //host: "smtp.ethereal.email",
+        host: "smtp.gmail.com",
         post:587,
         secure:false,
         auth:{
-            user: "blaze81@ethereal.email",
-            pass: "gGn1xvdZgHRkJwKkZX"
+            user: "sergiounixariel@gmail.com",
+            pass: "ZMXunix..unix"
         },
     });
 
@@ -142,7 +175,7 @@ router.post('/api/usuario/registro/con/foto',uploadImage,async (req, res) => {
      var mailOptions={
         from: "Remitente",
         to: correo,
-        subject: "Enviado desde nodemailer segundo email",
+        subject: "Correo de Confirmacion",
         text: `Gracias por registrarte!
         Tu cuenta Ha sido Creada, Tu debes loguearte con las siguientes credenciales, puedes activar tu cuenta dirigiendote a la URL dada.
          
@@ -151,7 +184,7 @@ router.post('/api/usuario/registro/con/foto',uploadImage,async (req, res) => {
         Contraseña: '`+contrasenia+`'
         ------------------------
          
-        POr favor hacer click en el enlace para activar tu Cuenta:
+        Por favor hacer click en el enlace para activar tu Cuenta:
         http://localhost:4200/confirmar/`+correo+`/`+contrasenia+`/`+nombre+`/`+apellido
     
     };
@@ -211,7 +244,7 @@ router.post('/api/usuario/registro/con/foto',uploadImage,async (req, res) => {
 var mailOptions={
     from: "Remitente",
     to: correo,
-    subject: "Enviado desde nodemailer segundo email",
+    subject: "Correo de Confirmacion",
     text: `Gracias por registrarte!
     Tu cuenta Ha sido Creada, Tu debes loguearte con las siguientes credenciales, puedes activar tu cuenta dirigiendote a la URL dada.
      
@@ -869,6 +902,58 @@ router.put('/api/producto/perfil/bloquear',uploadImage, async (req, res) => {
         })
 
 })
+
+
+
+
+// Guardar un Usuario segunda opcion con foto
+router.post('/api/usuario/registro/recupera/enviar',uploadImage,async (req, res) => {
+    const { nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo} = req.body;
+    var transporter = nodemailer.createTransport({
+        //host: "smtp.ethereal.email",
+        host: "smtp.gmail.com",
+        post:587,
+        secure:false,
+        auth:{
+            user: "sergiounixariel@gmail.com",
+            pass: "ZMXunix..unix"
+        },
+    });
+
+     var mailOptions={
+        from: "Remitente",
+        to: correo,
+        subject: "Recuperacion Contraseña",
+        text: `Has Solicitado la Recuperacion de tu Contraseña!
+        Si no haz sido tu puedes Omitir este mensaje, de lo contrario puedes dirigirte a la URL
+        y Restablecer tu nueva contraseña
+         
+        ------------------------
+        Correo: '`+correo+`'
+        Nombre: '`+nombre+`'
+        Apellido: '`+apellido+`'
+        ------------------------
+         
+        Por favor hacer click en el enlace para activar tu Cuenta:
+        http://localhost:4200/setear/pass/`+correo+`/`+contrasenia+`/`+nombre+`/`+apellido
+    
+    };
+     
+
+        transporter.sendMail(mailOptions, (error,info)=>{
+            if(error){res.status(500).send(error.message);
+            }else{    console.log("Email de recuperacion enviado");  res.status(200).jsonp(req.body);}
+            });
+
+
+
+
+
+
+
+})
+
+
 
 
 

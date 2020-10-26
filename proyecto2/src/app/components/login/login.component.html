@@ -8,6 +8,12 @@
             <div class="alert alert-warning" role="alert" *ngIf="isError"> 
                    Ingresar todos los Campos
             </div>
+
+            <div class="alert alert-success" role="alert" *ngIf="envio"> 
+                Correo Recuperacion Enviado
+            </div>
+
+
             
             <img class="img-fluid mx-auto d-block rounded" src="https://leadsfac.com/wp-content/uploads/2019/10/marketplace-3.jpg" alt="">
             <form #formLogin="ngForm" (ngSubmit)="onLogin(formLogin)">
@@ -51,9 +57,30 @@
                 </button>
             <br>
                 <a routerLink="/registro-cliente" >Registrar Usuario</a>
-            </div>
-                
+            </div>                
             </form>
+            <br>    
+
+            <div class="text-center" ><a class="text-center" *ngIf="etiqueta"(click)='setVariable()'>Recuperar contraseña</a>       </div>
+            
+            <br>
+            <br>
+
+            <div *ngIf="formulario">
+                <h1 class="text-center"><span class="badge badge-pill badge-secondary">Recuperar Password</span></h1>
+                <div class="form-group row">
+                  <label for="staticEmail" class="col-sm-2 col-form-label">Correo</label>
+                  <div class="col-sm-10">
+                    <input type="text" [(ngModel)]="recuperaCorreo"  class="form-control" id="inputPassword" placeholder="Nombre Usuario">
+                  </div>
+                </div>
+
+
+
+                <button class="btn btn-primary my-2" (click)='cancelar()'>Cancelar</button>
+                <button class="btn btn-outline-danger" (click)='enviar()'>Enviar correo</button>
+            </div>
+
         </div>
     </div>
 </main>

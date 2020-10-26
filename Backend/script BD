@@ -44,14 +44,73 @@ SELECT usu_uno.NEXTVAL INTO :NEW.id_usuario from DUAL;
 END;
 COMMIT WORK;
 
-insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('sergio','ramirez','sergiounix@gmail.com','1234','Confirmado',TO_DATE('01-03-2019','DD-MM-YYYY'),'Guatemala','https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2018/08/fotos-perfil-whatsapp_16.jpg?itok=fl2H3Opv',
-10000,1); 
-insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('madelyn','barraza','madelynunix@gmail.com','1234','Confirmado',TO_DATE('02-04-2019','DD-MM-YYYY'),'España','https://i.pinimg.com/originals/97/90/1f/97901f198a9c09efd3b095b08fc8d8e2.png',
-10000,2); 
-insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('alejandro','lorenty','alejandrounix@gmail.com','1234','Confirmado',TO_DATE('03-05-2019','DD-MM-YYYY'),'Panama','https://ep01.epimg.net/elpais/imagenes/2018/12/14/album/1544777592_679099_1544990800_noticia_normal.jpg',
-10000,2); COMMIT WORK;
-select * from usuario;
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('sergio','ramirez',
+'sergiounix@gmail.com','1234','Confirmado',TO_DATE('12-08-1990','DD-MM-YYYY'),'Guatemala','uploads/default/usuarios/sergio.jpg',10000,1); 
 
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('madelyn','barraza',
+'madelynunix@gmail.com','1234','Confirmado',TO_DATE('05-01-1993','DD-MM-YYYY'),'Guatemala','uploads/default/usuarios/made.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('alba','Al',
+'albaunix@gmail.com','1234','Confirmado',TO_DATE('03-08-1992','DD-MM-YYYY'),'Argentina','uploads/default/usuarios/alba.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('alvaro','Alv',
+'alvarounix@gmail.com','1234','Confirmado',TO_DATE('01-10-1994','DD-MM-YYYY'),'Armenia','uploads/default/usuarios/alvaro.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('brat','bra',
+'bratunix@gmail.com','1234','Confirmado',TO_DATE('07-11-1995','DD-MM-YYYY'),'Bahamas','uploads/default/usuarios/brat.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('brian','bri',
+'brianunix@gmail.com','1234','Confirmado',TO_DATE('09-12-1996','DD-MM-YYYY'),'Benin','uploads/default/usuarios/brian.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('chris','chr',
+'chrisunix@gmail.com','1234','Confirmado',TO_DATE('02-09-1997','DD-MM-YYYY'),'Belice','uploads/default/usuarios/chris.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('cristiano','cri',
+'cristianounix@gmail.com','1234','Confirmado',TO_DATE('05-05-1998','DD-MM-YYYY'),'Bolivia','uploads/default/usuarios/cristiano.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('dana','dan',
+'danaunix@gmail.com','1234','Confirmado',TO_DATE('03-08-1999','DD-MM-YYYY'),'Australia','uploads/default/usuarios/dana.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('derbez','der',
+'derbezunix@gmail.com','1234','Confirmado',TO_DATE('06-07-1994','DD-MM-YYYY'),'Chile','uploads/default/usuarios/derbez.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('george','geo',
+'georgeunix@gmail.com','1234','Confirmado',TO_DATE('15-04-2000','DD-MM-YYYY'),'China','uploads/default/usuarios/george.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('jaime','jai',
+'jaimeunix@gmail.com','1234','Confirmado',TO_DATE('20-07-2001','DD-MM-YYYY'),'Colombia','uploads/default/usuarios/jaime.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('jhonson','jho',
+'jhonsonunix@gmail.com','1234','Confirmado',TO_DATE('25-08-1989','DD-MM-YYYY'),'Eslovenia','uploads/default/usuarios/jhonson.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('leonardo','leo',
+'leonardounix@gmail.com','1234','Confirmado',TO_DATE('07-11-1995','DD-MM-YYYY'),'Estonia','uploads/default/usuarios/leonardo.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('najwa','naj',
+'najwaunix@gmail.com','1234','Confirmado',TO_DATE('24-12-2002','DD-MM-YYYY'),'Jamaica','uploads/default/usuarios/najwa.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('pedro','ped',
+'pedrounix@gmail.com','1234','Confirmado',TO_DATE('11-08-1988','DD-MM-YYYY'),'España','uploads/default/usuarios/pedro.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('rio','Ri',
+'riounix@gmail.com','1234','Confirmado',TO_DATE('27-07-1999','DD-MM-YYYY'),'Indonesia','uploads/default/usuarios/rio.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('robert','rob',
+'robertunix@gmail.com','1234','Confirmado',TO_DATE('04-11-1985','DD-MM-YYYY'),'Libia','uploads/default/usuarios/robert.jpg',10000,2); 
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('selena','sel',
+'selenaunix@gmail.com','1234','Confirmado',TO_DATE('01-04-1996','DD-MM-YYYY'),'Islas Farce','uploads/default/usuarios/selena.jpg',10000,2);
+
+insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('tom','To',
+'tomunix@gmail.com','1234','Confirmado',TO_DATE('10-10-1980','DD-MM-YYYY'),'Paraguay','uploads/default/usuarios/tom.jpg',10000,2); 
+
+
+
+
+
+
+COMMIT WORK;
+select * from usuario;
 
 
  /* categoria*/
@@ -68,6 +127,11 @@ END;
 COMMIT WORK;
 insert into categoria (categoria) values('Zapateria'); 
 insert into categoria (categoria) values('Electrodomesticos'); 
+insert into categoria (categoria) values('Jardin'); 
+insert into categoria (categoria) values('Hogar'); 
+insert into categoria (categoria) values('Telefonia');
+insert into categoria (categoria) values('Exterior');
+insert into categoria (categoria) values('Accesorios');
 select * from categoria; 
 
  /* Tabla Producto*/
@@ -94,17 +158,44 @@ SELECT pro_uno.NEXTVAL INTO :NEW.id_producto from DUAL;
 END; 
 COMMIT WORK;
 
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Nike','Sin Bloquear',2,'500.50','producto importado de USA',1, 'uploads/nike.jpg','zapatos calzado',0); 
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Flexi','Sin Bloquear',2,'1000.50','Zapatos de Calidad en precio Normal',1, 'uploads/flexi.jpg','flexible comodo',0); 
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Fila','Sin Bloquear',2,'1500.20','Zapatos de diferente calidad y diferentes colores',1, 'uploads/fila.jpg','deportivo suave',0); 
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Nature','Sin Bloquear',2,'1200.50','Marca registrada',1, 'uploads/nature.jpg','natural caro',0); 
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Chanel','Sin Bloquear',2,'1400.50','Zapato de dama de alta calidad',1, 'uploads/chanel.jpg','mujer elegante',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Nike','Sin Bloquear',2,'500.50','producto importado de USA',1, 'uploads/default/productos/nike.jpg','zapatos calzado',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Flexi','Sin Bloquear',2,'1000.50','Zapatos de Calidad en precio Normal',1, 'uploads/default/productos/flexi.jpg','flexible comodo',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Fila','Sin Bloquear',2,'1500.20','Zapatos de diferente calidad y diferentes colores',1, 'uploads/default/productos/fila.jpg','deportivo suave',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Nature','Sin Bloquear',2,'1200.50','Marca registrada',1, 'uploads/default/productos/nature.jpg','natural caro',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Chanel','Sin Bloquear',2,'1400.50','Zapato de dama de alta calidad',1, 'uploads/default/productos/chanel.jpg','mujer elegante',0); 
 
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Licuadora Oster','Sin Bloquear',3,'750.50','Producto en Oferta pensado para el hogar',2,'uploads/oster.jpg','cocina calidad',0); 
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Microondas Mabe','Sin Bloquear',3,'2200.50','Producto de calidad para cocina',2,'uploads/microMabe.jpg','duradero calidad',0); 
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Refrigeradora LG','Sin Bloquear',3,'5500.50','Refrigerador con 10 años de garantia para tu cocina',2,'uploads/refriLg.jpg','cocina frio',0); 
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Cafetera Samsung','Sin Bloquear',3,'600.50','Cafetera de lujo diseñada para tu hogar',2,'uploads/cafeSamsung.jpg','cafe caliente',0); 
-insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Lavadora LG','Sin Bloquear',3,'4500.50','Producto con 10 años de garantia para tu hogar',2,'uploads/lavaLg.jpg','hogar electro',0);
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Licuadora Oster','Sin Bloquear',3,'750.50','Producto en Oferta pensado para el hogar',2,'uploads/default/productos/oster.jpg','cocina calidad',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Microondas Mabe','Sin Bloquear',3,'2200.50','Producto de calidad para cocina',2,'uploads/default/productos/microMabe.jpg','duradero calidad',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Refrigeradora LG','Sin Bloquear',3,'5500.50','Refrigerador con 10 años de garantia para tu cocina',2,'uploads/default/productos/refriLg.jpg','cocina frio',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Cafetera Samsung','Sin Bloquear',3,'600.50','Cafetera de lujo diseñada para tu hogar',2,'uploads/default/productos/cafeSamsung.jpg','cafe caliente',0); 
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Lavadora LG','Sin Bloquear',3,'4500.50','Producto con 10 años de garantia para tu hogar',2,'uploads/default/productos/lavaLg.jpg','hogar electro',0);
+
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Grama Jardin','Sin Bloquear',4,'1100.50','Producto de prueba jardin',3,'uploads/default/productos/grama.jpg','jar verde',0);
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Amueblado Jardin','Sin Bloquear',4,'2500.00','Producto de prueba jardin',4,'uploads/default/productos/sala.jpg','sillon aire',0);
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Guantes Jardin','Sin Bloquear',4,'500.00','Producto de prueba jardin',3,'uploads/default/productos/guantes.jpg','manos blanco',0);
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Insecticida','Sin Bloquear',4,'200.50','Producto de prueba jardin',3,'uploads/default/productos/insecticida.jpg','mosco volador',0);
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Banca Jardin','Sin Bloquear',4,'1300.50','Producto de prueba jardin',3,'uploads/default/productos/grama.jpg','banca sentarse',0);
+
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Paquete Limpieza','Sin Bloquear',5,'800.50','Producto de prueba para el hogar',4,'uploads/default/productos/paqueteLimpieza.jpg','limpio guantes',0);
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Combo de limpieza','Sin Bloquear',5,'1300.50','Producto de prueba para el hogar',4,'uploads/default/productos/paquete2.jpg','limpieza desinfectante',0);
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Pintura para hogar','Sin Bloquear',5,'180.50','Producto de prueba hogar',4,'uploads/default/productos/pintura.jpg','color',0);
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Bombillo para cuarto','Sin Bloquear',5,'80.50','Producto de prueba hogar',4,'uploads/default/productos/bombillo.jpg','luz bombi',0);
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Comedor para Cocina','Sin Bloquear',5,'3300.50','Producto de prueba hogar',4,'uploads/default/productos/comedor.jpg','sentarse comer',0);
+
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Huawei P11','Sin Bloquear',6,'4300.50','Producto para comunicacion',5,'uploads/default/productos/huawei.jpg','cel tel',0);
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Iphone 11','Sin Bloquear',6,'6300.50','Producto para comunicacion',5,'uploads/default/productos/iphone.jpg','manzana calidad',0);
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Motorola G9','Sin Bloquear',6,'3800.50','Producto para comunicacion',5,'uploads/default/productos/motorola.jpg','nuevo moto',0);
+
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Toldo 3x3','Sin Bloquear',7,'500.00','Productos para usar en exterior',6,'uploads/default/productos/toldo.jpg','tapar bajo',0);
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Sombrilla','Sin Bloquear',7,'450.00','Productos para usar en exterior',6,'uploads/default/productos/sombrilla.jpg','impermeable tapar',0);
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Panel Solar','Sin Bloquear',7,'5000.00','Productos para usar en exterior',6,'uploads/default/productos/panel.jpg','luz sol',0);
+
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Cargador portatil','Sin Bloquear',8,'500.00','Accesorios para Autos',7,'uploads/default/productos/cargador.jpg','luz corriente',0);
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Cobertor de timòn','Sin Bloquear',8,'300.00','Accesorios para Autos',7,'uploads/default/productos/cobertor.jpg','timon interior',0);
+insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Aspiradora portatil','Sin Bloquear',8,'1400.00','Accesorios para Autos',7,'uploads/default/productos/aspiradora.jpg','auto portatil',0);
+
+
+
 select * from producto;
 
 
@@ -354,3 +445,8 @@ DROP TRIGGER T_tipo; DROP SEQUENCE tip_uno; drop table tipo;
 
 
 select * from usuario where correo='madelynunix@gmail.com' and contrasenia=1234;
+/*  para la validacion de usuario */
+select * from usuario where correo='madelynunix@gmail.com' and contrasenia=1234 and nombre='madelyn' and apellido='barraza';
+
+update usuario set confirmacion='Confirmado'
+            where id_usuario=2

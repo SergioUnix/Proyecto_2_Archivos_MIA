@@ -1,0 +1,23 @@
+
+  <div id="header">
+    <a class="btn btn-success btn-lg" [routerLink]="['/login']">
+        <i class="fas fa-backward"></i> Ir a Login
+    </a>
+</div>
+
+<div id="wrap">
+     <h1>Setear Nueva Contraseña</h1>
+     <br>
+    <h3>Presiona en el boton para continuar</h3>
+    <p>Escribe la Nueva contraseña</p>
+     
+    <div >
+        <label for="nombre">Nueva contraseña:</label>
+        <input type="text" nombre="nombre" [(ngModel)]="newPass"/> <br>
+       
+         
+
+    </div>
+    <button class="btn btn-outline-success" (click)='setPassword()'> <h1>Cambiar contraseña</h1></button>
+     
+</div>
