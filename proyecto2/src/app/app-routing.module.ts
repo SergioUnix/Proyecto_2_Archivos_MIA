@@ -9,6 +9,7 @@ import {DetalleComponent} from './components/detalle/detalle.component';
 import {DenunciaCrearComponent} from './components/denuncia-crear/denuncia-crear.component';
 import {ChatComponent} from './components/chat/chat.component';
 import {RegistroClienteComponent} from './components/registro-cliente/registro-cliente.component';
+import {ConfirmarEmailComponent} from './components/confirmar-email/confirmar-email.component';
 
 
 const routes: Routes = [
@@ -59,6 +60,10 @@ const routes: Routes = [
   {
   path: 'registro-cliente',
   component: RegistroClienteComponent
+  },
+  {
+  path: 'confirmar/:correo/:contrasenia/:nombre/:apellido',
+  component: ConfirmarEmailComponent
   }
   
   

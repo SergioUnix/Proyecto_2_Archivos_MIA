@@ -2,6 +2,7 @@ const { Router } = require('express');
 const router = Router();
 const BD = require('../config/configbd');
 
+const nodemailer = require('nodemailer');
 ////////////////////////////////////////////////////////////////////////////////////// Para las Fotos
 
 
@@ -35,8 +36,10 @@ router.get('/images', (req, res) => {});
     router.get("/api/usuario/:correo/:pass", async (req, res) => {
         const {pass}= req.params;
         const {correo}= req.params;
+        console.log(pass)
         
-        sql = "select * from usuario where contrasenia = " + pass +"and correo ="+correo;
+        sql = "select * from usuario where contrasenia ='" + pass +"' and correo ='"+correo+"' and confirmacion ='Confirmado'";
+        console.log(sql)
     
         let result = await BD.Open(sql, [], false);
         Users = [];
@@ -61,12 +64,68 @@ router.get('/images', (req, res) => {});
         res.json(Users[0]);
     })
 
+//Verifico un usuario si existe.... es como el login para confirmar cuenta....
+router.post("/api/usuario/verificar",uploadImage, async (req, res) => {
+    const {correo,pass,nombre,apellido}= req.body;
+    console.log(req.body)
+  
+    sql = `select * from usuario where correo='`+correo+ `' and contrasenia=`+pass +` and nombre= '`+nombre+`' and apellido='`+apellido+`'`;
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_usuario": user[0],            
+            "nombre": user[1],
+            "apellido" : user[2],  
+            "correo": user[3] ,     
+            "contrasenia": user[4],  
+            "confirmacion": user[5],  
+            "nac": user[6],  
+            "pais": user[7], 
+            "foto": user[8],  
+            "creditos": user[9],
+            "fk_tipo": user[10]
+        }
+        Users.push(userSchema);
+    })
+
+    res.json(Users[0]);
+
+})
+
+//UPDATE ... despues de confirmar con el anterir Cambio el estato del usuario a Confirmado
+router.put('/api/usuario/verificar/confirmacion',uploadImage, async (req, res) => {
+    const {confirmacion,id_usuario } = req.body;
+    console.log(req.body);
+
+    sql = `update usuario set confirmacion=:estado
+    where id_usuario=:id_usuario`;
+    await BD.Open(sql, [confirmacion,id_usuario], true);
+
+    res.status(200).json({
+        "confirmacion":confirmacion
+        })
+
+})
 
 
 
-// Guardar un Producto segunda opcion con foto
+
+// Guardar un Usuario segunda opcion con foto
 router.post('/api/usuario/registro/con/foto',uploadImage,async (req, res) => {
     const { nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo} = req.body;
+    var transporter = nodemailer.createTransport({
+        host: "smtp.ethereal.email",
+        post:587,
+        secure:false,
+        auth:{
+            user: "blaze81@ethereal.email",
+            pass: "gGn1xvdZgHRkJwKkZX"
+        },
+    });
+
 
     let aux=req.file.path;  
     
@@ -78,9 +137,33 @@ router.post('/api/usuario/registro/con/foto',uploadImage,async (req, res) => {
 
      sql = `insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) 
      values(:nombre,:apellido,:correo,:contrasenia,:confirmacion,TO_DATE(:nac,'DD-MM-YYYY'),:pais,:aux,:creditos,:fk_tipo)`
+
+
+     var mailOptions={
+        from: "Remitente",
+        to: correo,
+        subject: "Enviado desde nodemailer segundo email",
+        text: `Gracias por registrarte!
+        Tu cuenta Ha sido Creada, Tu debes loguearte con las siguientes credenciales, puedes activar tu cuenta dirigiendote a la URL dada.
+         
+        ------------------------
+        Correo: '`+correo+`'
+        Contraseña: '`+contrasenia+`'
+        ------------------------
+         
+        POr favor hacer click en el enlace para activar tu Cuenta:
+        http://localhost:4200/confirmar/`+correo+`/`+contrasenia+`/`+nombre+`/`+apellido
+    
+    };
      
      await BD.Open(sql, [nombre,apellido,correo,contrasenia,confirmacion,nac,pais,aux,creditos,fk_tipo], true)
      .then ( (res) =>{
+
+        transporter.sendMail(mailOptions, (error,info)=>{
+            if(error){res.status(500).send(error.message);
+            }else{    console.log("Email enviado");  res.status(200).jsonp(req.body);}
+            });
+
          console.log(res); res.statusCode=200;
      },
      (err) =>{console.log(err); res.statusCode=500;}
@@ -98,7 +181,11 @@ router.post('/api/usuario/registro/con/foto',uploadImage,async (req, res) => {
          "creditos":creditos,
          "fk_tipo":fk_tipo
  
-     })
+     });
+
+
+
+
 
 })
 
@@ -108,16 +195,52 @@ router.post('/api/usuario/registro/con/foto',uploadImage,async (req, res) => {
 
     sql = `insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) 
     values(:nombre,:apellido,:correo,:contrasenia,:confirmacion,TO_DATE(:nac,'DD-MM-YYYY'),:pais,:foto,:creditos,:fk_tipo)`
+
+         var transporter = nodemailer.createTransport({
+        //host: "smtp.ethereal.email",
+        host: "smtp.gmail.com",
+        post:587,
+        secure:false,
+        auth:{
+            user: "sergiounixariel@gmail.com",
+            pass: "ZMXunix..unix"
+        },
+    });
+
+
+var mailOptions={
+    from: "Remitente",
+    to: correo,
+    subject: "Enviado desde nodemailer segundo email",
+    text: `Gracias por registrarte!
+    Tu cuenta Ha sido Creada, Tu debes loguearte con las siguientes credenciales, puedes activar tu cuenta dirigiendote a la URL dada.
      
+    ------------------------
+    Correo: '`+correo+`'
+    Contraseña: '`+contrasenia+`'
+    ------------------------
+     
+    POr favor hacer click en el enlace para activar tu Cuenta:
+    http://localhost:4200/confirmar/`+correo+`/`+contrasenia+`/`+nombre+`/`+apellido
+
+};
      
      await BD.Open(sql, [nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo], true)
      .then ( (res) =>{
-         console.log(res); res.statusCode=200;
-     },
+
+    transporter.sendMail(mailOptions, (error,info)=>{
+    if(error){res.status(500).send(error.message);
+    }else{    console.log("Email enviado");  res.status(200).jsonp(req.body);}
+    });
+
+     console.log(res); res.statusCode=200;
+     
+    },
      (err) =>{console.log(err); res.statusCode=500;}
  ); 
-  
-     res.json({
+
+
+    res.json({
          "nombre":nombre,
          "apellido":apellido,
          "correo":correo,
@@ -127,36 +250,11 @@ router.post('/api/usuario/registro/con/foto',uploadImage,async (req, res) => {
          "pais":pais,
          "foto":foto,
          "creditos":creditos,
-         "fk_tipo":fk_tipo
+        "fk_tipo":fk_tipo
         
-     })
+     });
 
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

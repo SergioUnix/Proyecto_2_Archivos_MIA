@@ -39,7 +39,7 @@ photoSelected: string  | ArrayBuffer;
       apellido: '',
       correo: '',
       contrasenia: '',
-      confirmacion: 'Confirmado',
+      confirmacion: 'No Confirmado',
       nac: '',
       pais: '',
       foto: 'uploads/default/notImage.jpg',

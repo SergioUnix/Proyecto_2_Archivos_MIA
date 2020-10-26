@@ -84,7 +84,7 @@ setlog(){
 
 //metodo para logearse
 loginUsuario(correo: string, pass:string ){
-  return this.http.get(`${this.API_URI}/usuario/'${correo}'/${pass}`);
+  return this.http.get(`${this.API_URI}/usuario/${correo}/${pass}`);
   }
 //metodo para guardar 
 saveUsuario(usuario:Usuario){
@@ -105,10 +105,26 @@ saveUsuario2(nombre:string,apellido:string,correo:string,contrasenia:string,conf
   fd.append('fk_tipo',fk_tipo.toString());
   fd.append('photo',photo);
   return this.http.post(`${this.API_URI}/usuario/registro/con/foto`, fd);
-
-
 }
 
+
+//metodo para validar correo ... es similar a login
+confirmarUsuario(correo: string, pass:string,nombre:string,apellido:string ){
+  const fds =new FormData();
+  fds.append('nombre',nombre);
+  fds.append('apellido',apellido);
+  fds.append('correo',correo);
+  fds.append('pass',pass);
+  return this.http.post(`${this.API_URI}/usuario/verificar`, fds);
+  }
+
+  //cambiar el estado de confimacion del Usuario ..... para que diga Confirmado o No Confirmado
+  updateConfirmacion(id_usuario:Number,confirmacion:string){
+    const fd =new FormData();
+    fd.append('id_usuario',id_usuario.toString());
+    fd.append('confirmacion',confirmacion);
+    return this.http.put(`${this.API_URI}/usuario/verificar/confirmacion`, fd);  
+    }
 
 
 

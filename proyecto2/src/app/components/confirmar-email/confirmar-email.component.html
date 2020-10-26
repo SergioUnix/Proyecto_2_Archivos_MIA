@@ -1,0 +1,21 @@
+
+  <div id="header">
+    <h3>Link de Confirmaciòn</h3>
+</div>
+
+<div id="wrap">
+     
+    <h3>Presiona en el boton para Confirmar y Loguearte</h3>
+    <p>Las credenciales de tu cuenta son las siguientes</p>
+     
+    <form action="" method="post">
+        <label for="nombre">Nombre:</label>
+        <input type="text" nombre="nombre" value="{{usuario.nombre}}" /> <br>
+        <label for="correo">Correo:</label>
+        <input type="text" name="correo" value="{{usuario.correo}}" />
+         
+
+    </form>
+    <button class="btn btn-outline-danger" (click)='setConfirmacion()'> <h1>Activar</h1></button>
+     
+</div>
