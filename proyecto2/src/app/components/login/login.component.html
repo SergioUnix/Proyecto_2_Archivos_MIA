@@ -9,9 +9,7 @@
                    Ingresar todos los Campos
             </div>
 
-            <div class="alert alert-success" role="alert" *ngIf="envio"> 
-                Correo Recuperacion Enviado
-            </div>
+
 
 
             
@@ -65,6 +63,17 @@
             
             <br>
             <br>
+
+            <div class="alert alert-success" role="alert" *ngIf="envio"> 
+                Correo Recuperacion Enviado
+            </div>
+            <br>
+            <div class="alert alert-primary" role="alert" *ngIf="mostrar_recuperar"> 
+                El correo No esta registrado en el Sistema
+            </div>
+
+
+
 
             <div *ngIf="formulario">
                 <h1 class="text-center"><span class="badge badge-pill badge-secondary">Recuperar Password</span></h1>

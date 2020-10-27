@@ -93,6 +93,8 @@ photoSelected: string  | ArrayBuffer;
   
  //Guardar 
  saveUsuario(){
+   this.usuario.contrasenia=this.usuario.contrasenia.toLowerCase();
+   this.usuario.correo=this.usuario.correo.toLowerCase();
    delete this.usuario.id_usuario;
    
   this.usuario.nac=this.dia+'-'+this.mes+'-'+this.anio;

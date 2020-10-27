@@ -14,6 +14,7 @@ const personRoutes = require('./routes/person-rotes');
 //settings
 app.set('port', 3000);
 
+
 //middlewares
 app.use(cors());
 app.use(morgan('dev'));
@@ -33,7 +34,12 @@ app.use('/uploads', express.static(path.resolve('uploads')));
 
 
 //run
-app.listen(app.get('port'), () => {
+//app.listen(app.get('port'), () => {
     //console.log('Server on Port 3000')
-    console.log(`Server on port ${app.get('port')}`);
-})
+ //   console.log(`Server on port ${app.get('port')}`);
+//})
+
+
+app.listen(3000, '0.0.0.0', function() { 
+    console.log('Listening to port: ' + 3000); 
+}); 

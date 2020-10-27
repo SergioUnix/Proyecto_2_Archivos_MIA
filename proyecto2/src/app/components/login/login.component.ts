@@ -15,8 +15,8 @@ import { NgForm } from '@angular/forms';
 export class LoginComponent implements OnInit {
   @HostBinding('class') classes='row';  //necesario para desplegar un producto a la par de otro 
 
-  public isError=false; 
-  public envio=false; ///envio de exito de correo 
+ 
+ 
 
   public etiqueta = true;
   public formulario = false;
@@ -66,6 +66,9 @@ export class LoginComponent implements OnInit {
     }
   
   
+
+  public isError=false;   
+
   Visualizar_Error(){
     this.isError=true; 
     setTimeout(( ) =>{this.isError= false;}   ,   3000);
@@ -88,7 +91,9 @@ export class LoginComponent implements OnInit {
   
   
   
-    setUsuario(){    
+    setUsuario(){   
+    this.usuario.correo=this.usuario.correo.toLowerCase();
+    this.usuario.contrasenia=this.usuario.contrasenia.toLowerCase(); 
     this.usuariosService.loginUsuario(this.usuario.correo,this.usuario.contrasenia)
     .subscribe(
     res=> {      
@@ -99,8 +104,7 @@ export class LoginComponent implements OnInit {
       location.reload();
       },
     err=>{
-      this.Visualizar_Error();
-      ///console.error(err);
+
     }
     )}
   
@@ -126,8 +130,9 @@ export class LoginComponent implements OnInit {
   }
   
   
-  
+  public mostrar_recuperar=false; 
   recuperarUsuario(){    
+    this.recuperaCorreo=this.recuperaCorreo.toLowerCase();
     this.usuariosService.recuperarUsuario(this.recuperaCorreo)
     .subscribe(
     res=> {      
@@ -137,22 +142,31 @@ export class LoginComponent implements OnInit {
       this.enviarCorreoRecupera();
       },
     err=>{
-      //this.Visualizar_Error();
+
+      this.mostrar_recuperar=true; 
+    setTimeout(( ) =>{this.mostrar_recuperar= false;}   ,   3000);
   
     }
     )}
 
+
+
+
+
+
+public envio=false; ///envio de exito de correo 
+   
     enviarCorreoRecupera(){    
-      this.usuariosService.enviarRestablecerContrasenia(this.recuperacion.nombre,this.recuperacion.apellido,this.recuperacion.correo,this.recuperacion.contrasenia,this.recuperacion.confirmacion,this.recuperacion.nac,this.recuperacion.pais,this.recuperacion.foto,this.recuperacion.creditos,this.recuperacion.fk_tipo)
+      this.usuariosService.enviarRestablecerContrasenia(this.recuperacion.nombre,this.recuperacion.apellido,this.recuperacion.correo.toLowerCase(),this.recuperacion.contrasenia,this.recuperacion.confirmacion,this.recuperacion.nac,this.recuperacion.pais,this.recuperacion.foto,this.recuperacion.creditos,this.recuperacion.fk_tipo)
       .subscribe(
       res=> {      
         console.log(res);
-  
+        this.envio=true; 
+        setTimeout(( ) =>{this.envio= false;}   ,   3000);
               
         },
       err=>{
-        //this.Visualizar_Error();
-    
+           
       }
       )}
   
