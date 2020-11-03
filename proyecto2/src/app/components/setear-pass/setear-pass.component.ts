@@ -19,6 +19,9 @@ export class SetearPassComponent implements OnInit {
   constructor (private usuariosService: UsuariosService,private productosService: ProductoService, private router: Router, private activatedRoute:ActivatedRoute) { }
 
   public newPass='';
+  public exito = false;
+  public error = false;
+  public isError=false;   
 
   usuario: Usuario ={
     id_usuario: 0,
@@ -37,28 +40,9 @@ export class SetearPassComponent implements OnInit {
 
 
   ngOnInit() {
-
-
-
-    const params =this.activatedRoute.snapshot.params;
-    console.log(params);
-    if(params.contrasenia){        //este params.id me detecta el numero
-    
-      this.usuariosService.confirmarUsuario(params.correo,params.contrasenia,params.nombre,params.apellido)
-      .subscribe(
-      res =>{
-       //console.log(res)
-        this.usuario=res;
-        console.log(this.usuario);
-        console.log('si existe el usuario dado') 
-       },
-        err => console.error(err)
-      ) 
-    }
-  
-  
-  
-  
+   const params =this.activatedRoute.snapshot.params;
+   console.log(params)
+   this.captoUsuario(params.correo,params.contrasenia);
   
   
   }
@@ -66,12 +50,91 @@ export class SetearPassComponent implements OnInit {
 
 
 
+  mensaje_exito(){
+    this.exito=true; 
+    setTimeout(( ) =>{this.exito= false;
+      this.router.navigate(['/login']);   }   ,   4000);
+  }
+
+  mensaje_error(){
+    this.error=true; 
+    setTimeout(( ) =>{this.error= false;}   ,   5000);
+  }
 
 
-setPassword(){
-this.usuario.contrasenia=this.newPass;
-console.log(this.usuario);
 
+
+
+  async captoUsuario(correo:string,pass:string){
+    if(correo){        //este params.id me detecta el numero
+   
+        this.usuariosService.loginUsuario(correo,pass)
+        .subscribe(
+        res=> {      
+          this.usuario=res;
+          console.log("usuario obtenido")
+          console.log(res)
+         
+          },
+        err=>{
+           this.mensaje_error();
+    
+        }
+        )
+      
+      
+      
+  }}
+
+
+
+
+  Visualizar_Error(){
+    this.isError=true; 
+    setTimeout(( ) =>{this.isError= false;}   ,   3000);
+  }
+  
+  
+
+
+  
+onSetear(form:NgForm){
+  // console.log( form);
+ if(form.valid){
+this.updateUsuario();
+ }else{
+ this.Visualizar_Error();
+ }
+ 
+ }
+
+
+
+
+
+updateUsuario(){
+  this.usuario.contrasenia=this.newPass.toLowerCase();
+  let fecha=new Date(this.usuario.nac)
+  let fechaConFormato= fecha.getDate()+'-'+fecha.getMonth()+'-'+fecha.getFullYear();;
+  this.usuario.nac=fechaConFormato;
+
+ console.log('Actualizando usuario')
+ console.log(this.usuario)
+ console.log(fechaConFormato)
+
+  this.usuariosService.updateUsuario(this.usuario.id_usuario,this.usuario.nombre,this.usuario.apellido,this.usuario.correo,this.usuario.contrasenia,this.usuario.confirmacion,fechaConFormato,this.usuario.pais,this.usuario.foto,this.usuario.creditos,this.usuario.fk_tipo)
+  .subscribe(
+  res =>{
+    console.log(res);
+    this.mensaje_exito();
+  },
+  err => { 
+    console.error(err);
+    this.mensaje_error();     
+
+  }
+)
+ 
 
 }
 

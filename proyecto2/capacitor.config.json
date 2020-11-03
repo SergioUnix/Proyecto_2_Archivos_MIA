@@ -1,0 +1,13 @@
+{
+  "appId": "com.moldeointeractive.www.app",
+  "appName": "proyecto2",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist/proyecto2",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}

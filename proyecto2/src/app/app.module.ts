@@ -22,7 +22,14 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { RegistroClienteComponent } from './components/registro-cliente/registro-cliente.component';
 import { ConfirmarEmailComponent } from './components/confirmar-email/confirmar-email.component';
 import { RecuperarPassComponent } from './components/recuperar-pass/recuperar-pass.component';
-import { SetearPassComponent } from './components/setear-pass/setear-pass.component'; /// instancio el servicio
+import { SetearPassComponent } from './components/setear-pass/setear-pass.component';
+import { CategoriaCrearComponent } from './components/categoria-crear/categoria-crear.component';
+import { DenunciaListComponent } from './components/denuncia-list/denuncia-list.component';
+import { BitacoraComponent } from './components/bitacora/bitacora.component';
+import { CarritoListaComponent } from './components/carrito-lista/carrito-lista.component';
+import { FacturaFormComponent } from './components/factura-form/factura-form.component';
+import { PerfilUpdateComponent } from './components/perfil-update/perfil-update.component';
+import { FilterPipe2 } from './pipes/filtro2.pipe'; /// instancio el servicio
 
 
 ////importo pipes
@@ -45,6 +52,13 @@ import { SetearPassComponent } from './components/setear-pass/setear-pass.compon
     ConfirmarEmailComponent,
     RecuperarPassComponent,
     SetearPassComponent,
+    CategoriaCrearComponent,
+    DenunciaListComponent,
+    BitacoraComponent,
+    CarritoListaComponent,
+    FacturaFormComponent,
+    PerfilUpdateComponent,
+    FilterPipe2,
   
 
 

@@ -9,7 +9,9 @@
           <h1>Productos Disponibles</h1>
           <p class="lead text-muted">ya escribire alguna descripcion aca, pero tengo que escribir algo grande para ver que llegue al tope</p>
           <p>
-            <a href="#" class="btn btn-primary my-2"><h4> CARRITO DE COMPRAS </h4> </a>
+            <a class="btn btn-primary my-2" [routerLink]="['/carrito', id_usuario_logueado]">
+              <i class="fas fa-cart-arrow-down"></i> Carrito
+            </a>
             <a href="#" class="btn btn-secondary my-2">mensaje</a>
           </p>
           <div class="form-group">
@@ -40,7 +42,7 @@
            <img [src]="API_URI + pro.foto" class="bd-placeholder-img card-img-top" width="100%" height="225"focusable="false" role="img">
            <div class="card-body">
             <p>Estado  : {{pro.estado}} 
-            <br>  Precio de Producto :  {{pro.precio}}   
+            <br>Precio de Producto :  {{pro.precio}}   
             <br> Categoria:  {{pro.categoria}}
             <br>Propietario :  {{pro.nombre}}  {{pro.apellido}}
             <br>Detalle :  {{pro.detalle}}
@@ -53,8 +55,8 @@
             <a class="btn btn-success my-2" [routerLink]="['/detalle', pro.id_producto]">
                 <i class="fas fa-pen"></i> Detalle
             </a>
-            <a class="btn btn-primary my-2" >
-            <i class="fas fa-plus"></i> Agregar a Carrito
+            <a class="btn btn-primary my-2" (click)="agregarCarrito(pro.id_producto)">
+              <i class="fas fa-cart-plus"></i> Agregar a Carrito
             </a>
             <h2 class="text-warning">Q. {{pro.precio}} </h2> 
             </div>
@@ -101,7 +103,7 @@
       <i class="fas fa-pen"></i> Detalle
   </a>
   <a class="btn btn-outline-danger my-2" >
-  <i class="fas fa-plus"></i> Agregar a Carrito
+    <i class="fas fa-cart-plus"></i> Agregar a Carrito
   </a>
   </div>
 

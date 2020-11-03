@@ -31,6 +31,9 @@ export class PerfilComponent implements OnInit {
 
   filterPost ='';
 
+  public id_usuario_logueado;
+
+
 
   constructor(private usuariosService:UsuariosService,private productosService:ProductoService, private router: Router,private activatedRoute:ActivatedRoute) { }
 
@@ -41,6 +44,9 @@ export class PerfilComponent implements OnInit {
   this.loginExist();
   //mando a llamar productos que no fueron creados por el usuario logueado
   this.productosVecinos();
+
+  //guardo el codigo logueado
+  this.id_usuario_logueado=this.usuariosService.getSesionCod();
 
 
 
@@ -62,31 +68,31 @@ export class PerfilComponent implements OnInit {
 
 
 
-      //cambiar de estado un producto
-      cambiar(id_producto:Number){   
-       console.log(id_producto);
-        this.productosService.updateEstado(id_producto,'Bloquear').subscribe(  /// 
-          res => {
-            console.log("Estado Cambio");
-            this.productosVecinos;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
-           },
-          err => console.error(err)
-        );
-         }
+//cambiar de estado un producto
+  cambiar(id_producto:Number){   
+  console.log(id_producto);
+  this.productosService.updateEstado(id_producto,'Bloquear').subscribe(  /// 
+   res => {
+  console.log("Estado Cambio");
+   this.productosVecinos;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
+  },
+  err => console.error(err)
+  );
+  }
 
 
 
-             //cambiar de estado un producto
-      cambiarBloqueo(id_producto:Number){   
-        console.log(id_producto);
-         this.productosService.updateEstado(id_producto,'Sin Bloquear').subscribe(  /// 
-           res => {
-             console.log("Estado Cambio");
-             this.productosVecinos;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
-            },
-           err => console.error(err)
-         );
-          }
+//cambiar de estado un producto
+  cambiarBloqueo(id_producto:Number){   
+  console.log(id_producto);
+  this.productosService.updateEstado(id_producto,'Sin Bloquear').subscribe(  /// 
+  res => {
+  console.log("Estado Cambio");
+  this.productosVecinos;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
+  },
+  err => console.error(err)
+  );
+  }
   
 
 
@@ -120,6 +126,36 @@ export class PerfilComponent implements OnInit {
           err => console.error(err)
         );
          }
+
+
+
+
+
+///////agregar a carrito
+
+//cambiar de estado un producto lo pasa a estado Carrito para realizar la compra
+   agregarCarrito(id_producto:Number){   
+   console.log(id_producto);
+    this.productosService.updateEstadoCarrito(id_producto,'Carrito',this.id_usuario_logueado).subscribe(  /// 
+    res => {
+    console.log("Agregado al carrito");
+    location.reload();
+   },
+   err => console.error(err)
+   );
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

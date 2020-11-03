@@ -1,0 +1,30 @@
+//ejecutar este frontEnd con el siguiente comando,, no se ejecuta con "ng serve" porque uso un proxy.conf.json  para configurar mis peticiones hacia el backend, esto espara evitar un error de Cors
+npm start
+
+//el Backend si lo ejecuto con 
+npm run dev
+
+
+
+////Instrucciones para compilar con Capacitor
+////compila el proyecto, preparandolo para Android
+ng build --prod --build-optimizer --output-hashing=none
+
+//// Sincroniza los cambios al proyecto ya creado, si ya fue creado por primera vez
+npx cap sync
+
+//// tambien copia archivos cambiados, ejecutar tambien para sincronizar
+npx cap copy
+
+//// por utimo por si acaso ejecutar este
+npx cap update
+
+//abrir proyecto con android studio
+
+
+
+
+
+///Para Oracle
+el usuario es root y la contrasenia es root , a ley la base de datos se tiene que llamar como el usuario "root"
+

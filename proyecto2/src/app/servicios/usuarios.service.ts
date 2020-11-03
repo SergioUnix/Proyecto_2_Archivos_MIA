@@ -150,6 +150,63 @@ confirmarUsuario(correo: string, pass:string,nombre:string,apellido:string ){
     }
 
 
+//Actualizar un Usuario ...... enviando un objeto
+updateUsuario(id_usuario:Number,nombre:string,apellido:string,correo:string,contrasenia:string,confirmacion:string,nac:string,pais:string,foto:string,creditos:string,fk_tipo:Number){
+  const fd =new FormData();
+  fd.append('id_usuario',id_usuario.toString());
+  fd.append('nombre',nombre);
+  fd.append('apellido',apellido);
+  fd.append('correo',correo);
+  fd.append('contrasenia',contrasenia);
+  fd.append('confirmacion',confirmacion);
+  fd.append('nac',nac);
+  fd.append('pais',pais);
+  fd.append('foto',foto);
+  fd.append('creditos',creditos);
+  fd.append('fk_tipo',fk_tipo.toString());
+
+  return this.http.put(`${this.API_URI}/usuario/perfil-update/update/up/objeto`, fd);  
+  }
+
+  //Actualizar un Usuario.... Segunda opcion Enviando una Imagen hacia el backend
+updateUsuario2(id_usuario:Number,nombre:string,apellido:string,correo:string,contrasenia:string,confirmacion:string,nac:string,pais:string,foto:string,creditos:string,fk_tipo:Number,photo:File){
+  const fd =new FormData();
+  fd.append('id_usuario',id_usuario.toString());
+  fd.append('nombre',nombre);
+  fd.append('apellido',apellido);
+  fd.append('correo',correo);
+  fd.append('contrasenia',contrasenia);
+  fd.append('confirmacion',confirmacion);
+  fd.append('nac',nac);
+  fd.append('pais',pais);
+  fd.append('foto',foto);
+  fd.append('creditos',creditos);
+  fd.append('fk_tipo',fk_tipo.toString());
+  fd.append('photo',photo);
+  console.log("estoy ejecutando el UpdateUsuario2 ---------------------")
+  return this.http.put(`${this.API_URI}/usuario/perfil-update/update/up/imagen`, fd);  
+  }
+
+
+  //Obtengo un Usurio dado solamente su id_usuario
+  getUsuarioPorId(id: string){
+    return this.http.get(`${this.API_URI}/usuario/perfil-update/uno/${id}`);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

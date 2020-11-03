@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {UsuariosService} from './servicios/usuarios.service'; ///importo el servicio
+import {UsuariosService} from './servicios/usuarios.service';
+import { Plugins } from '@capacitor/core'; ///importo el servicio
 
 
 

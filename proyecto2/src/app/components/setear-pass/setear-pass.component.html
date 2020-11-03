@@ -13,12 +13,47 @@
      
     <div >
         <label for="nombre">Usuario : {{usuario.nombre}} {{usuario.apellido}}</label> <br>
-        <label for="nombre">Nueva contraseña:</label>
-        <input type="text" nombre="nombre" [(ngModel)]="newPass"/> <br>
-       
-         
-
+  
     </div>
-    <button class="btn btn-outline-success" (click)='setPassword()'> <h1>Cambiar contraseña</h1></button>
+
+    <div class="alert alert-warning" role="alert" *ngIf="exito"> 
+        Se cambio exitosamente la contraseña
+    </div>
+
+    <div class="alert alert-primary" role="alert" *ngIf="error"> 
+        El link ya fue utilizado
+    </div>
+
+
+    <div class="alert alert-primary" role="alert" *ngIf="isError"> 
+        Ingresar todos los Campos
+ </div>
+
+    <form #formLogin="ngForm" (ngSubmit)="onSetear(formLogin)">
+
+
+        <div class="form-group">
+            <label for="password">Ingrese Nueva Contraseña</label>
+            <input id="password" name="password"class="form-control" type="text" placeholder="Contraseña"
+             #pass="ngModel"  minlength="3"  maxlength="40" 
+            [(ngModel)]="newPass" autocomplete="off" required>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="pass.touched && !pass.valid">
+                <div *ngIf="pass.errors.required"><h6>Ingresar Contraseña</h6></div>
+                <div *ngIf="pass.errors.minlength"><h6>Correo tiene menos de 4 caracteres</h6></div>
+                
+        </div>
+            
+
+        <div class="text-center">
+        <button type="submit" class="btn btn-success mb-2 btn-block" >
+            Cambiar contraseña
+        </button>
+        </div>                
+    </form>
+
+
+
+
      
 </div>

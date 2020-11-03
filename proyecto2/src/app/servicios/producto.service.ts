@@ -165,6 +165,21 @@ saveChat(chat:Chat){
     return this.http.put(`${this.API_URI}/producto/perfil/bloquear`, fd);  
     }
 
+//UPDATE a un estado Carrito pero tambien cambio el user_compra para saber que usuario esta haciendo la compra
+  updateEstadoCarrito(id_producto:Number,estado:string, user_compra:string){
+    const fd =new FormData();
+    fd.append('id_producto',id_producto.toString());
+    fd.append('estado',estado);
+    fd.append('user_compra',user_compra);    
+    return this.http.put(`${this.API_URI}/producto/perfil/carrito`, fd);  
+    }
+
+
+//obtengo todos los productos que estan en estado de Carrito por parte de un Usuario
+getProductosCarrito(user_compra: string){
+  return this.http.get(`${this.API_URI}/producto/carrito/lista/productos/${user_compra}`);
+   }
+
 
 
 

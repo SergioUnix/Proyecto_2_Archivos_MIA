@@ -39,7 +39,7 @@ router.get('/images', (req, res) => {});
         console.log(pass)
         
         sql = "select * from usuario where contrasenia ='" + pass +"' and correo ='"+correo+"' and confirmacion ='Confirmado'";
-        console.log(sql)
+      //  console.log(sql)
     
         let result = await BD.Open(sql, [], false);
         Users = [];
@@ -70,7 +70,7 @@ router.post("/api/usuario/verificar",uploadImage, async (req, res) => {
     console.log(req.body)
   
     sql = `select * from usuario where correo='`+correo+ `' and contrasenia='`+pass +`' and nombre='`+nombre+`' and apellido='`+apellido+`'`;
-    console.log(sql);
+  //  console.log(sql);
     let result = await BD.Open(sql, [], false);
     Users = [];
 
@@ -98,7 +98,7 @@ router.post("/api/usuario/verificar",uploadImage, async (req, res) => {
 //Usuario para recuperar contrasenia .... solamente uso el correo
 router.get("/api/usuario/recuperar/recuperar/:correo", async (req, res) => {
     const {correo}= req.params;
-    console.log(correo)    
+   // console.log(correo)    
     sql = "select * from usuario where correo ='"+correo+"' and confirmacion ='Confirmado'";
     console.log(sql)
 
@@ -141,6 +141,48 @@ router.put('/api/usuario/verificar/confirmacion',uploadImage, async (req, res) =
         })
 
 })
+
+
+
+//obtengo un Usuario  pero solo dado su Id_usuario
+router.get("/api/usuario/perfil-update/uno/:id", async (req, res) => {
+    const {id}= req.params;
+    
+    sql = "select * from usuario where id_usuario ="+id;
+ //   console.log(sql)
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_usuario": user[0],            
+            "nombre": user[1],
+            "apellido" : user[2],  
+            "correo": user[3] ,     
+            "contrasenia": user[4],  
+            "confirmacion": user[5],  
+            "nac": user[6],  
+            "pais": user[7], 
+            "foto": user[8],  
+            "creditos": user[9],
+            "fk_tipo": user[10]
+        }
+        Users.push(userSchema);
+    })
+
+    res.json(Users[0]);
+})
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -288,6 +330,87 @@ var mailOptions={
      });
 
 })
+
+
+
+//UPDATE un Usuario.... con un objeto usuario
+router.put('/api/usuario/perfil-update/update/up/objeto',uploadImage, async (req, res) => {
+    const {nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo, id_usuario } = req.body;
+    console.log(req.body)
+    //sql = `update usuario set nombre='`+nombre+`',apellido='`+apellido+`',correo='`+correo+`' ,contrasenia='`+contrasenia+`',confirmacion='`+confirmacion+`',nac=TO_DATE("`+nac+`",'DD-MM-YYYY'),pais='`+pais+`' ,foto='`+foto+`' ,creditos=`+creditos+`,fk_tipo=`+fk_tipo+
+    //` where id_usuario=`+id_usuario;
+
+    sql = `update usuario set nombre=:nombre ,apellido=:apellido ,correo=:correo ,contrasenia=:contrasenia  ,confirmacion=:confirmacion ,nac= TO_DATE(:nac ,'DD-MM-YYYY'), pais=:pais , foto=:foto  ,creditos=:creditos   ,fk_tipo=:fk_tipo
+      where id_usuario=:id_usuario`;
+
+
+    console.log(sql)
+    await BD.Open(sql, [nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo, id_usuario], true);
+
+    res.status(200).json({
+        "nombre":nombre,
+        "apellido":apellido,
+        "correo":correo,
+        "contrasenia":contrasenia,
+        "confirmacion":confirmacion,
+        "nac":nac,
+        "pais": pais,
+        "foto": foto,
+        "creditos": creditos,
+        "fk_tipo": fk_tipo
+     })
+
+})
+
+//UPDATE un solo Usuario..... pero mandandole una nueva imagen
+router.put('/api/usuario/perfil-update/update/up/imagen',uploadImage, async (req, res) => {
+    const {nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo, id_usuario } = req.body;
+    let aux=req.file.path;  
+    console.log("ingreso al update con imagen")
+    console.log(req.file);
+    console.log(req.body);
+     
+    console.log(req.file.path);
+    console.log(aux);
+
+    sql = `update usuario set nombre=:nombre ,apellido=:apellido ,correo=:correo ,contrasenia=:contrasenia  ,confirmacion=:confirmacion ,nac= TO_DATE(:nac ,'DD-MM-YYYY'), pais=:pais , foto=:aux  ,creditos=:creditos   ,fk_tipo=:fk_tipo
+      where id_usuario=:id_usuario`;
+
+    await BD.Open(sql, [nombre,apellido,correo,contrasenia,confirmacion,nac,pais,aux,creditos,fk_tipo, id_usuario], true);
+
+    res.status(200).json({
+        "nombre":nombre,
+        "apellido":apellido,
+        "correo":correo,
+        "contrasenia":contrasenia,
+        "confirmacion":confirmacion,
+        "nac":nac,
+        "pais": pais,
+        "foto": foto,
+        "creditos": creditos,
+        "fk_tipo": fk_tipo
+    })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -953,6 +1076,60 @@ router.post('/api/usuario/registro/recupera/enviar',uploadImage,async (req, res)
 
 })
 
+/////////////////////////////////////////////////////////////////////////////            Cambio de EStado de productos, Operaciones de Carrito
+
+
+//UPDATE a un estado Carrito pero tambien cambio el user_compra para saber que usuario esta haciendo la compra
+router.put('/api/producto/perfil/carrito',uploadImage, async (req, res) => {
+    const {estado,user_compra,id_producto } = req.body;
+    console.log(req.body);
+
+    sql = `update producto set estado=:estado, user_compra=:user_compra
+            where id_producto=:id_producto`;
+    console.log(sql);
+    await BD.Open(sql, [estado,user_compra,id_producto], true);
+
+    res.status(200).json({
+        "estado":estado,
+        "user_compra":user_compra
+        })
+
+})
+
+
+//obtengo todos los productos que estan en estado de Carrito por parte de un Usuario
+router.get('/api/producto/carrito/lista/productos/:user_compra', async (req, res) => {
+    const {user_compra}= req.params;
+
+    sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, producto.palabras, producto.user_compra, usuario.nombre, usuario.apellido, categoria.categoria    
+     from producto    inner join usuario on producto.fk_usuario= usuario.id_usuario    inner join categoria on producto.fk_categoria = categoria.id_categoria    
+    where usuario.user_compra =`+user_compra +` and producto.estado ='Carrito'`; 
+ console.log(sql);
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_producto": user[0],            
+            "producto": user[1],
+            "estado" : user[2],  
+            "fk_usuario": user[3] ,     
+            "precio": user[4],  
+            "detalle": user[5],  
+            "fk_categoria": user[6],
+            "foto":user[7],
+            "palabras": user[8],
+            "user_compra": user[9],
+            "nombre": user[10], 
+            "apellido": user[11],  
+            "categoria": user[12]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
 
 
 

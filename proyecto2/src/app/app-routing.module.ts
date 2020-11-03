@@ -11,7 +11,8 @@ import {ChatComponent} from './components/chat/chat.component';
 import {RegistroClienteComponent} from './components/registro-cliente/registro-cliente.component';
 import {ConfirmarEmailComponent} from './components/confirmar-email/confirmar-email.component';
 import {SetearPassComponent} from './components/setear-pass/setear-pass.component';
-
+import {PerfilUpdateComponent} from './components/perfil-update/perfil-update.component';
+import {CarritoListaComponent} from './components/carrito-lista/carrito-lista.component';
 
 const routes: Routes = [
 
@@ -69,7 +70,16 @@ const routes: Routes = [
   {
   path: 'setear/pass/:correo/:contrasenia/:nombre/:apellido',
   component: SetearPassComponent
+  },
+  {
+  path: 'update/:id',
+  component: PerfilUpdateComponent
+  },
+  {
+  path: 'carrito/:id',
+  component: CarritoListaComponent
   }
+  
   
   
   
