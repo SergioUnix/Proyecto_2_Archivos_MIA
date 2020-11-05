@@ -2,13 +2,13 @@
     <div class="card text-center">
 
         <form>
-            <h2> <label for="exampleInputEmail1">Crear Factura</label></h2>
+            <h2> <label for="exampleInputEmail1">Realizar Compra</label></h2>
             <div class="form-group">
                 <label for="exampleInputEmail1">Código de Usuario:</label>
                 <input type="text"  value="{{usuario.id_usuario}}"class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="Enter email" disabled>
                     <label for="exampleInputEmail1">Tipo de Usuario:</label>
-                    <input type="text"  value="{{usuario.fk_tipo==2? 'Asistente':'Cliente'}}"class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <input type="text"  value="{{usuario.fk_tipo==2? 'Cliente':'Administrador'}}"class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                         placeholder="Enter email" disabled>
                         <label for="exampleInputEmail1">Nombre Usuario:</label>
                         <input type="text"  value="{{usuario.nombre}}"class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -21,23 +21,21 @@
 
         </form>
 
-        <button  class="btn btn-primary mb-2"(click)="crearfactura()" routerLink="">
+      <!--      <button  class="btn btn-primary mb-2"(click)="crearfactura()" routerLink="">
                 Realizar Compra
-            </button>
-            <button  class="btn btn-danger "(click)="quitarTodoCarrito()" routerLink="">
+            </button>-->
+            <button  class="btn btn-danger "(click)="quitarTodoCarrito()" routerLink="/perfil">
                     Quitar todos del carrito
                 </button>
+
         <div class="dropdown-divider"></div>
-        <div class="dropdown-divider"></div>
-        <div class="dropdown-divider"></div>
-        <div class="dropdown-divider"></div>
-       <h2> <label for="exampleInputEmail1">Resumen de productos a comprar</label></h2>
+       <h2> <label for="exampleInputEmail1">Detalles de Compra</label></h2>
     </div>
 </div>
 
 
 
-
+   <!-- 
 <div class="col-md-4" *ngFor="let producto of productosCarrito">
     <div class="card text-center">
         <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
@@ -59,3 +57,93 @@
     </div>
 
 </div>
+-->
+
+
+
+
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Id_producto</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Subtotal</th>
+        <th scope="col">Descartar</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let producto of productosCarrito">
+        <th scope="row">{{producto.id_producto}}</th>
+        <td>{{producto.producto}}</td>
+        <td>{{producto.detalle}}</td>
+        <td> <input type="text"  value="{{producto.precio}}"class="form-control" id="P{{producto.id_producto}}"  name="N{{producto.id_producto}}"
+             aria-describedby="emailHelp" placeholder="precio" disabled>  </td>
+
+        <td> <input type="text"  value="1"class="form-control" id="C{{producto.id_producto}}" name="N2{{producto.id_producto}}"
+             aria-describedby="emailHelp" placeholder="Ingresar Cantidad" >          </td>
+
+        <td> <input type="text"  value=""class="form-control" id="S{{producto.id_producto}}" 
+             aria-describedby="emailHelp" placeholder="subtotal" disabled>           </td>
+
+        <td> <button class="btn btn-primary" (click)="quitarACarrito2(producto.id_producto)"  ><i class="fas fa-minus-circle"></i></button>    </td>
+       </tr>
+
+
+      
+
+
+       <tr  *ngIf="visualizarTotal" >
+       <th > </th>
+       <th > </th>
+       <th > </th>
+       <th > </th>
+       <th >Total de Compra </th>
+       <th > {{totalCompra}}</th>
+       <th > </th>
+      </tr>  
+
+
+        <div class="alert alert-success" role="alert" *ngIf="exito">
+        Creditos suficientes para realizar la compra
+       </div>
+       <div class="alert alert-primary" role="alert" *ngIf="error">
+        No se puede realizar la compra por falta de creditos 
+       </div>
+
+
+
+      <tr >
+        <th > </th>
+        <th > </th>
+        <th > </th>
+        <th > </th>
+        <th > <button class="btn btn-warning" (click)="sumar()">Calcular Total</button> </th>
+        <th >  </th>
+        <th > </th>
+       </tr>
+
+
+       <tr >
+        <th > </th>
+        <th > </th>
+        <th > </th>
+        <th > </th>
+        <th >  <button  class="btn btn-primary mb-2"(click)="crearCompra()" *ngIf="BCompra" > Realizar Compra</button></th>
+        <th >  </th>
+        <th > </th>
+       </tr>
+
+
+
+
+
+    </tbody>
+   <!--   <button class="btn btn-dark" (click)="enviarCorreoCompraVenta('madesitalor@gmail.com','correo prueba','mensaje no weno')">Correo prueba</button> -->
+  </table>
+
+   

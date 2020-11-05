@@ -183,9 +183,37 @@ getProductosCarrito(user_compra: string){
 
 
 
+   /// CREO una compra dado el cliente logueado
+   saveCompra(fk_cliente:string){
+    const fd =new FormData();
+    fd.append('fk_cliente',fk_cliente);
+    return this.http.post(`${this.API_URI}/carrito/carrito-lista/crear/compra/`, fd);  
+  }
+
+  //Obtengo el codigo de la ultima compra ,,,,, esto es para poder hacer los detalles despues
+getCodigoUltimaCompra(fk_cliente: string){
+  return this.http.get(`${this.API_URI}/carrito/carrito-lista/obtener/ultima/compra/${fk_cliente}`);
+   }
 
 
+   /// CREO un detalle para una compra
+   saveDetalle(cantidad:string,fk_producto:string,fk_compra:string){
+    const fd =new FormData();
+    fd.append('cantidad',cantidad);
+    fd.append('fk_producto',fk_producto);
+    fd.append('fk_compra',fk_compra);
+    return this.http.post(`${this.API_URI}/carrito/carrito-lista/crear/detalle/detalle`, fd);  
+  }
 
+
+  /// Enviar correo hacia un vendedor o un comprador
+  enviarCorreoCompraVenta(correo:string,asunto:string,mensaje:string){
+    const fd =new FormData();
+    fd.append('correo',correo);
+    fd.append('asunto',asunto);
+    fd.append('mensaje',mensaje);
+    return this.http.post(`${this.API_URI}/carrito/carrito-lista/compra/venta/correo/cliente/vendedor`, fd);  
+  }
 
 
 

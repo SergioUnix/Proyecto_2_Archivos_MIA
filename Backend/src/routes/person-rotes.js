@@ -1101,9 +1101,9 @@ router.put('/api/producto/perfil/carrito',uploadImage, async (req, res) => {
 router.get('/api/producto/carrito/lista/productos/:user_compra', async (req, res) => {
     const {user_compra}= req.params;
 
-    sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, producto.palabras, producto.user_compra, usuario.nombre, usuario.apellido, categoria.categoria    
+    sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, producto.palabras, producto.user_compra, usuario.nombre, usuario.apellido, categoria.categoria,  usuario.correo   
      from producto    inner join usuario on producto.fk_usuario= usuario.id_usuario    inner join categoria on producto.fk_categoria = categoria.id_categoria    
-    where usuario.user_compra =`+user_compra +` and producto.estado ='Carrito'`; 
+    where producto.user_compra =`+user_compra +` and producto.estado ='Carrito'`; 
  console.log(sql);
     let result = await BD.Open(sql, [], false);
     Users = [];
@@ -1122,7 +1122,9 @@ router.get('/api/producto/carrito/lista/productos/:user_compra', async (req, res
             "user_compra": user[9],
             "nombre": user[10], 
             "apellido": user[11],  
-            "categoria": user[12]
+            "categoria": user[12],
+            "correo": user[13]
+
         }
 
         Users.push(userSchema);
@@ -1134,6 +1136,107 @@ router.get('/api/producto/carrito/lista/productos/:user_compra', async (req, res
 
 
 
+// Guardar compra de un cliente....... 
+router.post('/api/carrito/carrito-lista/crear/compra',uploadImage,async (req, res) => {
+    const {fk_cliente } = req.body;
+    sql = `INSERT into compra(fk_cliente) values(:fk_cliente)`
+    console.log(sql)     
+     
+     await BD.Open(sql, [fk_cliente], true)
+     .then ( (res) =>{
+         console.log(res); res.statusCode=200;
+     },
+     (err) =>{console.log(err); res.statusCode=500;}
+     ); 
+  
+     res.json({
+         "fk_cliente":fk_cliente
+     })
+
+})
+
+
+//obtengo la ultima compra que se acaba de crear por parte del cliente
+router.get('/api/carrito/carrito-lista/obtener/ultima/compra/:fk_cliente', async (req, res) => {
+    const {fk_cliente}= req.params;
+
+    sql = `Select compra.id_compra from compra where fk_cliente=`+fk_cliente+` order by compra.id_compra DESC`; 
+ console.log(sql);
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_compra": user[0]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users[0]);
+})
+
+
+
+// Guardar un DETALLE de una compra de un cliente....... 
+router.post('/api/carrito/carrito-lista/crear/detalle/detalle',uploadImage,async (req, res) => {
+    const {cantidad,fk_producto,fk_compra } = req.body;
+    console.log(req.body)
+    sql = `INSERT into detalle(cantidad,fk_producto,fk_compra) values(:cantidad,:fk_producto,:fk_compra)`
+    console.log(sql)     
+     
+     await BD.Open(sql, [cantidad,fk_producto,fk_compra], true)
+     .then ( (res) =>{
+         console.log(res); res.statusCode=200;
+     },
+     (err) =>{console.log(err); res.statusCode=500;}
+     ); 
+  
+     res.json({
+         "cantidad":cantidad,
+         "fk_producto":fk_producto,
+         "fk_compra":fk_compra         
+     })
+
+})
+
+
+
+// enviar correo de compra o de venta
+router.post('/api/carrito/carrito-lista/compra/venta/correo/cliente/vendedor',uploadImage,async (req, res) => {
+    const { correo, asunto, mensaje} = req.body;
+    console.log(req.body)
+
+        var transporter = nodemailer.createTransport({
+        //host: "smtp.ethereal.email",
+        host: "smtp.gmail.com",
+        post:587,
+        secure:false,
+        auth:{
+            user: "sergiounixariel@gmail.com",
+            pass: "ZMXunix..unix"
+        },
+    });
+
+
+
+     var mailOptions={
+        from: "Remitente",
+        to: correo,
+        subject: asunto,
+        text: mensaje
+    
+    };   
+
+
+        transporter.sendMail(mailOptions, (error,info)=>{
+            if(error){res.status(500).send(error.message);
+            }else{    console.log("Email enviado");  res.status(200).jsonp(req.body);}
+            });
+
+
+
+})
 
 
 
