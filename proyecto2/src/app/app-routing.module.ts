@@ -13,6 +13,10 @@ import {ConfirmarEmailComponent} from './components/confirmar-email/confirmar-em
 import {SetearPassComponent} from './components/setear-pass/setear-pass.component';
 import {PerfilUpdateComponent} from './components/perfil-update/perfil-update.component';
 import {CarritoListaComponent} from './components/carrito-lista/carrito-lista.component';
+import {DenunciaListComponent} from './components/denuncia-list/denuncia-list.component';
+import {CategoriaCrearComponent} from './components/categoria-crear/categoria-crear.component';
+
+
 
 const routes: Routes = [
 
@@ -78,7 +82,16 @@ const routes: Routes = [
   {
   path: 'carrito/:id',
   component: CarritoListaComponent
+  },
+  {
+  path: 'denuncias',
+  component: DenunciaListComponent
+  },
+  {
+  path: 'categoria-crear',
+  component: CategoriaCrearComponent
   }
+  
   
   
   

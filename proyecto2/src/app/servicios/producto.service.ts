@@ -6,6 +6,7 @@ import {Likes} from '../modelos/Like';
 import {Chat} from '../modelos/Chat';
 import {DisLikes} from '../modelos/DisLikes';
 import {Denuncia} from '../modelos/Denuncia';
+import {Categoria} from '../modelos/Categoria';
 import { Observable } from 'rxjs';
 
 
@@ -38,12 +39,6 @@ getCategorias(){
   return this.http.get(`${this.API_URI}/categoria/getCategorias`);
    }
    
-//meodo para guardar un producto
-//saveProducto(producto:Producto, file:File){
- // const fd= new FormData();
- // fd.append('image', file);
-//return this.http.post(`${this.API_URI}/producto/producto_crear/`, [producto,fd]);
-//}
 
 saveProducto(producto:string,estado:string,fk_usuario:Number,precio:Number,detalle:string,fk_categoria:Number, foto:string , palabras:string, user_compra:Number,photo:File){
   const fd =new FormData();
@@ -133,6 +128,10 @@ saveDisLike(Dislike:DisLikes){
 deleteDisLike(id: string,cod:string){
   return this.http.delete(`${this.API_URI}/Dislikes/detalle/eliminar/${id}/${cod}`);
  }
+ //Obtener todas las denuncias por parte del Administrador
+getdenunciasAll(){
+  return this.http.get(`${this.API_URI}/denuncias/denuncia-list/obtener/denuncias`);
+   }
 ///Obtengo las denuncias hechas a un solo producto dado el id_producto y el id_usuario...
 getdenuncias_un_usuario_producto(pro: string, id: string){
   return this.http.get(`${this.API_URI}/denuncias/dencia-crear/${pro}/${id}`);
@@ -145,6 +144,13 @@ saveDenuncia(denuncia:Denuncia){
 deleteDenuncia(id: string){
   return this.http.delete(`${this.API_URI}/denuncias/dencia-crear/${id}`);
  }
+///// Actualizar denuncia por parte del administrador
+ updateDenuncia(id_denuncia:string,estado:string){
+  const fd =new FormData();
+  fd.append('id_denuncia',id_denuncia);
+  fd.append('estado',estado);
+  return this.http.put(`${this.API_URI}/denuncias/denuncia-list/cambiar`, fd);  
+  }
 //obtengo los chats entre cliente y vendedor
 getChats(cli: string,ven:string,pro:string){
   return this.http.get(`${this.API_URI}/chat/chat/${cli}/${ven}/${pro}`);
@@ -216,7 +222,21 @@ getCodigoUltimaCompra(fk_cliente: string){
   }
 
 
+/// Sumar o Restar creditos dato un id_usuario, operacion a realizar y creditos a restar
+sumaRestaCreditos(id_usuario:string,operacion:string,valor:string){
+  const fd =new FormData();
+  fd.append('id_usuario',id_usuario);
+  fd.append('operacion',operacion);
+  fd.append('valor',valor);
+  return this.http.post(`${this.API_URI}/carrito/carrito-lista/suma/resta/creditos`, fd);  
+}
 
+
+
+//guardo una Categoria
+saveCategoria(categoria:Categoria){
+  return this.http.post(`${this.API_URI}/categorias/categoria-crear/crear`, categoria);
+  }
 
 
 

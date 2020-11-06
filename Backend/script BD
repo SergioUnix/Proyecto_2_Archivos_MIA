@@ -1,32 +1,31 @@
 
- /* tipo*/
+ /*=============================================== tipo*/
 CREATE TABLE tipo(
    id_tipo number primary key,
    tipo VARCHAR2(100)
 ); 
-CREATE SEQUENCE tip_uno START WITH 1 INCREMENT BY 1; 
-
+CREATE SEQUENCE tip_uno START WITH 1 INCREMENT BY 1;
 CREATE TRIGGER T_tipo BEFORE INSERT ON tipo
 for EACH ROW BEGIN
 SELECT tip_uno.NEXTVAL INTO :NEW.id_tipo from DUAL;
 END;
+
 COMMIT WORK;
 
 
 INSERT into tipo (tipo) values('Administrador');
 INSERT into tipo (tipo) values('Cliente'); 
 
-COMMIT WORK;
-select * from tipo;
+COMMIT WORK;            select * from tipo;
 
 
 
- /* Tabla de usuario*/
+ /* =====================         Tabla de usuario*/
 CREATE TABLE usuario(
    id_usuario number primary key,
    nombre VARCHAR2(100),
    apellido VARCHAR2(300),  
-   correo VARCHAR2(300),     
+   correo VARCHAR2(300) UNIQUE,     
    contrasenia VARCHAR2(300),  
    confirmacion VARCHAR2(300),  
    nac DATE,  
@@ -37,18 +36,18 @@ CREATE TABLE usuario(
    CONSTRAINT fk_fk_tipo FOREIGN KEY (fk_tipo) REFERENCES tipo (id_tipo)
 ); 
 CREATE SEQUENCE usu_uno START WITH 1 INCREMENT BY 1; 
-
 CREATE TRIGGER T_usuario BEFORE INSERT ON usuario
 for EACH ROW BEGIN
 SELECT usu_uno.NEXTVAL INTO :NEW.id_usuario from DUAL;
 END;
+
 COMMIT WORK;
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('sergio','ramirez',
-'sergiounix@gmail.com','1234','Confirmado',TO_DATE('12-08-1990','DD-MM-YYYY'),'Guatemala','uploads/default/usuarios/sergio.jpg',10000,1); 
+'sergiounix@gmail.com','1234','Confirmado',TO_DATE('12-08-1990','DD-MM-YYYY'),'Guatemala','uploads/default/usuarios/sergio.jpg',10000,1);
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('madelyn','barraza',
-'madelynunix@gmail.com','1234','Confirmado',TO_DATE('05-01-1993','DD-MM-YYYY'),'Guatemala','uploads/default/usuarios/made.jpg',10000,2); 
+'madesitalor@gmail.com','1234','Confirmado',TO_DATE('05-01-1993','DD-MM-YYYY'),'Guatemala','uploads/default/usuarios/made.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('alba','Al',
 'albaunix@gmail.com','1234','Confirmado',TO_DATE('03-08-1992','DD-MM-YYYY'),'Argentina','uploads/default/usuarios/alba.jpg',10000,2); 
@@ -60,7 +59,7 @@ insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,fo
 'bratunix@gmail.com','1234','Confirmado',TO_DATE('07-11-1995','DD-MM-YYYY'),'Bahamas','uploads/default/usuarios/brat.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('brian','bri',
-'brianunix@gmail.com','1234','Confirmado',TO_DATE('09-12-1996','DD-MM-YYYY'),'Benin','uploads/default/usuarios/brian.jpg',10000,2); 
+'1brianunix@gmail.com','1234','Confirmado',TO_DATE('09-12-1996','DD-MM-YYYY'),'Benin','uploads/default/usuarios/brian.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('chris','chr',
 'chrisunix@gmail.com','1234','Confirmado',TO_DATE('02-09-1997','DD-MM-YYYY'),'Belice','uploads/default/usuarios/chris.jpg',10000,2); 
@@ -104,27 +103,22 @@ insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,fo
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('tom','To',
 'tomunix@gmail.com','1234','Confirmado',TO_DATE('10-10-1980','DD-MM-YYYY'),'Paraguay','uploads/default/usuarios/tom.jpg',10000,2); 
 
+COMMIT WORK;                           select * from usuario;
 
 
-
-
-
-COMMIT WORK;
-select * from usuario;
-
-
- /* categoria*/
+ /* =========================================== categoria*/
 CREATE TABLE categoria(
    id_categoria number primary key,
    categoria VARCHAR2(100)
 );
 CREATE SEQUENCE cat_uno START WITH 1 INCREMENT BY 1;
-
 CREATE TRIGGER T_categoria BEFORE INSERT ON categoria
 for EACH ROW BEGIN
 SELECT cat_uno.NEXTVAL INTO :NEW.id_categoria from DUAL;
 END; 
+
 COMMIT WORK;
+
 insert into categoria (categoria) values('Zapateria'); 
 insert into categoria (categoria) values('Electrodomesticos'); 
 insert into categoria (categoria) values('Jardin'); 
@@ -132,9 +126,9 @@ insert into categoria (categoria) values('Hogar');
 insert into categoria (categoria) values('Telefonia');
 insert into categoria (categoria) values('Exterior');
 insert into categoria (categoria) values('Accesorios');
-select * from categoria; 
+COMMIT WORK;                                     select * from categoria; 
 
- /* Tabla Producto*/
+ /* ======================================================================== Tabla Producto*/
 CREATE TABLE producto(
    id_producto number primary key,
    producto VARCHAR2(100),
@@ -151,11 +145,11 @@ CREATE TABLE producto(
    ON DELETE CASCADE
 );
 CREATE SEQUENCE pro_uno START WITH 1 INCREMENT BY 1; 
-
 CREATE TRIGGER T_producto BEFORE INSERT ON producto
 for EACH ROW BEGIN
 SELECT pro_uno.NEXTVAL INTO :NEW.id_producto from DUAL;
 END; 
+
 COMMIT WORK;
 
 insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Nike','Sin Bloquear',2,'500.50','producto importado de USA',1, 'uploads/default/productos/nike.jpg','zapatos calzado',0); 
@@ -195,31 +189,9 @@ insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, fo
 insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Aspiradora portatil','Sin Bloquear',8,'1400.00','Accesorios para Autos',7,'uploads/default/productos/aspiradora.jpg','auto portatil',0);
 
 
+COMMIT WORK;                           select * from producto;
 
-select * from producto;
-
-
-
-update producto set detalle='producto importado de USA a precio fijo', estado='Sin Bloquear'
- where id_producto=1;
-
-
-
-select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, usuario.nombre, usuario.apellido, categoria.categoria 
-from producto
-inner join usuario on producto.fk_usuario= usuario.id_usuario
-inner join categoria on producto.fk_categoria = categoria.id_categoria
-where usuario.id_usuario !=2 and producto.estado ='Sin Bloquear';
-
-
-
-
-
-
-
-
-
- /* Tabla comentario*/
+ /* =====================================================================   Tabla comentario*/
 CREATE TABLE comentario(
    id_comentario number primary key,
    comentario VARCHAR2(250),
@@ -231,35 +203,26 @@ CREATE TABLE comentario(
    ON DELETE CASCADE
 ); 
 CREATE SEQUENCE com_uno START WITH 1 INCREMENT BY 1; 
-
 CREATE TRIGGER T_comentario BEFORE INSERT ON comentario
 for EACH ROW BEGIN
 SELECT com_uno.NEXTVAL INTO :NEW.id_comentario from DUAL;
 END;
 
+COMMIT WORK;
+
 insert into comentario (comentario,fk_producto,fk_usuario) values('cualquier comentario hacia el producto 6',6,2);
 insert into comentario (comentario,fk_producto,fk_usuario) values('cualquier comentario hacia el producto 6',6,1); 
 insert into comentario (comentario,fk_producto,fk_usuario) values('segundo comentario comentario hacia el producto 6',6,2);
 
-
 insert into comentario (comentario,fk_producto,fk_usuario) values('cualquier comentario hacia el producto 7',7,1); 
 insert into comentario (comentario,fk_producto,fk_usuario) values('cualquier comentario hacia el producto 7',7,3); 
 insert into comentario (comentario,fk_producto,fk_usuario) values('segundo comentario hacia el producto 7',7,3); 
-COMMIT WORK;
+
+COMMIT WORK;                          select * from comentario;
 
 
 
-select * from comentario;
-
-select id_comentario,comentario,fk_producto,fk_usuario,fecha_creacion,usuario.nombre,usuario.apellido from comentario
-    inner join usuario on comentario.fk_usuario = usuario.id_usuario where fk_producto=6;
-
-
-
-
-
-
- /* like*/
+ /* ===========================================================          like*/
 CREATE TABLE likes(
    id_likes number primary key,
    fecha_creacion TimesTamp DEFAULT SYSDATE,
@@ -270,28 +233,20 @@ CREATE TABLE likes(
    ON DELETE CASCADE
 ); 
 CREATE SEQUENCE lik_uno START WITH 1 INCREMENT BY 1;
-
 CREATE TRIGGER T_likes BEFORE INSERT ON likes
 for EACH ROW BEGIN
 SELECT lik_uno.NEXTVAL INTO :NEW.id_likes from DUAL;
 END;
+
 COMMIT WORK;
 
 insert into likes (fk_producto,fk_usuario) values(6,2);
 insert into likes (fk_producto,fk_usuario) values(6,1); 
 insert into likes (fk_producto,fk_usuario) values(6,3); 
-select * from likes; 
+COMMIT WORK;                             select * from likes; 
 
 
-select count(id_likes) as contador from likes where fk_producto=6;
-
-select * from likes where fk_usuario=2 and fk_producto=6;
-
-
-
-
-
- /* like*/
+ /* =====================================================                like*/
 CREATE TABLE Dislikes(
    id_Dislikes number primary key,
    fecha_creacion TimesTamp DEFAULT SYSDATE,
@@ -302,45 +257,38 @@ CREATE TABLE Dislikes(
    ON DELETE CASCADE
 ); 
 CREATE SEQUENCE Dis_uno START WITH 1 INCREMENT BY 1;
-
 CREATE TRIGGER T_Dislikes BEFORE INSERT ON Dislikes
 for EACH ROW BEGIN
 SELECT Dis_uno.NEXTVAL INTO :NEW.id_Dislikes from DUAL;
 END; 
-COMMIT WORK;
 
-
-select * from Dislikes; 
+COMMIT WORK;                select * from Dislikes; 
 
 
 
 
 
- /* estado*/
+ /* ===================================================================== Estado*/
 CREATE TABLE estado(
    id_estado number primary key,
    estado VARCHAR2(100)
 ); 
 CREATE SEQUENCE est_uno START WITH 1 INCREMENT BY 1;
-
 CREATE TRIGGER T_estado BEFORE INSERT ON estado
 for EACH ROW BEGIN
 SELECT est_uno.NEXTVAL INTO :NEW.id_estado from DUAL;
 END; 
 
+COMMIT WORK;
 
 INSERT into estado (estado) values('Aceptado'); 
 INSERT into estado (estado) values('Rechazado');
 INSERT into estado (estado) values('Pendiente'); 
-COMMIT WORK;
-select * from estado; 
+
+COMMIT WORK;                             select * from estado; 
 
 
-
-
-
-
- /* Denuncia*/
+ /* ==================================================          Denuncia*/
 CREATE TABLE denuncia(
    id_denuncia number primary key,
    descripcion VARCHAR2(300),
@@ -356,33 +304,20 @@ CREATE TABLE denuncia(
    ON DELETE CASCADE
 ); 
 CREATE SEQUENCE den_uno START WITH 1 INCREMENT BY 1; 
-
 CREATE TRIGGER T_denuncia BEFORE INSERT ON denuncia
 for EACH ROW BEGIN
 SELECT den_uno.NEXTVAL INTO :NEW.id_denuncia from DUAL;
 END; 
+
 COMMIT WORK;
-INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('este producto no cumple con las especificaciones',1,2,6,3); 
 
-select denuncia.id_denuncia, denuncia.descripcion, denuncia.fecha_creacion,
-denuncia.fk_admin,denuncia.fk_usuario,denuncia.fk_producto,denuncia.fk_estado, usuario.nombre, producto.producto,estado.estado 
-from denuncia
-inner join usuario on usuario.id_usuario= denuncia.fk_usuario
-inner join producto on producto.id_producto = denuncia.fk_producto
-inner join estado on estado.id_estado = denuncia.fk_estado
-where denuncia.fk_producto =6 and denuncia.fk_usuario =2;
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('este producto no cumple con las especificaciones',1,2,6,3);
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('este producto no cumple con las especificaciones',1,3,7,3); 
 
-select * from denuncia; 
-delete from denuncia where id_denuncia=2;
+COMMIT WORK;                              select * from denuncia; 
 
 
-
-
-
-
-
-
- /* Chat */
+ /* ===========================================================          Chat */
 CREATE TABLE chat(
    id_chat number primary key,
    mensaje VARCHAR2(300),
@@ -396,11 +331,11 @@ CREATE TABLE chat(
    ON DELETE CASCADE
 );       
 CREATE SEQUENCE cha_uno START WITH 1 INCREMENT BY 1;
-
 CREATE TRIGGER T_chat BEFORE INSERT ON chat
 for EACH ROW BEGIN
 SELECT cha_uno.NEXTVAL INTO :NEW.id_chat from DUAL;
 END; 
+
 COMMIT WORK;
 
 INSERT into chat (mensaje,fk_vendedor,fk_cliente,fk_producto) values('Mensaje para chatear prueba',3,2,6);
@@ -408,27 +343,52 @@ INSERT into chat (mensaje,fk_vendedor,fk_cliente,fk_producto) values('Mensaje de
 INSERT into chat (mensaje,fk_vendedor,fk_cliente,fk_producto) values('esto es solo para probar chat',3,2,6);
 INSERT into chat (mensaje,fk_vendedor,fk_cliente,fk_producto) values('esta bien pues',2,3,6);
 
-select * from chat;
-
-select chat.id_chat,chat.mensaje,chat.fk_vendedor,chat.fk_cliente,chat.fk_producto,chat.fecha_creacion,
-usuario.nombre
-from chat
-inner join usuario on usuario.id_usuario = chat.fk_vendedor 
-where fk_vendedor=3 and fk_cliente =2 and fk_producto=6  or fk_vendedor=2 and fk_cliente =3 and fk_producto=6
+COMMIT WORK;                                                      select * from chat;
 
 
+ /* ==============================================================           Compra */
+CREATE TABLE compra(
+   id_compra number primary key,
+   fecha_creacion TimesTamp DEFAULT SYSDATE,
+   fk_cliente NUMBER,
+   CONSTRAINT fk_compra_cliente FOREIGN KEY (fk_cliente) REFERENCES usuario (id_usuario)
+   ON DELETE CASCADE
+);       
+CREATE SEQUENCE comp_uno START WITH 1 INCREMENT BY 1;
+CREATE TRIGGER T_compra BEFORE INSERT ON compra
+for EACH ROW BEGIN
+SELECT comp_uno.NEXTVAL INTO :NEW.id_compra from DUAL;
+END; 
+
+COMMIT WORK;                                                     select * from compra;
+
+ /* =========================================================================    Detalle */
+CREATE TABLE detalle(
+   id_detalle number primary key,
+   cantidad NUMBER,
+   fk_producto NUMBER,
+   fk_compra NUMBER,
+   CONSTRAINT fk_detalle_producto FOREIGN KEY (fk_producto) REFERENCES producto (id_producto),
+   CONSTRAINT fk_detalle_cliente FOREIGN KEY (fk_compra) REFERENCES compra (id_compra)
+   ON DELETE CASCADE
+);       
+CREATE SEQUENCE det_uno START WITH 1 INCREMENT BY 1;
+CREATE TRIGGER T_detalle BEFORE INSERT ON detalle
+for EACH ROW BEGIN
+SELECT det_uno.NEXTVAL INTO :NEW.id_detalle from DUAL;
+END; 
+
+COMMIT WORK;
+
+INSERT into detalle(cantidad,fk_producto,fk_compra) values(5,11,1);
+INSERT into detalle(cantidad,fk_producto,fk_compra) values(2,12,1);
+INSERT into detalle(cantidad,fk_producto,fk_compra) values(3,13,1);
+
+COMMIT WORK;                                      select * from detalle;
 
 
-
-
-
-
-
-
-
-
-
-
+Drop SEQUENCE det_uno; DROP TABLE detalle;
+Drop SEQUENCE comp_uno; DROP TABLE compra;
 Drop SEQUENCE cha_uno; DROP TABLE chat;
 Drop SEQUENCE den_uno; DROP TABLE denuncia;
 Drop SEQUENCE est_uno; DROP TABLE estado;
@@ -442,11 +402,3 @@ DROP TRIGGER T_tipo; DROP SEQUENCE tip_uno; drop table tipo;
 
 /*  para borrar y dejar null seria asi .....   ON DELETE SET NULL */
 
-
-
-select * from usuario where correo='madelynunix@gmail.com' and contrasenia=1234;
-/*  para la validacion de usuario */
-select * from usuario where correo='madelynunix@gmail.com' and contrasenia=1234 and nombre='madelyn' and apellido='barraza';
-
-update usuario set confirmacion='Confirmado'
-            where id_usuario=2

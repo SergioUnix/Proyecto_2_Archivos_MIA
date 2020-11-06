@@ -425,7 +425,7 @@ router.put('/api/usuario/perfil-update/update/up/imagen',uploadImage, async (req
 //obtengo todos los productos ,,, lo visualiza el usuario Administrador
 router.get('/api/producto/perfil_productos/all', async (req, res) => {
     const {id}= req.params;
-    sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, producto.palabras, producto.user_compra, usuario.nombre, usuario.apellido, categoria.categoria    
+    sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, producto.palabras, producto.user_compra, usuario.nombre, usuario.apellido, categoria.categoria, usuario.correo    
      from producto    inner join usuario on producto.fk_usuario= usuario.id_usuario    inner join categoria on producto.fk_categoria = categoria.id_categoria`; 
 
     let result = await BD.Open(sql, [], false);
@@ -445,7 +445,8 @@ router.get('/api/producto/perfil_productos/all', async (req, res) => {
             "user_compra": user[9],
             "nombre": user[10], 
             "apellido": user[11],  
-            "categoria": user[12]
+            "categoria": user[12],
+            "correo": user[13]
         }
 
         Users.push(userSchema);
@@ -904,6 +905,24 @@ router.post('/api/denuncias/denuncia-crear/crear',async (req, res) => {
     })
 })
 
+//UPDATE ... actualiza una Denuncia por parte del usuario administrador
+router.put('/api/denuncias/denuncia-list/cambiar',uploadImage, async (req, res) => {
+    const {estado,id_denuncia } = req.body;
+    console.log(req.body);
+
+    sql = `update denuncia set fk_estado=:estado
+    where id_denuncia=:id_denuncia`;
+    await BD.Open(sql, [estado,id_denuncia], true);
+
+    res.status(200).json({
+        "estado":estado
+        })
+
+})
+
+
+
+
 //obtengo todos las denuncias de un producto dado su id_producto y id_usuario;
 router.get('/api/denuncias/dencia-crear/:pro/:id', async (req, res) => {
     const {id}= req.params;
@@ -938,6 +957,48 @@ router.get('/api/denuncias/dencia-crear/:pro/:id', async (req, res) => {
 
     res.send(Users);
 })
+
+
+
+
+//obtengo todas las denuncias este es para el usuario administrador
+router.get('/api/denuncias/denuncia-list/obtener/denuncias', async (req, res) => {
+    const {id}= req.params;
+    const {pro}= req.params;
+    sql = `
+    select denuncia.id_denuncia, denuncia.descripcion, denuncia.fecha_creacion,
+    denuncia.fk_admin,denuncia.fk_usuario,denuncia.fk_producto,denuncia.fk_estado, usuario.nombre, producto.producto,estado.estado 
+    from denuncia
+    inner join usuario on usuario.id_usuario= denuncia.fk_usuario
+    inner join producto on producto.id_producto = denuncia.fk_producto
+    inner join estado on estado.id_estado = denuncia.fk_estado`; 
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_denuncia": user[0],            
+            "descripcion": user[1],
+            "fecha_creacion": user[2] ,     
+            "fk_admin": user[3] ,     
+            "fk_usuario": user[4] ,     
+            "fk_producto": user[5] ,     
+            "fk_estado": user[6],
+            "nombre": user[7],
+            "producto": user[8],
+            "estado":user[9] 
+    }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+
+
+
 
 
 //Eliminar una denuncia
@@ -1233,11 +1294,59 @@ router.post('/api/carrito/carrito-lista/compra/venta/correo/cliente/vendedor',up
             if(error){res.status(500).send(error.message);
             }else{    console.log("Email enviado");  res.status(200).jsonp(req.body);}
             });
+})
 
 
+
+
+
+
+
+
+
+router.post('/api/carrito/carrito-lista/suma/resta/creditos',uploadImage,async (req, res) => {
+    const {id_usuario, operacion, valor } = req.body;
+    console.log(req.body);
+
+    sql = `update usuario set creditos=creditos `+ operacion +` :valor where id_usuario=:id_usuario`;
+
+    console.log(sql)     
+     
+     await BD.Open(sql, [valor,id_usuario], true)
+     .then ( (res) =>{
+         console.log(res); res.statusCode=200;
+     },
+     (err) =>{console.log(err); res.statusCode=500;}
+     ); 
+  
+     res.json({
+         "valor":valor      
+     })
 
 })
 
+
+
+////////////////////////////////////Categorias
+
+//Creo una Categoria 
+router.post('/api/categorias/categoria-crear/crear',async (req, res) => {
+    const {categoria} = req.body;
+    console.log(req.body);
+   // sql = `insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto) values(:producto,:estado,:fk_usuario,:precio,:detalle,:fk_categoria, :foto)`
+    sql = `insert into categoria (categoria) values(:categoria)`;
+
+    await BD.Open(sql, [categoria], true)
+    .then ( (res) =>{
+        console.log(res); res.statusCode=200;
+    },
+    (err) =>{console.log(err); res.statusCode=500;}
+);
+
+    res.json({
+        "categoria":categoria
+    })
+})
 
 
 

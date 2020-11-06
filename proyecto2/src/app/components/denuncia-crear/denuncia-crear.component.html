@@ -79,9 +79,7 @@
     <div class="card text-center">
         <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
                 <i class="far fa-clock"></i>codigo: {{dec.id_denuncia}}  fecha: {{dec.fecha_creacion | date: 'dd-MM-yyyy h:mm:ss a'}} 
-            <button class="btn btn-danger" (click)="deleteDenuncia(dec.id_denuncia)">
-                Eliminar
-            </button>
+      
         </div>
         <img [src]="" class="card-img-top">
 

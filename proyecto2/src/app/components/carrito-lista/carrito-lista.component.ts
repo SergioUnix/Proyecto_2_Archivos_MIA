@@ -95,14 +95,6 @@ const params =this.activatedRoute.snapshot.params;
     this.productosService.getProductosCarrito(id).subscribe(  /// 
       res => {
         this.productosCarrito = res;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
-        for (let i of this.productosCarrito) {
-          var atributo='C'+i.id_producto;
-          
-          //this.cantidades."fdsa"=i.id_producto;
-          
-          //this.variables.push(atributo i.id_producto)
-      
-         }
       
        },
       err => console.error(err)
@@ -289,15 +281,18 @@ crearCompra(){
        await this.crearDetalle(cantidad.toString(),index.id_producto,respuesta.id_compra);
       let mensaje='Se ha comprado el producto con codigo '+index.id_producto+' con nombre: '+index.producto+' y detalle: '+index.detalle;
        await this.enviarCorreoCompraVenta(index.correo,'Compra de Producto',mensaje);
+       await this.sumarRestarCreditos(index.fk_usuario,'+',total.toString()); //Sumo los creditos a cada dueño del producto una vez hecha la compra
 
         i=i+3;
          }
         }
-        let mensaje2='Se ha realizado una compra el codigo de la compra es : '+respuesta.id_compra +' el valor gastado es : '+this.totalCompra;
+        let totalCreditos=Number(this.usuario.creditos)-this.totalCompra;
+        let mensaje2='Se ha realizado una compra, \nel codigo de la compra es : '+respuesta.id_compra +' \nel valor gastado es : '+this.totalCompra+'\nCreditos que disponia ='+this.usuario.creditos+ '\n Creditos Actuales despues de la compra  ='+totalCreditos;
+       
         await this.enviarCorreoCompraVenta(this.usuario.correo,'Compra en SalesGT',mensaje2);
- 
         await this.quitarTodoCarrito();
-    ///correohacia vendedor
+        await this.sumarRestarCreditos(this.usuario.id_usuario.toString(),'-',this.totalCompra.toString()); ///resto el total de compra a los creditos actuales del que va a comprar
+    
     //this.correoVendedor
     setTimeout(( ) =>{location.reload();  }   ,   5000);
      },
@@ -318,11 +313,22 @@ crearCompra(){
      },
      err => console.error(err)
      );
-    
-  
-  
   
   }
+
+
+  sumarRestarCreditos(id_usuario:string, operacion:string, creditos:string){
+  
+    this.productosService.sumaRestaCreditos(id_usuario,operacion,creditos).subscribe(  /// 
+      res => {
+      console.log(" Se ha sumado o Restado creditos ");
+      console.log(res);
+     },
+     err => console.error(err)
+     );
+  
+  }
+
 
 
 

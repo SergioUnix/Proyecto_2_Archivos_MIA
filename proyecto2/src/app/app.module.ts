@@ -29,7 +29,8 @@ import { BitacoraComponent } from './components/bitacora/bitacora.component';
 import { CarritoListaComponent } from './components/carrito-lista/carrito-lista.component';
 import { FacturaFormComponent } from './components/factura-form/factura-form.component';
 import { PerfilUpdateComponent } from './components/perfil-update/perfil-update.component';
-import { FilterPipe2 } from './pipes/filtro2.pipe'; /// instancio el servicio
+import { FilterPipe2 } from './pipes/filtro2.pipe';
+import { ChatAdminComponent } from './components/chat-admin/chat-admin.component'; /// instancio el servicio
 
 
 ////importo pipes
@@ -59,6 +60,7 @@ import { FilterPipe2 } from './pipes/filtro2.pipe'; /// instancio el servicio
     FacturaFormComponent,
     PerfilUpdateComponent,
     FilterPipe2,
+    ChatAdminComponent,
   
 
 

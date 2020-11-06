@@ -1,1 +1,54 @@
-<p>denuncia-list works!</p>
+
+
+    
+<div class="col-md-12">
+    <div class="card text-center">
+            <form>
+                    <h2> <label for="exampleInputEmail1">Todas las denuncias de los usuarios</label></h2>
+            </form>
+    
+    
+    </div>
+    </div>
+    
+    
+
+    <div class="alert alert-success" role="alert" *ngIf="exito">
+        Creditos suficientes para realizar la compra
+       </div>
+       <div class="alert alert-primary" role="alert" *ngIf="error">
+        No se puede realizar la compra por falta de creditos 
+       </div>
+
+
+
+
+    
+    
+    
+    <div class="col-md-4" *ngFor="let dec of denuncias">
+        <div class="card text-center">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+              codigo: {{dec.id_denuncia}}  fecha: {{dec.fecha_creacion | date: 'dd-MM-yyyy h:mm:ss a'}} 
+                <button class="btn btn-info"(click)="updateDenuncia(dec.id_denuncia,1)">               Atendido                </button>
+                <button class="btn btn-secondary" (click)="updateDenuncia(dec.id_denuncia,2)">               Rechazado               </button>
+            </div>
+            <img [src]="" class="card-img-top">
+            <button class="btn btn-primary" (click)="deleteDenuncia(dec.id_denuncia)">
+                Eliminar
+            </button>
+            <div class="card-body">
+                <h4>
+                    <p class="text-primary">Descripcion :</p> <p>{{dec.descripcion}}</p>
+                    <p class="text-primary">Creador :</p><p>{{dec.nombre}}</p>
+                    <p class="text-primary">Producto Denunciado :</p><p>{{dec.producto}}</p>
+                    <p class="text-primary">Estado de la denuncia :</p><p>{{dec.estado}}</p>
+                </h4>
+    
+            </div>
+        </div>
+    
+    </div>
+    
+    
+    

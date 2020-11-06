@@ -69,12 +69,14 @@ export class PerfilComponent implements OnInit {
 
 
 //cambiar de estado un producto
-  cambiar(id_producto:Number){   
+  cambiar(id_producto:Number,correo:string){   
   console.log(id_producto);
   this.productosService.updateEstado(id_producto,'Bloquear').subscribe(  /// 
    res => {
   console.log("Estado Cambio");
-   this.productosVecinos;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
+   this.enviarCorreBloqueo(correo,'Producto Bloqueado','Su producto fue bloqueado por causa de una Denuncia por parte de un usuario Cliente');
+    this.productosVecinos;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
+
   },
   err => console.error(err)
   );
@@ -150,6 +152,19 @@ export class PerfilComponent implements OnInit {
 
 
 
+////////////////enviar correo informando porque se bloqueo su producto
+enviarCorreBloqueo(correo:string, asunto:string, mensaje:string){
+  
+  this.productosService.enviarCorreoCompraVenta(correo,asunto,mensaje).subscribe(  /// 
+    res => {
+    console.log("----------  correo enviado");
+    console.log(correo);
+    console.log(res);
+   },
+   err => console.error(err)
+   );
+
+}
 
 
 
