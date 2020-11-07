@@ -461,7 +461,7 @@ router.get('/api/producto/perfil_productos/:id', async (req, res) => {
     const {id}= req.params;
     sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, producto.palabras, producto.user_compra, usuario.nombre, usuario.apellido, categoria.categoria    
      from producto    inner join usuario on producto.fk_usuario= usuario.id_usuario    inner join categoria on producto.fk_categoria = categoria.id_categoria    
-    where usuario.id_usuario !=`+id +`and producto.estado ='Sin Bloquear'`; 
+    where usuario.id_usuario !=`+id +` and producto.estado ='Sin Bloquear'`; 
 
     let result = await BD.Open(sql, [], false);
     Users = [];
@@ -488,6 +488,87 @@ router.get('/api/producto/perfil_productos/:id', async (req, res) => {
 
     res.send(Users);
 })
+
+
+
+////////////////////////////orden Ascendente de la Categoria lo visualiza el usuario cliente
+router.get('/api/producto/perfil_productos/orden/ascendente/:id', async (req, res) => {
+    const {id}= req.params;
+    sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, producto.palabras, producto.user_compra, usuario.nombre, usuario.apellido, categoria.categoria    
+     from producto    inner join usuario on producto.fk_usuario= usuario.id_usuario    inner join categoria on producto.fk_categoria = categoria.id_categoria    
+    where usuario.id_usuario !=`+id +` and producto.estado ='Sin Bloquear order by categoria.categoria ASC'`; 
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_producto": user[0],            
+            "producto": user[1],
+            "estado" : user[2],  
+            "fk_usuario": user[3] ,     
+            "precio": user[4],  
+            "detalle": user[5],  
+            "fk_categoria": user[6],
+            "foto":user[7],
+            "palabras": user[8],
+            "user_compra": user[9],
+            "nombre": user[10], 
+            "apellido": user[11],  
+            "categoria": user[12]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+////////////////////////////orden Ascendente de la Categoria lo visualiza el usuario cliente
+router.get('/api/producto/perfil_productos/orden/descendente/:id', async (req, res) => {
+    const {id}= req.params;
+    sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, producto.palabras, producto.user_compra, usuario.nombre, usuario.apellido, categoria.categoria    
+     from producto    inner join usuario on producto.fk_usuario= usuario.id_usuario    inner join categoria on producto.fk_categoria = categoria.id_categoria    
+    where usuario.id_usuario !=`+id +` and producto.estado ='Sin Bloquear order by categoria.categoria DESC'`; 
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_producto": user[0],            
+            "producto": user[1],
+            "estado" : user[2],  
+            "fk_usuario": user[3] ,     
+            "precio": user[4],  
+            "detalle": user[5],  
+            "fk_categoria": user[6],
+            "foto":user[7],
+            "palabras": user[8],
+            "user_compra": user[9],
+            "nombre": user[10], 
+            "apellido": user[11],  
+            "categoria": user[12]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+
+
+
+
+
+
+
+
+
+
 
 //obtengo todos los productos Creados por Mi 
 router.get('/api/producto/producto_mio/:id', async (req, res) => {
@@ -1019,9 +1100,9 @@ router.get('/api/chat/chat/:cli/:ven/:pro', async (req, res) => {
     sql = `select chat.id_chat,chat.mensaje,chat.fk_vendedor,chat.fk_cliente,chat.fk_producto,chat.fecha_creacion,
     usuario.nombre, usuario.apellido, usuario.foto
     from chat
-    inner join usuario on usuario.id_usuario = chat.fk_vendedor 
+    inner join usuario on usuario.id_usuario = chat.fk_cliente 
     where fk_vendedor=`+ven+` and fk_cliente =`+cli+` and fk_producto=`+pro+`  or 
-    fk_vendedor=`+cli+` and fk_cliente =`+ven+` and fk_producto=`+pro; 
+    fk_vendedor=`+cli+` and fk_cliente =`+ven+` and fk_producto=`+pro+' order by chat.id_chat ASC'; 
     let result = await BD.Open(sql, [], false);
     Users = [];
 
@@ -1045,6 +1126,51 @@ router.get('/api/chat/chat/:cli/:ven/:pro', async (req, res) => {
 })
 
 
+
+//Obtengo todas las conversaciones de cada producto... y solo necesito el id_usuario Logueado en el sistema
+router.get('/api/chat/obtener/todos/chats/:fk_vendedor', async (req, res) => {
+    const {fk_vendedor}= req.params;
+
+    sql = `select fk_cliente,chat.fk_producto, producto.producto, usuario.nombre, usuario.foto
+    from chat
+    inner join usuario on usuario.id_usuario = chat.fk_cliente 
+    inner join producto on producto.id_producto = chat.fk_producto  
+    where fk_vendedor=`+fk_vendedor+`   
+    GROUP  BY  fk_cliente,chat.fk_producto, producto.producto, usuario.nombre, usuario.foto` 
+    
+    console.log(sql);
+    
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "fk_cliente": user[0],            
+            "fk_producto": user[1],
+            "producto": user[2] ,     
+            "nombre": user[3],
+            "foto": user[4] 
+    }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////  DEnuncias
 
 //Creo una denuncia 
 router.post('/api/chat/chat/crear',async (req, res) => {

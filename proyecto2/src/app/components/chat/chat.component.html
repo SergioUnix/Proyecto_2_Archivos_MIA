@@ -5,10 +5,13 @@
           <div class="inbox_msg">
 
 
-            <div class="inbox_people">
-              <img src="https://tapsmart-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/group-imessages-1.png" class="bd-placeholder-img card-img-top" width="100" height="600"focusable="false" role="img">
-            </div>
-                 <!--        
+            
+
+
+
+
+
+
             <div class="inbox_people">
               <div class="headind_srch">
                 <div class="recent_heading">
@@ -23,79 +26,27 @@
                 </div>
               </div>
               <div class="inbox_chat">
-                <div class="chat_list active_chat">
-                  <div class="chat_people">
-                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                    <div class="chat_ib">
-                      <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                      <p>Test, which is a new approach to have all solutions 
-                        astrology under one roof.</p>
+
+
+                
+                <div class="chat_list btn-outline-dark my-2" >
+                  <div class="chat_people" >
+                    <div class="chat_img"> <img [src]="API_URI + usuario_propietario_producto.foto" alt="sunil"> </div>
+                    <div class="chat_ib "  >
+                      <h5 class="text-secondary" >{{usuario_propietario_producto.nombre}} <span class="chat_date">codigo</span></h5>
+                      <p> {{producto.producto}} </p>
                     </div>
                   </div>
                 </div>
-                <div class="chat_list">
-                  <div class="chat_people">
-                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                    <div class="chat_ib">
-                      <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                      <p>Test, which is a new approach to have all solutions 
-                        astrology under one roof.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="chat_list">
-                  <div class="chat_people">
-                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                    <div class="chat_ib">
-                      <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                      <p>Test, which is a new approach to have all solutions 
-                        astrology under one roof.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="chat_list">
-                  <div class="chat_people">
-                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                    <div class="chat_ib">
-                      <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                      <p>Test, which is a new approach to have all solutions 
-                        astrology under one roof.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="chat_list">
-                  <div class="chat_people">
-                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                    <div class="chat_ib">
-                      <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                      <p>Test, which is a new approach to have all solutions 
-                        astrology under one roof.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="chat_list">
-                  <div class="chat_people">
-                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                    <div class="chat_ib">
-                      <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                      <p>Test, which is a new approach to have all solutions 
-                        astrology under one roof.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="chat_list">
-                  <div class="chat_people">
-                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                    <div class="chat_ib">
-                      <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                      <p>Test, which is a new approach to have all solutions 
-                        astrology under one roof.</p>
-                    </div>
-                  </div>
-                </div>
+
+
+                
+
+
+              
               </div>
             </div>
-  -->
+  
            
 
 
@@ -104,16 +55,19 @@
 
                 <div class="incoming_msg" *ngFor="let men of mensajes">
                  
-                  <div class="incoming_msg_img"   *ngIf="men.fk_cliente == producto.fk_usuario; else false" > <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="incoming_msg_img"   *ngIf="men.fk_cliente == producto.fk_usuario; else false" > <img [src]="API_URI + men.foto" alt="sunil"> </div>
+                 
+                 
                   <div class="received_msg" *ngIf="men.fk_cliente == producto.fk_usuario; else false">                     
                     <div class="received_withd_msg">
-                      <p>{{men.nombre}} {{men.apellido}}</p>
+                      <p class="text-info" >{{men.nombre}} {{men.apellido}}</p>
                       <p>{{men.mensaje}}</p>
                       <span class="time_date"> {{men.fecha_creacion |date:"dd-MM-yyyy h:mm:ss a" }}</span></div>
                   </div>
 
                  <div class="outgoing_msg" *ngIf="men.fk_cliente == id_cliente; else false" >
                    <div class="sent_msg">
+                           <!--     <p>{{men.nombre}} {{men.apellido}}</p>   -->
                     <p>{{men.mensaje}}</p>
                     <span class="time_date"> {{men.fecha_creacion |date:"dd-MM-yyyy h:mm:ss a" }}</span>
                     </div>

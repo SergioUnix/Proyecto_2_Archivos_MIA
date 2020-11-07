@@ -326,6 +326,11 @@ crearCompra(){
      },
      err => console.error(err)
      );
+
+
+
+
+     
   
   }
 

@@ -15,6 +15,8 @@ import {PerfilUpdateComponent} from './components/perfil-update/perfil-update.co
 import {CarritoListaComponent} from './components/carrito-lista/carrito-lista.component';
 import {DenunciaListComponent} from './components/denuncia-list/denuncia-list.component';
 import {CategoriaCrearComponent} from './components/categoria-crear/categoria-crear.component';
+import {ChatAdminComponent} from './components/chat-admin/chat-admin.component';
+
 
 
 
@@ -90,6 +92,10 @@ const routes: Routes = [
   {
   path: 'categoria-crear',
   component: CategoriaCrearComponent
+  },
+  {
+  path: 'chat-admin',
+  component: ChatAdminComponent
   }
   
   

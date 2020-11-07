@@ -12,11 +12,14 @@
             <a class="btn btn-primary my-2" [routerLink]="['/carrito', id_usuario_logueado]">
               <i class="fas fa-cart-arrow-down"></i> Carrito
             </a>
-            <a href="#" class="btn btn-secondary my-2">mensaje</a>
+           
+
           </p>
           <div class="form-group">
             <input type="text" class="form-control" name="filterPost" placeholder="Search..." [(ngModel)]="filterPost">
         </div>
+        <a class="btn btn-outline-danger my-2" >    <i class="fas fa-braille"></i>   Orden por Categoria      </a>
+        <a class="btn btn-outline-danger my-2" >    <i class="fas fa-cart-plus"></i>   Orden por Precio      </a>
         </div>
       </section>
     

@@ -3,6 +3,7 @@ import {Route, Router, ActivatedRoute} from '@angular/router'; /// sierve para c
 import { Producto } from 'src/app/modelos/Producto';   //importo el tipo de dato,
 import { Denuncia } from 'src/app/modelos/Denuncia';   //importo el tipo de dato,
 import { Chat } from 'src/app/modelos/Chat';   //importo el tipo de dato,
+import { Usuario } from 'src/app/modelos/Usuario';   //importo el tipo de dato,
 import {ProductoService} from '../../servicios/producto.service'; ///importo el servicio
 import {UsuariosService} from '../../servicios/usuarios.service'; 
 import { NgForm } from '@angular/forms';
@@ -26,6 +27,8 @@ export class ChatComponent implements OnInit {
   id_producto=0;
   id_cliente=0;
   mensajes: any=[];
+
+  public API_URI='';
 
 
 //Aca se guarda la informacion del producto..
@@ -60,8 +63,21 @@ export class ChatComponent implements OnInit {
   };
 
 
-  edit:boolean =false;  ///si este esta en falso significa que quiero guardar un elemento, si esta en verdadero quiero actualizar un producto
-  accion: string='Agregar Producto';
+ usuario_propietario_producto: Usuario ={
+  id_usuario: 0,
+  nombre: '',
+  apellido: '',
+  correo: '',
+  contrasenia: '',
+  confirmacion: '',
+  nac: '',
+  pais: '',
+  foto: '',
+  creditos: '',
+  fk_tipo: 0
+}
+
+
 
   constructor (private usuariosService: UsuariosService,private productosService: ProductoService, private router: Router, private activatedRoute:ActivatedRoute) { }
 
@@ -85,8 +101,10 @@ const params =this.activatedRoute.snapshot.params;
       res =>{
         console.log(res)
         this.producto=res; ///cuando accedo ala ruta ,, aca hago el objeto con el id recibido y eso me muestra en visualizacion
-        this.edit= true;
-        this.accion='Actualizar Producto'
+
+        //aca capto el usuario dueño del producto
+        this.captoUsuario(this.producto.fk_usuario.toString())
+
         //mando a llamar los mensajes
         this.getMensajes();
         },
@@ -97,7 +115,8 @@ const params =this.activatedRoute.snapshot.params;
 }
 
 
-
+//sin socket
+this.sinSocket();
 
 
 
@@ -106,6 +125,21 @@ const params =this.activatedRoute.snapshot.params;
 
 
 
+
+
+    async captoUsuario(id:string){
+      if(id){        //este params.id me detecta el numero
+        await this.usuariosService.getUsuarioPorId(id)
+          .subscribe(
+          res =>{
+            console.log("usuario traido de una consulta")
+            this.usuario_propietario_producto=res; 
+            this.API_URI="http://localhost:3000/"
+          
+          },
+            err => console.error(err)
+          ) 
+    }}
 
 
 
@@ -131,10 +165,11 @@ const params =this.activatedRoute.snapshot.params;
 
 
     onPublicar(form:NgForm){
-  //   console.log( form);
+    //console.log( form);
+    
        if(form.valid){
      this.saveNewChat();
-    
+     form.resetForm();
      }else{
      this.Visualizar_Error2();
      }
@@ -183,9 +218,14 @@ const params =this.activatedRoute.snapshot.params;
     getMensajes(){   
      
       let id_cliente=Number(this.usuariosService.getSesionCod());
+      console.log(id_cliente)
+      console.log(this.producto.fk_usuario.toString())
+      console.log(this.id_producto.toString())
+
       this.productosService.getChats(id_cliente.toString(),this.producto.fk_usuario.toString(),this.id_producto.toString()).subscribe(  
         res => {
         this.mensajes= res;    ///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
+        this.API_URI='http://localhost:3000/';
         },
         err => console.error(err)
         );
@@ -193,6 +233,15 @@ const params =this.activatedRoute.snapshot.params;
 
 
 
+       sinSocket(){
+   
+        setTimeout(( ) =>{ 
+          
+          if(this.mensajes.length>0)  {
+            this.getMensajes(); }
+          
+          this.sinSocket();}   ,   3000);
+      }
 
 
 

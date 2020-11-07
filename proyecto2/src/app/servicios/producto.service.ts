@@ -25,6 +25,14 @@ getProductosAll(){
   return this.http.get(`${this.API_URI}/producto/perfil_productos/all`);
    }
 
+
+getProductosOrdenAscendente(id: string){
+return this.http.get(`${this.API_URI}/producto/perfil_productos/orden/ascendente/${id}`);
+}
+getProductosOrdenDescendente(id: string){
+  return this.http.get(`${this.API_URI}/producto/perfil_productos/orden/descendente/${id}`);
+   }
+
 //metodo para pedir productos que no son del usuario logueado
 getProductos(id: string){
 return this.http.get(`${this.API_URI}/producto/perfil_productos/${id}`);
@@ -231,13 +239,16 @@ sumaRestaCreditos(id_usuario:string,operacion:string,valor:string){
   return this.http.post(`${this.API_URI}/carrito/carrito-lista/suma/resta/creditos`, fd);  
 }
 
-
-
 //guardo una Categoria
 saveCategoria(categoria:Categoria){
   return this.http.post(`${this.API_URI}/categorias/categoria-crear/crear`, categoria);
   }
 
+
+  //obtengo todas las conversaciones de un vendedor....... dado solo el id_usuario
+getConversaciones(id_vendedor: string){
+  return this.http.get(`${this.API_URI}/chat/obtener/todos/chats/${id_vendedor}`);
+   }
 
 
 

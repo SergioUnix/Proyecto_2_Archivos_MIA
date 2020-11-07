@@ -1,1 +1,127 @@
-<p>chat-admin works!</p>
+
+<div class="container">
+    <h3 class=" text-center">Chats con clientes</h3>
+    <div class="messaging">
+          <div class="inbox_msg">
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+            <div class="inbox_people">
+              <div class="headind_srch">
+                <div class="recent_heading">
+                  <h4>Conversaciones</h4>
+                </div>
+                <div class="srch_bar">
+                  <div class="stylish-input-group">
+                    <input type="text" class="search-bar"  placeholder="Search" >
+                    <span class="input-group-addon">
+                    <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                    </span> </div>
+                </div>
+              </div>
+
+
+
+              <div class="inbox_chat"  >
+
+               
+                <div class="chat_list btn-outline-dark my-2" *ngFor="let user of conversaciones" >
+                  <div class="chat_people" (click)='getMensajes(user.fk_cliente,user.fk_producto)'>
+                    <div class="chat_img"> <img [src]="API_URI + user.foto" alt="sunil"> </div>
+                    <div class="chat_ib "  >
+                      <h5 class="text-secondary" >{{user.nombre}}<span class="chat_date">Cod producto {{user.fk_producto}}</span></h5>
+                      <p>{{user.producto}} </p>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+              </div>
+            </div>
+
+           
+
+
+
+            <div class="mesgs">
+              <div class="msg_history">
+
+                <div class="incoming_msg" *ngFor="let men of mensajes">
+                 
+                  <div class="incoming_msg_img"   *ngIf="men.fk_cliente != id_cliente; else false" > <img [src]="API_URI + men.foto" alt="sunil"> </div>
+                 
+                 
+                  <div class="received_msg" *ngIf="men.fk_cliente != id_cliente; else false">                     
+                    <div class="received_withd_msg">
+                      <p class="text-info" >{{men.nombre}} {{men.apellido}}</p>
+                      <p>{{men.mensaje}}</p>
+                      <span class="time_date"> {{men.fecha_creacion |date:"dd-MM-yyyy h:mm:ss a" }}</span></div>
+                  </div>
+
+                 <div class="outgoing_msg" *ngIf="men.fk_cliente == id_cliente; else false" >
+                   <div class="sent_msg">
+                           <!--     <p>{{men.nombre}} {{men.apellido}}</p>   -->
+                    <p>{{men.mensaje}}</p>
+                    <span class="time_date"> {{men.fecha_creacion |date:"dd-MM-yyyy h:mm:ss a" }}</span>
+                    </div>
+                 </div>
+
+                </div>
+
+
+
+              <br>
+              <br>
+
+
+
+              <div class="type_msg">
+                 <form #formPubli="ngForm" (ngSubmit)="onPublicar(formPubli)">
+                  <div class="form-group">
+                      
+                      <input id="nombre" name="nombre" class="form-group col-md-10" type="text" placeholder="comentario"
+                          [(ngModel)]="chat.mensaje" required autocomplete="off" #nombre="ngModel" required minlength="1"
+                          maxlength="300"><button type="submit" class="btn btn-outline-info my-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                      <small id="emailHelp" class="form-text text-muted">Escribe un comentario no mayor a 300 caracteres</small>
+                      <div class="alert alert-danger" role="alert" *ngIf="nombre.touched && !nombre.valid">
+                          <div *ngIf="nombre.errors.required">
+                              <h6>Campo Obligatorio</h6>
+                          </div>
+                          <div *ngIf="nombre.errors.minlength">
+                              <h6>Campo tiene menos de 1 caracteres</h6>
+                          </div>
+              
+                      </div>
+                  </div>
+                  
+                </form>
+              </div>
+
+
+
+              
+
+
+
+
+
+              </div>
+            </div>
+          </div>
+          
+         
+          <p class="text-center top_spac"> Chat <a target="_blank" href="#">Cliente / Vendedor</a></p>
+          
+        </div></div>

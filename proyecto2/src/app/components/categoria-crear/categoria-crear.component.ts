@@ -51,6 +51,7 @@ onDenunciar(form:NgForm){
   // console.log( form);
  if(form.valid){
  this.saveNewCategoria();
+ form.resetForm();
 
  }else{
    this.mensaje_error();
