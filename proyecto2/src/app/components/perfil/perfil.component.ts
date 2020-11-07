@@ -22,6 +22,10 @@ export class PerfilComponent implements OnInit {
 
   public isExito=false; 
 
+
+  public esCategoria=false; 
+  public esPrecio=false; 
+
   //usuarios de todo el sistema
   TodosLosproductos: any=[];
 
@@ -116,6 +120,63 @@ export class PerfilComponent implements OnInit {
         err => console.error(err)
       );
        }
+
+
+
+       productosOrdenAscendente(){    //mando a llamar productos que no fueron creados por el usuario logueado
+        let  id= this.usuariosService.getSesionCod();
+        this.productosService.getProductosOrdenAscendente(id).subscribe(  /// 
+          res => {
+            console.log(res)
+            this.productos = res;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
+            this.esPrecio=false;
+            this.esCategoria=true;
+           },
+          err => console.error(err)
+        );
+         }
+
+
+         productosOrdenDescendente(){    //mando a llamar productos que no fueron creados por el usuario logueado
+          let  id= this.usuariosService.getSesionCod();
+          this.productosService.getProductosOrdenDescendente(id).subscribe(  /// 
+            res => {
+              this.productos = res;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
+              this.esPrecio=false;
+              this.esCategoria=true;
+             },
+            err => console.error(err)
+          );
+           }
+
+
+
+           productosOrdenAscendentePrecio(){    //mando a llamar productos que no fueron creados por el usuario logueado
+            let  id= this.usuariosService.getSesionCod();
+            this.productosService.getProductosOrdenAscendentePrecio(id).subscribe(  /// 
+              res => {
+                console.log(res)
+                this.productos = res;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
+                this.esCategoria=false;
+                this.esPrecio=true;
+               },
+              err => console.error(err)
+            );
+             }
+    
+    
+             productosOrdenDescendentePrecio(){    //mando a llamar productos que no fueron creados por el usuario logueado
+              let  id= this.usuariosService.getSesionCod();
+              this.productosService.getProductosOrdenDescendentePrecio(id).subscribe(  /// 
+                res => {
+                  this.productos = res;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
+                  this.esCategoria=false;
+                  this.esPrecio=true;
+
+                 },
+                err => console.error(err)
+              );
+               }
 
 
 

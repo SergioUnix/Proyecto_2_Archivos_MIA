@@ -496,7 +496,7 @@ router.get('/api/producto/perfil_productos/orden/ascendente/:id', async (req, re
     const {id}= req.params;
     sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, producto.palabras, producto.user_compra, usuario.nombre, usuario.apellido, categoria.categoria    
      from producto    inner join usuario on producto.fk_usuario= usuario.id_usuario    inner join categoria on producto.fk_categoria = categoria.id_categoria    
-    where usuario.id_usuario !=`+id +` and producto.estado ='Sin Bloquear order by categoria.categoria ASC'`; 
+    where usuario.id_usuario !=`+id +` and producto.estado ='Sin Bloquear' order by categoria.categoria ASC`; 
 
     let result = await BD.Open(sql, [], false);
     Users = [];
@@ -525,12 +525,85 @@ router.get('/api/producto/perfil_productos/orden/ascendente/:id', async (req, re
 })
 
 
+
+////////////////////////////orden Ascendente por precio  lo visualiza el usuario cliente
+router.get('/api/producto/perfil_productos/orden/ascendente/precio/:id', async (req, res) => {
+    const {id}= req.params;
+    sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, producto.palabras, producto.user_compra, usuario.nombre, usuario.apellido, categoria.categoria    
+     from producto    inner join usuario on producto.fk_usuario= usuario.id_usuario    inner join categoria on producto.fk_categoria = categoria.id_categoria    
+    where usuario.id_usuario !=`+id +` and producto.estado ='Sin Bloquear' order by producto.precio ASC`; 
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_producto": user[0],            
+            "producto": user[1],
+            "estado" : user[2],  
+            "fk_usuario": user[3] ,     
+            "precio": user[4],  
+            "detalle": user[5],  
+            "fk_categoria": user[6],
+            "foto":user[7],
+            "palabras": user[8],
+            "user_compra": user[9],
+            "nombre": user[10], 
+            "apellido": user[11],  
+            "categoria": user[12]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+
+////////////////////////////orden Descendente del precio lo visualiza el usuario cliente
+router.get('/api/producto/perfil_productos/orden/descendente/precio/:id', async (req, res) => {
+    const {id}= req.params;
+    sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, producto.palabras, producto.user_compra, usuario.nombre, usuario.apellido, categoria.categoria    
+     from producto    inner join usuario on producto.fk_usuario= usuario.id_usuario    inner join categoria on producto.fk_categoria = categoria.id_categoria    
+    where usuario.id_usuario !=`+id +` and producto.estado ='Sin Bloquear' order by producto.precio DESC`; 
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_producto": user[0],            
+            "producto": user[1],
+            "estado" : user[2],  
+            "fk_usuario": user[3] ,     
+            "precio": user[4],  
+            "detalle": user[5],  
+            "fk_categoria": user[6],
+            "foto":user[7],
+            "palabras": user[8],
+            "user_compra": user[9],
+            "nombre": user[10], 
+            "apellido": user[11],  
+            "categoria": user[12]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+
+
+
 ////////////////////////////orden Ascendente de la Categoria lo visualiza el usuario cliente
 router.get('/api/producto/perfil_productos/orden/descendente/:id', async (req, res) => {
     const {id}= req.params;
     sql = `Select id_producto,producto,estado,fk_usuario,precio,detalle,fk_categoria, producto.foto, producto.palabras, producto.user_compra, usuario.nombre, usuario.apellido, categoria.categoria    
      from producto    inner join usuario on producto.fk_usuario= usuario.id_usuario    inner join categoria on producto.fk_categoria = categoria.id_categoria    
-    where usuario.id_usuario !=`+id +` and producto.estado ='Sin Bloquear order by categoria.categoria DESC'`; 
+    where usuario.id_usuario !=`+id +` and producto.estado ='Sin Bloquear' order by categoria.categoria DESC`; 
 
     let result = await BD.Open(sql, [], false);
     Users = [];

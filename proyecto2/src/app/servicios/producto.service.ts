@@ -33,6 +33,17 @@ getProductosOrdenDescendente(id: string){
   return this.http.get(`${this.API_URI}/producto/perfil_productos/orden/descendente/${id}`);
    }
 
+
+
+   getProductosOrdenAscendentePrecio(id: string){
+    return this.http.get(`${this.API_URI}/producto/perfil_productos/orden/ascendente/precio/${id}`);
+    }
+    getProductosOrdenDescendentePrecio(id: string){
+      return this.http.get(`${this.API_URI}/producto/perfil_productos/orden/descendente/precio/${id}`);
+       }
+
+
+
 //metodo para pedir productos que no son del usuario logueado
 getProductos(id: string){
 return this.http.get(`${this.API_URI}/producto/perfil_productos/${id}`);
