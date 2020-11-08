@@ -264,7 +264,29 @@ getConversaciones(id_vendedor: string){
 
 
 
+getReporte2(){
+  return this.http.get(`${this.API_URI}/reportes/componente/reporte/reporte/2/obtener`);
+}
 
+getReporte3(){
+  return this.http.get(`${this.API_URI}/reportes/componente/reporte/reporte/3/obtener`);
+}
+getReporte4(){
+  return this.http.get(`${this.API_URI}/reportes/componente/reporte/reporte/4/obtener`);
+}
+getReporte5(){
+  return this.http.get(`${this.API_URI}/reportes/componente/reporte/reporte/5/obtener`);
+}
+getReporte6(){
+  return this.http.get(`${this.API_URI}/reportes/componente/reporte/reporte/6/obtener`);
+}
+getReporte7(){
+  return this.http.get(`${this.API_URI}/reportes/componente/reporte/reporte/7/obtener`);
+}
+
+getReporte8(){
+  return this.http.get(`${this.API_URI}/reportes/componente/reporte/reporte/8/obtener`);
+}
 
 
 

@@ -16,6 +16,7 @@ import {CarritoListaComponent} from './components/carrito-lista/carrito-lista.co
 import {DenunciaListComponent} from './components/denuncia-list/denuncia-list.component';
 import {CategoriaCrearComponent} from './components/categoria-crear/categoria-crear.component';
 import {ChatAdminComponent} from './components/chat-admin/chat-admin.component';
+import {ReporteComponent} from './components/reporte/reporte.component';
 
 
 
@@ -96,6 +97,10 @@ const routes: Routes = [
   {
   path: 'chat-admin',
   component: ChatAdminComponent
+  },
+  {
+  path: 'reporte/:id',
+  component: ReporteComponent
   }
   
   

@@ -30,7 +30,8 @@ import { CarritoListaComponent } from './components/carrito-lista/carrito-lista.
 import { FacturaFormComponent } from './components/factura-form/factura-form.component';
 import { PerfilUpdateComponent } from './components/perfil-update/perfil-update.component';
 import { FilterPipe2 } from './pipes/filtro2.pipe';
-import { ChatAdminComponent } from './components/chat-admin/chat-admin.component'; /// instancio el servicio
+import { ChatAdminComponent } from './components/chat-admin/chat-admin.component';
+import { ReporteComponent } from './components/reporte/reporte.component'; /// instancio el servicio
 
 
 ////importo pipes
@@ -61,6 +62,7 @@ import { ChatAdminComponent } from './components/chat-admin/chat-admin.component
     PerfilUpdateComponent,
     FilterPipe2,
     ChatAdminComponent,
+    ReporteComponent,
   
 
 

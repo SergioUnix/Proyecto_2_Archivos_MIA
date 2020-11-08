@@ -1549,4 +1549,215 @@ router.post('/api/categorias/categoria-crear/crear',async (req, res) => {
 
 
 
+
+//////////////////////////////////////////////////////////////////////////////////////         Reportes 
+
+
+////////////////////////////Reporte 2
+router.get('/api/reportes/componente/reporte/reporte/2/obtener', async (req, res) => {
+    sql = `  select  producto.producto, usuario.nombre, SUM(detalle.cantidad) as cantidad
+    from detalle
+    inner join producto on producto.id_producto=detalle.fk_producto
+    inner join usuario on usuario.id_usuario=producto.fk_usuario
+    WHERE ROWNUM <= 10
+    group by producto.producto, usuario.nombre
+    order by cantidad DESC`; 
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "producto": user[0],
+            "nombre" : user[1],  
+            "cantidad": user[2] 
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+
+//////////////////////////// Reporte 3
+router.get('/api/reportes/componente/reporte/reporte/3/obtener', async (req, res) => {
+    sql = `select nombre,producto,cantidad from (
+        select usuario.nombre as nombre, producto.producto as producto,  count(likes.fk_producto) as cantidad
+            from likes
+            inner join producto on producto.id_producto=likes.fk_producto
+            inner join usuario on usuario.id_usuario=producto.fk_usuario   
+            group by usuario.nombre, producto.producto
+            order by cantidad DESC
+            ) WHERE ROWNUM <= 10`; 
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "nombre": user[0],
+            "producto" : user[1],  
+            "cantidad": user[2] 
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+//////////////////////////// Reporte 4
+router.get('/api/reportes/componente/reporte/reporte/4/obtener', async (req, res) => {
+    sql = `SELECT nombre, producto, cantidad FROM (
+        select usuario.nombre as nombre, producto.producto as producto,  count(Dislikes.fk_producto) as cantidad
+           from Dislikes
+           inner join producto on producto.id_producto=Dislikes.fk_producto
+           inner join usuario on usuario.id_usuario=producto.fk_usuario  
+           group by usuario.nombre, producto.producto
+           order by cantidad DESC
+       )WHERE ROWNUM <=10 `; 
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "nombre": user[0],
+            "producto" : user[1],  
+            "cantidad": user[2] 
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+
+//////////////////////////// Reporte 5
+router.get('/api/reportes/componente/reporte/reporte/5/obtener', async (req, res) => {
+    sql = `select nombre, correo, nac, creditos from(
+        select usuario.nombre as nombre, usuario.correo as correo, usuario.nac as nac, usuario.creditos as creditos  from usuario order by usuario.creditos DESC
+        )  WHERE ROWNUM < 6
+         union
+        select nombre2, correo2, nac2, creditos2 from(
+        select usuario.nombre as nombre2, usuario.correo as correo2, usuario.nac as nac2, usuario.creditos as creditos2  from usuario order by usuario.creditos ASC
+        )  WHERE ROWNUM < 6`; 
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "nombre": user[0],
+            "correo": user[1],
+            "nac": user[2],
+            "creditos" : user[3]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+
+
+
+//////////////////////////// Reporte 6
+router.get('/api/reportes/componente/reporte/reporte/6/obtener', async (req, res) => {
+    sql = `select nombre, correo, nac, total from (
+        select usuario.nombre as nombre, usuario.correo as correo, usuario.nac as nac, count(denuncia.fk_usuario) total 
+        from denuncia
+        inner join usuario on usuario.id_usuario = denuncia.fk_usuario
+        group by nombre, correo, nac order by total DESC
+        ) WHERE ROWNUM <=10 `; 
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "nombre": user[0],
+            "correo": user[1],
+            "nac": user[2],
+            "total" : user[3]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+
+
+
+//////////////////////////// Reporte 7
+router.get('/api/reportes/componente/reporte/reporte/7/obtener', async (req, res) => {
+    sql = `select nombre, correo, creditos, cantidad from (
+        select usuario.nombre as nombre, usuario.correo as correo, usuario.creditos as creditos, count(producto.fk_usuario) as cantidad
+        from producto
+        inner join usuario on usuario.id_usuario = producto.fk_usuario
+        group by usuario.nombre, usuario.correo, usuario.creditos 
+        order by cantidad DESC
+        ) WHERE ROWNUM <=10`; 
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "nombre": user[0],
+            "correo": user[1],
+            "creditos": user[2],
+            "cantidad" : user[3]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+
+
+//////////////////////////// Reporte 8
+router.get('/api/reportes/componente/reporte/reporte/8/obtener', async (req, res) => {
+    sql = `select  pais as pais , sum(creditos_producto) as creditos_pais, sum(cantidad_productos) as total_productos  from( 
+        select usuario.nombre as nombre, usuario.pais as pais, producto.producto as producto, 
+         sum(producto.precio) as creditos_producto,   count(producto.fk_usuario) as cantidad_productos
+        from producto
+        inner join usuario on usuario.id_usuario = producto.fk_usuario
+        group by usuario.nombre,usuario.pais, producto.producto 
+        ) group by pais`; 
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "pais": user[0],
+            "credito_pais": user[1],
+            "total_productos": user[2]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+
+
+
+
 module.exports = router;

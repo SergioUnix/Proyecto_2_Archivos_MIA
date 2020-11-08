@@ -77,7 +77,7 @@ export class NavigationComponent implements OnInit {
       this.cliente_funcion=true;
    
     } else if(this.usuariosService.getSesionTipo()=='2') {
-      this.admin_funcion = true; 
+      this.admin_funcion = false; 
       this.cliente_funcion=true;
         
     }}

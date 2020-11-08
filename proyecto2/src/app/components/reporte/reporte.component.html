@@ -1,0 +1,213 @@
+<a class="btn btn-danger my-2" [routerLink]="['/perfil']">
+    <i class="fas fa-backward"></i> Perfil
+</a>
+<br><br>
+
+
+ <h1 *ngIf="reporte2">Reporte  <span class="badge badge-secondary">2</span></h1>
+ <h5 *ngIf="reporte2">Top 10 de productos más vendidos: <span class="badge badge-secondary">contendrá el nombre del producto que más ha sido
+    vendido, así como el cliente que lo puso a la venta y la cantidad de veces que se vendió el
+    producto.   </span></h5>
+<table class="table"   *ngIf="reporte2">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Producto</th>
+        <th scope="col">Nombre Dueño</th>
+        <th scope="col">Cantidad</th>
+      </tr>
+
+    </thead>
+    <tbody>
+
+      <tr  *ngFor="let res of arreglo" >
+       <th >{{res.producto}} </th>
+       <th >{{res.nombre}} </th>
+       <th >{{res.cantidad}} </th>
+      </tr>  
+
+    </tbody>
+
+  </table>
+
+
+  
+  <h1 *ngIf="reporte3">Reporte  <span class="badge badge-secondary">3</span></h1>
+  <h5 *ngIf="reporte3">Top 10 de productos que más “me gusta” han tenido: <span class="badge badge-secondary">Se mostraran los productos que más
+    “me gusta” han tenido, así como el cliente que lo está vendiendo, el nombre del producto y
+    la cantidad de me gusta.   </span></h5>
+ <table class="table"   *ngIf="reporte3">
+     <thead class="thead-dark">
+       <tr>
+         <th scope="col">Nombre Dueño</th>
+         <th scope="col">Nombre Producto</th>
+         <th scope="col">Cantidad de Megusta</th>
+       </tr>
+ 
+     </thead>
+     <tbody>
+ 
+       <tr  *ngFor="let res of arreglo" >
+        <th >{{res.nombre}} </th>
+        <th >{{res.producto}} </th>
+        <th >{{res.cantidad}} </th>
+       </tr>  
+ 
+     </tbody>
+ 
+   </table>
+
+
+
+
+
+   <h1 *ngIf="reporte4">Reporte  <span class="badge badge-secondary">4</span></h1>
+   <h5 *ngIf="reporte4">Top 10 productos con más “no me gusta” han tenido: <span class="badge badge-secondary">Se mostrarán los productos que más
+    “no me gusta” han tenido, así como el cliente que lo está vendiendo, el nombre del
+    producto y la cantidad de no me gusta.  </span></h5>
+  <table class="table"   *ngIf="reporte4">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Nombre Dueño</th>
+          <th scope="col">Nombre Producto</th>
+          <th scope="col">Cantidad de No me gusta</th>
+        </tr>
+  
+      </thead>
+      <tbody>
+  
+        <tr  *ngFor="let res of arreglo" >
+         <th >{{res.nombre}} </th>
+         <th >{{res.producto}} </th>
+         <th >{{res.cantidad}} </th>
+        </tr>  
+  
+      </tbody>
+  
+    </table>
+ 
+
+
+
+    <h1 *ngIf="reporte5">Reporte  <span class="badge badge-secondary">5</span></h1>
+    <h5 *ngIf="reporte5">Top 10 clientes con más y menos créditos: <span class="badge badge-secondary">Se mostrará el nombre, correo, fecha de nacimientos y la
+        cantidad de créditos que tiene el cliente.  </span></h5>
+   <table class="table"   *ngIf="reporte5">
+       <thead class="thead-dark">
+         <tr>
+           <th scope="col">Nombre Cliente</th>
+           <th scope="col">Correo</th>
+           <th scope="col">Fecha Nacimiento</th>
+           <th scope="col">Creditos</th>
+         </tr>
+   
+       </thead>
+       <tbody>
+   
+         <tr  *ngFor="let res of arreglo" >
+          <th >{{res.nombre}} </th>
+          <th >{{res.correo}} </th>
+          <th >{{res.nac | date: 'dd-MM-yyyy'}} </th>
+          <th >{{res.creditos}} </th>
+         </tr>  
+   
+       </tbody>
+   
+     </table>
+
+
+
+
+
+
+
+
+     <h1 *ngIf="reporte6">Reporte  <span class="badge badge-secondary">6</span></h1>
+     <h5 *ngIf="reporte6">Top 10 clientes que más denuncias han hecho: <span class="badge badge-secondary">Se mostrará el nombre, correo, fecha de nacimientos
+        y la cantidad de denuncias que ha hecho.  </span></h5>
+    <table class="table"   *ngIf="reporte6">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Nombre Cliente</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Fecha Nacimiento</th>
+            <th scope="col">Cantidad de denuncias</th>
+          </tr>
+    
+        </thead>
+        <tbody>
+    
+          <tr  *ngFor="let res of arreglo" >
+           <th >{{res.nombre}} </th>
+           <th >{{res.correo}} </th>
+           <th >{{res.nac | date: 'dd-MM-yyyy'}} </th>
+           <th >{{res.total}} </th>
+          </tr>  
+    
+        </tbody>
+    
+      </table>
+
+
+
+
+
+
+
+
+      <h1 *ngIf="reporte7">Reporte  <span class="badge badge-secondary">7</span></h1>
+      <h5 *ngIf="reporte7">Top 10 clientes que más publicaciones han hecho: <span class="badge badge-secondary">Se mostrar nombre, correo, crédito y la cantidad
+        de productos que tienen a la venta.  </span></h5>
+     <table class="table"   *ngIf="reporte7">
+         <thead class="thead-dark">
+           <tr>
+             <th scope="col">Nombre Cliente</th>
+             <th scope="col">Correo</th>
+             <th scope="col">Creditos</th>
+             <th scope="col">Cantidad de Productos Publicados</th>
+           </tr>
+     
+         </thead>
+         <tbody>
+     
+           <tr  *ngFor="let res of arreglo" >
+            <th >{{res.nombre}} </th>
+            <th >{{res.correo}} </th>
+            <th >{{res.creditos}} </th>
+            <th >{{res.cantidad}} </th>
+           </tr>  
+     
+         </tbody>
+     
+       </table>
+
+
+
+
+
+
+
+
+     <h1 *ngIf="reporte8">Reporte  <span class="badge badge-secondary">8</span></h1>
+      <h5 *ngIf="reporte8">Top 10 de países con más crédito y productos a la venta: <span class="badge badge-secondary">Se agruparán a los clientes por países y se
+        sumaran sus créditos y los productos que tengan, y se mostraran los campos país, cantidad
+        producto, cantidad de crédito y cantidad de clientes que hay en ese país.  </span></h5>
+     <table class="table"   *ngIf="reporte8">
+         <thead class="thead-dark">
+           <tr>
+             <th scope="col">Pais</th>
+             <th scope="col">Creditos del pais</th>
+             <th scope="col">Total de productos</th>
+           </tr>
+     
+         </thead>
+         <tbody>
+     
+           <tr  *ngFor="let res of arreglo" >
+            <th >{{res.pais}} </th>
+            <th >{{res.creditos_pais}} </th>
+            <th >{{res.total_productos}} </th>
+           </tr>  
+     
+         </tbody>
+     
+       </table>
