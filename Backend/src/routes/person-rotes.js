@@ -948,8 +948,8 @@ router.get('/api/Dislikes/detalle/:id', async (req, res) => {
 router.get('/api/likes/detalle/verifico/:id/:cod', async (req, res) => {
     const {id}= req.params;
     const {cod}=req.params;
-    sql = `select * from likes where fk_usuario=`+id+ `and fk_producto=`+cod; 
-
+    sql = `select * from likes where fk_usuario=`+id+ ` and fk_producto=`+cod; 
+    console.log(sql)
     let result = await BD.Open(sql, [], false);
     Users = [];
     result.rows.map(user => {
@@ -965,6 +965,30 @@ router.get('/api/likes/detalle/verifico/:id/:cod', async (req, res) => {
 
     res.send(Users);
 })
+
+//Si devuelve un arreglo mayor a 0 significa que el usuario ya hizo DISLIKE ES DIFERENTE QUE EL DE ARRIBA
+router.get('/api/likes/detalle/verifico/dislike/:id/:cod', async (req, res) => {
+    const {id}= req.params;
+    const {cod}=req.params;
+    sql = `select * from Dislikes where fk_usuario=`+id+ ` and fk_producto=`+cod; 
+    console.log(sql)
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+    result.rows.map(user => {
+        let userSchema = {
+            "id_Dislikes": user[0],
+            "fecha_creacion": user[1],
+            "fk_producto": user[2],
+            "fk_usuario": user[3]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
 
 //Creo un like 
 router.post('/api/likes/detalle/crear',async (req, res) => {
@@ -1553,6 +1577,63 @@ router.post('/api/categorias/categoria-crear/crear',async (req, res) => {
 //////////////////////////////////////////////////////////////////////////////////////         Reportes 
 
 
+
+//////////////////////////// Reporte 1  Descendente
+router.get('/api/reportes/componente/reporte/reporte/1/obtener/des', async (req, res) => {
+    sql = `select bitacora.id_bitacora,bitacora.descripcion, bitacora.tipo, bitacora.fecha_creacion, usuario.id_usuario, usuario.nombre, usuario.apellido
+    from bitacora
+    inner join usuario on usuario.id_usuario= bitacora.fk_usuario
+    order by bitacora.fecha_creacion DESC`; 
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_bitacora": user[0],
+            "descripcion": user[1],
+            "tipo": user[2],
+            "fecha_creacion": user[3],
+            "id_usuario": user[4],
+            "nombre": user[5],
+            "apellido": user[6],
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
+//////////////////////////// Reporte 1  Ascendente
+router.get('/api/reportes/componente/reporte/reporte/1/obtener', async (req, res) => {
+    sql = `select bitacora.id_bitacora,bitacora.descripcion, bitacora.tipo, bitacora.fecha_creacion, usuario.id_usuario, usuario.nombre, usuario.apellido
+    from bitacora
+    inner join usuario on usuario.id_usuario= bitacora.fk_usuario
+    order by bitacora.fecha_creacion ASC`; 
+
+    let result = await BD.Open(sql, [], false);
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "id_bitacora": user[0],
+            "descripcion": user[1],
+            "tipo": user[2],
+            "fecha_creacion": user[3],
+            "id_usuario": user[4],
+            "nombre": user[5],
+            "apellido": user[6],
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.send(Users);
+})
+
+
 ////////////////////////////Reporte 2
 router.get('/api/reportes/componente/reporte/reporte/2/obtener', async (req, res) => {
     sql = `  select  producto.producto, usuario.nombre, SUM(detalle.cantidad) as cantidad
@@ -1753,6 +1834,31 @@ router.get('/api/reportes/componente/reporte/reporte/8/obtener', async (req, res
     })
 
     res.send(Users);
+})
+
+
+///////////////////////////////////////////////////////////////////////////////////////////    Bitacora
+
+// Guardar Una accion por parte de cualquier usuario
+router.post('/api/bitacora/guardar/accion/en/todo/el/programa',uploadImage,async (req, res) => {
+    const {descripcion,tipo,fk_usuario} = req.body;
+    console.log(req.body)
+    sql = `INSERT into bitacora (descripcion,tipo,fk_usuario) values(:descripcion, :tipo, :fk_usuario)`
+    console.log(sql)     
+     
+     await BD.Open(sql, [descripcion,tipo,fk_usuario], true)
+     .then ( (res) =>{
+         console.log(res); res.statusCode=200;
+     },
+     (err) =>{console.log(err); res.statusCode=500;}
+     ); 
+  
+     res.json({
+         "descripcion":descripcion,
+         "tipo":tipo,
+         "fk_usuario":fk_usuario         
+     })
+
 })
 
 

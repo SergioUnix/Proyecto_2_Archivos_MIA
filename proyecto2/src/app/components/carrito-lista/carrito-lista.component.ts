@@ -292,7 +292,12 @@ crearCompra(){
         await this.enviarCorreoCompraVenta(this.usuario.correo,'Compra en SalesGT',mensaje2);
         await this.quitarTodoCarrito();
         await this.sumarRestarCreditos(this.usuario.id_usuario.toString(),'-',this.totalCompra.toString()); ///resto el total de compra a los creditos actuales del que va a comprar
-    
+    //////////////////////////////////////////////////////////
+    let descripcion ='Este usuario '+this.usuario.nombre+' cacaba de realizar una compra en GTSales';
+    let tipo='Compra';
+    this.crearAccion(descripcion,tipo,this.usuario.id_usuario.toString());
+//////////////////////////////////////////////////////////
+
     //this.correoVendedor
     setTimeout(( ) =>{location.reload();  }   ,   5000);
      },
@@ -360,6 +365,13 @@ crearCompra(){
 
 
 
+///////////////////////guardo acciones para la Bitacora
+crearAccion(descripcion:string, tipo:string, usuario:string){   
+  this.productosService.saveAccion(descripcion,tipo,usuario)
+  .subscribe(
+  res=> {     console.log('accion registrada en bitacora')      },
+  err=>{                                                        })
+}
 
 
 

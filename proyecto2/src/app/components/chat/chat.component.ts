@@ -134,8 +134,10 @@ this.sinSocket();
           res =>{
             console.log("usuario traido de una consulta")
             this.usuario_propietario_producto=res; 
-            this.API_URI="http://localhost:3000/"
-          
+            
+            //// setear la variable del serverDir  , esto se hace para la aplicacion Android ...
+           this.API_URI=this.usuariosService.getServerDir()+'/';
+
           },
             err => console.error(err)
           ) 
@@ -188,6 +190,15 @@ this.sinSocket();
       this.productosService.saveChat(this.chat)
         .subscribe(
           res=> {
+
+//////////////////////////////////////////////////////////
+let descripcion ='El usuario envio el siguiente mensaje '+this.chat.mensaje;
+let tipo='Chat';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
+
+
             console.log(res);
             this.getMensajes();
           },
@@ -207,7 +218,13 @@ this.sinSocket();
 
 
 
-
+///////////////////////guardo acciones para la Bitacora
+crearAccion(descripcion:string, tipo:string, usuario:string){   
+  this.productosService.saveAccion(descripcion,tipo,usuario)
+  .subscribe(
+  res=> {     console.log('accion registrada en bitacora')      },
+  err=>{                                                        })
+}
 
 
 
@@ -225,7 +242,11 @@ this.sinSocket();
       this.productosService.getChats(id_cliente.toString(),this.producto.fk_usuario.toString(),this.id_producto.toString()).subscribe(  
         res => {
         this.mensajes= res;    ///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
-        this.API_URI='http://localhost:3000/';
+       
+          //// setear la variable del serverDir  , esto se hace para la aplicacion Android ...
+          this.API_URI=this.usuariosService.getServerDir()+'/';
+
+
         },
         err => console.error(err)
         );

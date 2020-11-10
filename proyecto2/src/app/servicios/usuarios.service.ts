@@ -11,10 +11,14 @@ import { Router } from '@angular/router';
 })
 export class UsuariosService {
   // Creo una variable con mi dirección
+ // API_URI = 'http://6f78e4fc0087.ngrok.io/api';  // este es para la aplicacion Android  
   //API_URI = 'http://localhost:3000/api';
+  
   API_URI = '/api';
+  
+  
   public logeado=null;   ///me dice si el usuario esta loogeado
-
+  public serverDir ='';
 
   usuario: Usuario ={
     id_usuario: 0,
@@ -41,11 +45,14 @@ setSesion(usuariorecibido:Usuario){
   localStorage.setItem("usuario", JSON.stringify(this.usuario)) /// guardo en el localhost mi variable usuario de tipo Usuario
  
 }
+
+
 OutSesion(){ 
 localStorage.setItem("id_usuario", '');
 localStorage.setItem("nombre", '');
 localStorage.setItem("fk_tipo", '');
-localStorage.setItem("usuario", '')
+localStorage.setItem("usuario", '');
+localStorage.setItem("serverDir", '');
   this.logeado=null;
 
   this.router.navigate(['/login']);
@@ -82,6 +89,21 @@ setlog(){
   this.logeado=true;
 }
 
+
+///ingresar la variable severDir al localHost
+setServerDir(serverDir:string){
+  localStorage.setItem("serverDir", serverDir);
+}
+
+getServerDir(){
+  let server= localStorage.getItem("serverDir");
+  return server;
+}
+
+
+
+
+
 //metodo para logearse
 loginUsuario(correo: string, pass:string ){
   return this.http.get(`${this.API_URI}/usuario/${correo}/${pass}`);
@@ -90,7 +112,7 @@ loginUsuario(correo: string, pass:string ){
   //recupero un usuario por medio del correo..... sirve para la recuperacion de contrasenia
 recuperarUsuario(correo: string){
   return this.http.get(`${this.API_URI}/usuario/recuperar/recuperar/${correo}`);
-  }
+}
 
 
 //metodo para guardar 

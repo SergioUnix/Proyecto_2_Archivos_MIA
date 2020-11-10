@@ -1,4 +1,7 @@
 <main role="main" class="container my-auto">
+    <a class="btn btn-info my-2" (click)='refrescar()'>
+        <i class="fas fa-sync-alt"></i>
+    </a>
     <div class="row">
         <div id="login" class="col-lg-4 offset-lg-4 col-md-6 offset-md-3
             col-12">
@@ -14,6 +17,14 @@
 
             
             <img class="img-fluid mx-auto d-block rounded" src="https://leadsfac.com/wp-content/uploads/2019/10/marketplace-3.jpg" alt="">
+
+            <input id="server"  name="serverDir" class="form-control" type="text"placeholder="Direccion Backend"
+               maxlength="40" 
+              [(ngModel)]="serverDir" autocomplete="off" >
+
+              <br>
+              <br>
+            
             <form #formLogin="ngForm" (ngSubmit)="onLogin(formLogin)">
                 
                 

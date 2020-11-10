@@ -1,3 +1,12 @@
+<div class="col-md-10">
+
+  <a class="btn btn-danger my-2" [routerLink]="['/perfil']">
+    <i class="fas fa-backward"></i> Perfil
+</a>
+
+
+</div>
+
 
 <div class="container">
     <h3 class=" text-center">Chat Con Vendedor</h3>
@@ -15,14 +24,14 @@
             <div class="inbox_people">
               <div class="headind_srch">
                 <div class="recent_heading">
-                  <h4>Recent</h4>
+                  <h4>Mensaje Privado</h4>
                 </div>
                 <div class="srch_bar">
-                  <div class="stylish-input-group">
+                 <!-- <div class="stylish-input-group">
                     <input type="text" class="search-bar"  placeholder="Search" >
                     <span class="input-group-addon">
                     <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                    </span> </div>
+                    </span> </div> -->
                 </div>
               </div>
               <div class="inbox_chat">
@@ -33,8 +42,8 @@
                   <div class="chat_people" >
                     <div class="chat_img"> <img [src]="API_URI + usuario_propietario_producto.foto" alt="sunil"> </div>
                     <div class="chat_ib "  >
-                      <h5 class="text-secondary" >{{usuario_propietario_producto.nombre}} <span class="chat_date">codigo</span></h5>
-                      <p> {{producto.producto}} </p>
+                      <h5 class="text-secondary" >{{usuario_propietario_producto.nombre}} <span class="chat_date">Vendedor</span></h5>
+                      <p> Producto : {{producto.producto}} </p>
                     </div>
                   </div>
                 </div>

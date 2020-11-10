@@ -1,4 +1,14 @@
 
+<div class="col-md-10">
+
+  <a class="btn btn-danger my-2" [routerLink]="['/perfil']">
+    <i class="fas fa-backward"></i> Perfil
+</a>
+
+
+</div>
+
+
 <main role="main">
 
   <!-- Main jumbotron for a primary marketing message or call to action -->
@@ -9,10 +19,10 @@
       
       <img [src]="API_URI + producto.foto" class="bd-placeholder-img card-img-top" width="400" height="500"focusable="false" role="img">
       
-      <a class="btn btn-outline-info my-2 my-sm-0" (click)="crearlike()">
+      <a class="btn btn-outline-info my-2 my-sm-0" (click)="existLikes()">
         <i class="far fa-thumbs-up"></i>{{contadorLikes.contador}} Like
       </a>
-      <a class="btn btn-outline-primary my-2 my-sm-0" (click)="crearDislike()">
+      <a class="btn btn-outline-primary my-2 my-sm-0" (click)="existDisLikes()">
         <i class="far fa-thumbs-down"></i>{{contadorDisLikes.contador}} Don't Like
       </a>
 

@@ -103,6 +103,12 @@ productoDenuncias(){
     var id_user  =this.usuariosService.getSesionCod();
     this.productosService.deleteDenuncia(id).subscribe(  //si el arregloComodinLikes esta vacio es porque no hay like
     res => {     
+      //////////////////////////////////////////////////////////
+let descripcion ='El administrador Elimino una denuncia realizada por un usurio ';
+let tipo='Denuncia';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
       location.reload();    ///refresco pagina     
     },
     err => {console.error(err);}
@@ -114,7 +120,12 @@ productoDenuncias(){
     var id_user  =this.usuariosService.getSesionCod();
     this.productosService.updateDenuncia(id,estado).subscribe(  //si el arregloComodinLikes esta vacio es porque no hay like
     res => {
-           
+ //////////////////////////////////////////////////////////
+let descripcion ='El administrador Atendio una denuncia ';
+let tipo='Denuncia';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
       location.reload();    ///refresco pagina     
     },
     err => {console.error(err);}
@@ -139,6 +150,13 @@ productoDenuncias(){
 
 
 
+///////////////////////guardo acciones para la Bitacora
+crearAccion(descripcion:string, tipo:string, usuario:string){   
+  this.productosService.saveAccion(descripcion,tipo,usuario)
+  .subscribe(
+  res=> {     console.log('accion registrada en bitacora')      },
+  err=>{                                                        })
+}
 
 
 

@@ -15,7 +15,9 @@ import { Observable } from 'rxjs';
 })
 export class ProductoService {
   // Creo una variable con mi dirección
-   //API_URI = 'http://localhost:3000/api';
+ // API_URI = 'http://6f78e4fc0087.ngrok.io/api';  /// este es para la aplicacion Android
+  // API_URI = 'http://localhost:3000/api';
+  
   API_URI = '/api';
 
 constructor(private http: HttpClient) { }
@@ -122,6 +124,11 @@ getCountLikes(id: string){
 //verifico si el usuario tiene un like a ese producto .. dado el id_usuario, id_producto
 existLike(id: string,cod:string){
   return this.http.get(`${this.API_URI}/likes/detalle/verifico/${id}/${cod}`);
+}
+
+//verifico si el usuario tiene un like a ese producto .. dado el id_usuario, id_producto
+existDisLike(id: string,cod:string){
+  return this.http.get(`${this.API_URI}/likes/detalle/verifico/dislike/${id}/${cod}`);
 }
 
 //contador de Dislikes
@@ -262,8 +269,14 @@ getConversaciones(id_vendedor: string){
    }
 
 
+getReporte1Descendente(){
+  return this.http.get(`${this.API_URI}/reportes/componente/reporte/reporte/1/obtener/des`);
+}
 
 
+getReporte1(){
+  return this.http.get(`${this.API_URI}/reportes/componente/reporte/reporte/1/obtener`);
+}
 getReporte2(){
   return this.http.get(`${this.API_URI}/reportes/componente/reporte/reporte/2/obtener`);
 }
@@ -287,6 +300,22 @@ getReporte7(){
 getReporte8(){
   return this.http.get(`${this.API_URI}/reportes/componente/reporte/reporte/8/obtener`);
 }
+
+
+
+
+/// Creo una accion por parte del Usuario
+saveAccion(descripcion:string,tipo:string,fk_usuario:string){
+    const fd =new FormData();
+    fd.append('descripcion',descripcion);
+    fd.append('tipo',tipo);
+    fd.append('fk_usuario',fk_usuario);
+    return this.http.post(`${this.API_URI}/bitacora/guardar/accion/en/todo/el/programa`, fd);  
+  }
+
+
+
+
 
 
 

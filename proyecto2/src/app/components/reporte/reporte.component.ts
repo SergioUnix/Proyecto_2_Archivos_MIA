@@ -84,7 +84,7 @@ Dislike: DisLikes ={
     if(params.id){        //este params.id me detecta el numero
     
     if(params.id==1){    
-      //this.reporte1();
+      this.getReporte1();
     }else if(params.id==2){
       this.getReporte2();
     }else if(params.id==3){
@@ -114,6 +114,35 @@ Dislike: DisLikes ={
   }
 
 
+  getReporte1Descendente(){    
+    let  id= this.usuariosService.getSesionCod();
+    this.productosService.getReporte1Descendente().subscribe(  
+      res => {
+        this.arreglo = res;
+        this.reporte1=true;
+      //  setTimeout(( ) =>{     location.reload();       } , 2000);
+       },
+      err => console.error(err)
+    );
+     }
+
+
+
+
+
+
+
+  getReporte1(){    
+    let  id= this.usuariosService.getSesionCod();
+    this.productosService.getReporte1().subscribe(  
+      res => {
+        this.arreglo = res;
+        this.reporte1=true;
+        //setTimeout(( ) =>{     location.reload();       } , 2000);
+       },
+      err => console.error(err)
+    );
+     }
 
 
   getReporte2(){    
@@ -207,6 +236,15 @@ Dislike: DisLikes ={
     );
      }
 
+
+
+
+//refrescar la pagina
+
+refrescar(){
+  location.reload();
+
+}
 
 
 

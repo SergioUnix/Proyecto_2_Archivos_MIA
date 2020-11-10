@@ -50,60 +50,65 @@ insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,fo
 'madesitalor@gmail.com','1234','Confirmado',TO_DATE('05-01-1993','DD-MM-YYYY'),'Guatemala','uploads/default/usuarios/made.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('alba','Al',
-'albaunix@gmail.com','1234','Confirmado',TO_DATE('03-08-1992','DD-MM-YYYY'),'Argentina','uploads/default/usuarios/alba.jpg',10000,2); 
+'1albaunix@gmail.com','1234','Confirmado',TO_DATE('03-08-1992','DD-MM-YYYY'),'Guatemala','uploads/default/usuarios/alba.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('alvaro','Alv',
-'alvarounix@gmail.com','1234','Confirmado',TO_DATE('01-10-1994','DD-MM-YYYY'),'Armenia','uploads/default/usuarios/alvaro.jpg',10000,2); 
+'1alvarounix@gmail.com','1234','Confirmado',TO_DATE('01-10-1994','DD-MM-YYYY'),'Armenia','uploads/default/usuarios/alvaro.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('brat','bra',
-'bratunix@gmail.com','1234','Confirmado',TO_DATE('07-11-1995','DD-MM-YYYY'),'Bahamas','uploads/default/usuarios/brat.jpg',10000,2); 
+'1bratunix@gmail.com','1234','Confirmado',TO_DATE('07-11-1995','DD-MM-YYYY'),'Bahamas','uploads/default/usuarios/brat.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('brian','bri',
 '1brianunix@gmail.com','1234','Confirmado',TO_DATE('09-12-1996','DD-MM-YYYY'),'Benin','uploads/default/usuarios/brian.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('chris','chr',
-'chrisunix@gmail.com','1234','Confirmado',TO_DATE('02-09-1997','DD-MM-YYYY'),'Belice','uploads/default/usuarios/chris.jpg',10000,2); 
+'1chrisunix@gmail.com','1234','Confirmado',TO_DATE('02-09-1997','DD-MM-YYYY'),'Belice','uploads/default/usuarios/chris.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('cristiano','cri',
-'cristianounix@gmail.com','1234','Confirmado',TO_DATE('05-05-1998','DD-MM-YYYY'),'Bolivia','uploads/default/usuarios/cristiano.jpg',10000,2); 
+'1cristianounix@gmail.com','1234','Confirmado',TO_DATE('05-05-1998','DD-MM-YYYY'),'Bolivia','uploads/default/usuarios/cristiano.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('dana','dan',
-'danaunix@gmail.com','1234','Confirmado',TO_DATE('03-08-1999','DD-MM-YYYY'),'Australia','uploads/default/usuarios/dana.jpg',10000,2); 
+'1danaunix@gmail.com','1234','Confirmado',TO_DATE('03-08-1999','DD-MM-YYYY'),'Australia','uploads/default/usuarios/dana.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('derbez','der',
-'derbezunix@gmail.com','1234','Confirmado',TO_DATE('06-07-1994','DD-MM-YYYY'),'Chile','uploads/default/usuarios/derbez.jpg',10000,2); 
+'1derbezunix@gmail.com','1234','Confirmado',TO_DATE('06-07-1994','DD-MM-YYYY'),'Chile','uploads/default/usuarios/derbez.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('george','geo',
-'georgeunix@gmail.com','1234','Confirmado',TO_DATE('15-04-2000','DD-MM-YYYY'),'China','uploads/default/usuarios/george.jpg',10000,2); 
+'1georgeunix@gmail.com','1234','Confirmado',TO_DATE('15-04-2000','DD-MM-YYYY'),'China','uploads/default/usuarios/george.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('jaime','jai',
-'jaimeunix@gmail.com','1234','Confirmado',TO_DATE('20-07-2001','DD-MM-YYYY'),'Colombia','uploads/default/usuarios/jaime.jpg',10000,2); 
+'1jaimeunix@gmail.com','1234','Confirmado',TO_DATE('20-07-2001','DD-MM-YYYY'),'Colombia','uploads/default/usuarios/jaime.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('jhonson','jho',
-'jhonsonunix@gmail.com','1234','Confirmado',TO_DATE('25-08-1989','DD-MM-YYYY'),'Eslovenia','uploads/default/usuarios/jhonson.jpg',10000,2); 
+'1jhonsonunix@gmail.com','1234','Confirmado',TO_DATE('25-08-1989','DD-MM-YYYY'),'Eslovenia','uploads/default/usuarios/jhonson.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('leonardo','leo',
-'leonardounix@gmail.com','1234','Confirmado',TO_DATE('07-11-1995','DD-MM-YYYY'),'Estonia','uploads/default/usuarios/leonardo.jpg',10000,2); 
+'1leonardounix@gmail.com','1234','Confirmado',TO_DATE('07-11-1995','DD-MM-YYYY'),'Estonia','uploads/default/usuarios/leonardo.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('najwa','naj',
-'najwaunix@gmail.com','1234','Confirmado',TO_DATE('24-12-2002','DD-MM-YYYY'),'Jamaica','uploads/default/usuarios/najwa.jpg',10000,2); 
+'1najwaunix@gmail.com','1234','Confirmado',TO_DATE('24-12-2002','DD-MM-YYYY'),'Jamaica','uploads/default/usuarios/najwa.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('pedro','ped',
-'pedrounix@gmail.com','1234','Confirmado',TO_DATE('11-08-1988','DD-MM-YYYY'),'España','uploads/default/usuarios/pedro.jpg',10000,2); 
+'1pedrounix@gmail.com','1234','Confirmado',TO_DATE('11-08-1988','DD-MM-YYYY'),'España','uploads/default/usuarios/pedro.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('rio','Ri',
-'riounix@gmail.com','1234','Confirmado',TO_DATE('27-07-1999','DD-MM-YYYY'),'Indonesia','uploads/default/usuarios/rio.jpg',10000,2); 
+'1riounix@gmail.com','1234','Confirmado',TO_DATE('27-07-1999','DD-MM-YYYY'),'Indonesia','uploads/default/usuarios/rio.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('robert','rob',
-'robertunix@gmail.com','1234','Confirmado',TO_DATE('04-11-1985','DD-MM-YYYY'),'Libia','uploads/default/usuarios/robert.jpg',10000,2); 
+'1robertunix@gmail.com','1234','Confirmado',TO_DATE('04-11-1985','DD-MM-YYYY'),'Libia','uploads/default/usuarios/robert.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('selena','sel',
-'selenaunix@gmail.com','1234','Confirmado',TO_DATE('01-04-1996','DD-MM-YYYY'),'Islas Farce','uploads/default/usuarios/selena.jpg',10000,2);
+'1selenaunix@gmail.com','1234','Confirmado',TO_DATE('01-04-1996','DD-MM-YYYY'),'Islas Farce','uploads/default/usuarios/selena.jpg',10000,2);
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('tom','To',
-'tomunix@gmail.com','1234','Confirmado',TO_DATE('10-10-1980','DD-MM-YYYY'),'Paraguay','uploads/default/usuarios/tom.jpg',10000,2); 
+'1tomunix@gmail.com','1234','Confirmado',TO_DATE('10-10-1980','DD-MM-YYYY'),'Paraguay','uploads/default/usuarios/tom.jpg',10000,2); 
 
 COMMIT WORK;                           select * from usuario;
+
+
+update usuario set pais='Guatemala'
+            where id_usuario=3;
+
 
 
  /* =========================================== categoria*/
@@ -126,6 +131,7 @@ insert into categoria (categoria) values('Hogar');
 insert into categoria (categoria) values('Telefonia');
 insert into categoria (categoria) values('Exterior');
 insert into categoria (categoria) values('Accesorios');
+
 COMMIT WORK;                                     select * from categoria; 
 
  /* ======================================================================== Tabla Producto*/
@@ -191,6 +197,7 @@ insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, fo
 
 COMMIT WORK;                           select * from producto;
 
+
  /* =====================================================================   Tabla comentario*/
 CREATE TABLE comentario(
    id_comentario number primary key,
@@ -240,13 +247,26 @@ END;
 
 COMMIT WORK;
 
-insert into likes (fk_producto,fk_usuario) values(6,2);
-insert into likes (fk_producto,fk_usuario) values(6,1); 
-insert into likes (fk_producto,fk_usuario) values(6,3); 
+insert into likes (fk_producto,fk_usuario) values(6,4);
+insert into likes (fk_producto,fk_usuario) values(6,5); 
+insert into likes (fk_producto,fk_usuario) values(6,6);
+insert into likes (fk_producto,fk_usuario) values(6,7); 
+insert into likes (fk_producto,fk_usuario) values(6,8); 
+insert into likes (fk_producto,fk_usuario) values(6,9); 
+insert into likes (fk_producto,fk_usuario) values(6,10); 
+insert into likes (fk_producto,fk_usuario) values(6,11); 
+insert into likes (fk_producto,fk_usuario) values(7,12); 
+insert into likes (fk_producto,fk_usuario) values(7,13); 
+insert into likes (fk_producto,fk_usuario) values(8,14); 
+insert into likes (fk_producto,fk_usuario) values(8,15); 
+insert into likes (fk_producto,fk_usuario) values(8,16); 
+insert into likes (fk_producto,fk_usuario) values(9,17); 
+insert into likes (fk_producto,fk_usuario) values(9,18); 
+insert into likes (fk_producto,fk_usuario) values(9,19); 
+
 COMMIT WORK;                             select * from likes; 
 
-
- /* =====================================================                like*/
+ /* =====================================================                Dislike*/
 CREATE TABLE Dislikes(
    id_Dislikes number primary key,
    fecha_creacion TimesTamp DEFAULT SYSDATE,
@@ -262,11 +282,24 @@ for EACH ROW BEGIN
 SELECT Dis_uno.NEXTVAL INTO :NEW.id_Dislikes from DUAL;
 END; 
 
+insert into Dislikes (fk_producto,fk_usuario) values(10,4);
+insert into Dislikes (fk_producto,fk_usuario) values(10,5); 
+insert into Dislikes (fk_producto,fk_usuario) values(10,6);
+insert into Dislikes (fk_producto,fk_usuario) values(10,7); 
+insert into Dislikes (fk_producto,fk_usuario) values(10,8); 
+insert into Dislikes (fk_producto,fk_usuario) values(10,9); 
+insert into Dislikes (fk_producto,fk_usuario) values(10,10); 
+insert into Dislikes (fk_producto,fk_usuario) values(10,11); 
+insert into Dislikes (fk_producto,fk_usuario) values(11,12); 
+insert into Dislikes (fk_producto,fk_usuario) values(12,13); 
+insert into Dislikes (fk_producto,fk_usuario) values(12,14); 
+insert into Dislikes (fk_producto,fk_usuario) values(12,15); 
+insert into Dislikes (fk_producto,fk_usuario) values(12,16); 
+insert into Dislikes (fk_producto,fk_usuario) values(13,17); 
+insert into Dislikes (fk_producto,fk_usuario) values(13,18); 
+insert into Dislikes (fk_producto,fk_usuario) values(16,19); 
+
 COMMIT WORK;                select * from Dislikes; 
-
-
-
-
 
  /* ===================================================================== Estado*/
 CREATE TABLE estado(
@@ -288,7 +321,7 @@ INSERT into estado (estado) values('Pendiente');
 COMMIT WORK;                             select * from estado; 
 
 
- /* ==================================================          Denuncia*/
+ /* ==================================================          Denuncia   */
 CREATE TABLE denuncia(
    id_denuncia number primary key,
    descripcion VARCHAR2(300),
@@ -312,10 +345,25 @@ END;
 COMMIT WORK;
 
 INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('este producto no cumple con las especificaciones',1,2,6,3);
-INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('este producto no cumple con las especificaciones',1,3,7,3); 
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('El precio de producto no esta bien',1,3,7,3);
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('No llego el pedido a mi casa nunca',1,4,8,3);
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('Debe haber un error en el precio',1,5,9,3); 
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('No deberia de estar en esa categoria',1,6,10,3);
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('No deberia de estar en esa categoria',1,6,6,3);
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('No deberia de estar en esa categoria',1,6,7,3);
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('No deberia de estar en esa categoria',1,6,8,3);
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('No deberia de estar en esa categoria',1,6,9,3);
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('El precio de producto no esta bien',1,3,11,3);
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('El precio de producto no esta bien',1,3,12,3);
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('No llego el pedido a mi casa nunca',1,4,13,3);
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('No llego el pedido a mi casa nunca',1,4,14,3);
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('No llego el pedido a mi casa nunca',1,4,15,3);
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('Debe haber un error en el precio',1,5,16,3);
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('Debe haber un error en el precio',1,5,17,3);
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('Debe haber un error en el precio',1,5,18,3);
+INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('Debe haber un error en el precio',1,5,19,3);
 
 COMMIT WORK;                              select * from denuncia; 
-
 
  /* ===========================================================          Chat */
 CREATE TABLE chat(
@@ -344,6 +392,8 @@ INSERT into chat (mensaje,fk_vendedor,fk_cliente,fk_producto) values('esto es so
 INSERT into chat (mensaje,fk_vendedor,fk_cliente,fk_producto) values('esta bien pues',2,3,6);
 
 COMMIT WORK;                                                      select * from chat;
+
+
 
 
  /* ==============================================================           Compra */
@@ -378,13 +428,15 @@ for EACH ROW BEGIN
 SELECT det_uno.NEXTVAL INTO :NEW.id_detalle from DUAL;
 END; 
 
-COMMIT WORK;
-
-INSERT into detalle(cantidad,fk_producto,fk_compra) values(5,11,1);
-INSERT into detalle(cantidad,fk_producto,fk_compra) values(2,12,1);
-INSERT into detalle(cantidad,fk_producto,fk_compra) values(3,13,1);
-
 COMMIT WORK;                                      select * from detalle;
+
+
+
+
+
+
+
+
 
 
 Drop SEQUENCE det_uno; DROP TABLE detalle;
@@ -401,4 +453,3 @@ DROP SEQUENCE usu_uno; drop table usuario;
 DROP TRIGGER T_tipo; DROP SEQUENCE tip_uno; drop table tipo; 
 
 /*  para borrar y dejar null seria asi .....   ON DELETE SET NULL */
-

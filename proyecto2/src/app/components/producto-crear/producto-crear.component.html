@@ -1,4 +1,13 @@
+
+
+
+
 <div class="col-md-4 offset-md-2">
+
+    <a class="btn btn-danger my-2" [routerLink]="['/perfil']">
+        <i class="fas fa-backward"></i> Perfil
+    </a>
+
     <div class="card">
         <div class="card-body">
             <form>
@@ -14,9 +23,14 @@
                     <label for="producto.fk_categoria">Precio</label>
                         <input type="text" [(ngModel)]="producto.precio" name="precio" placeholder="Precio" class="form-control" required>
                 </div>
-                <div class="form-group">      <label for="">Detalle del producto</label>
+            <!--     <div class="form-group">      <label for="">Detalle del producto</label>
                     <input type="text" [(ngModel)]="producto.detalle" name="detalle" placeholder="Detalle" class="form-control" required>
-                </div>
+                </div> -->
+                <div class="form-group">
+                    <textarea   type="text" [(ngModel)]="producto.detalle" name="detalle" placeholder="Detalle" class="form-control" autocomplete="off" required 
+                    ></textarea>
+                  </div>
+
            <!--      <div class="form-group">
                     <input type="text"  [(ngModel)]="producto.foto" name="foto" placeholder="Foto" class="form-control" required>
                 </div>   -->

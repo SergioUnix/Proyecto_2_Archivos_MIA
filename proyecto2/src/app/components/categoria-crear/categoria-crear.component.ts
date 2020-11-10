@@ -85,6 +85,12 @@ mensaje_error(){
     .subscribe(
       res=> {
         console.log(res);
+        //////////////////////////////////////////////////////////
+let descripcion ='Administrador Creo una nueva Categoria '+this.categoria.categoria;
+let tipo='Categoria';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
 
         this.menasje_exito();
 
@@ -114,6 +120,12 @@ getCategorias(){
 
 
 
-
+///////////////////////guardo acciones para la Bitacora
+crearAccion(descripcion:string, tipo:string, usuario:string){   
+  this.productosService.saveAccion(descripcion,tipo,usuario)
+  .subscribe(
+  res=> {     console.log('accion registrada en bitacora')      },
+  err=>{                                                        })
+}
 
 }

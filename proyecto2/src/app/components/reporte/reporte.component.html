@@ -1,7 +1,53 @@
-<a class="btn btn-danger my-2" [routerLink]="['/perfil']">
-    <i class="fas fa-backward"></i> Perfil
-</a>
-<br><br>
+
+  <div class="col-md-10">
+
+    <a class="btn btn-danger my-2" [routerLink]="['/perfil']">
+      <i class="fas fa-backward"></i> Perfil
+  </a>
+
+    <a class="btn btn-info my-2" (click)='refrescar()'>
+      <i class="fas fa-sync-alt"></i>
+  </a>
+  </div>
+
+<section class="jumbotron text-center">
+
+  <h1 *ngIf="reporte1">Reporte bitácora: <span class="badge badge-secondary">Todo el sistema</span></h1>
+  <h5 *ngIf="reporte1"><span class="badge badge-secondary"> Mostrará todas las acciones que los clientes y administradores hayan
+    hecho, este reporte contendrá los siguientes datos: el correo del cliente una descripción de
+    la acción que hizo y la fecha en que se realizó y tendrá la opción de poder ordenarse de
+    forma ascendente y descendente por fechas.   </span></h5>
+    <a class="btn btn-outline-danger my-2" *ngIf="reporte1" (click)='getReporte1()'>   <i class="fas fa-sort-amount-up"></i> Orden Ascendente  </a>
+    <a class="btn btn-outline-dark my-2" *ngIf="reporte1" (click)='getReporte1Descendente()'>    <i class="fas fa-sort-amount-down"></i> Orden Descendente    </a>
+  <table class="table"   *ngIf="reporte1">
+     <thead class="thead-dark">
+       <tr>
+         <th scope="col">Id_bitacora</th>
+         <th scope="col">Descripcion</th>
+         <th scope="col">Tipo</th>
+         <th scope="col">Fecha</th>
+         <th scope="col">ID_usuario</th>
+         <th scope="col">Nombre</th>
+         <th scope="col">Apeliido</th>
+       </tr>
+ 
+     </thead>
+     <tbody>
+ 
+       <tr  *ngFor="let res of arreglo" >
+        <th >{{res.id_bitacora}} </th>
+        <th >{{res.descripcion}} </th>
+        <th >{{res.tipo}} </th>
+        <th >{{res.fecha_creacion | date: 'dd-MM-yyyy h:mm:ss a'}} </th>
+        <th >{{res.id_usuario}} </th>
+        <th >{{res.nombre}} </th>
+        <th >{{res.apellido}} </th>
+      </tr>  
+ 
+     </tbody>
+ 
+   </table>
+
 
 
  <h1 *ngIf="reporte2">Reporte  <span class="badge badge-secondary">2</span></h1>
@@ -211,3 +257,5 @@
          </tbody>
      
        </table>
+
+</section>

@@ -26,13 +26,14 @@ export class DetalleComponent implements OnInit {
   public isErrorGuardar=false;
 
   public haylikes=false;
+  public hayDislikes=false;
 
   public ref_publi=0;
 
   id_producto=0;
 
 
-  public API_URI='http://localhost:3000/';
+  public API_URI='';
 
 
   comentarios: any=[];
@@ -88,6 +89,13 @@ contadorDisLikes:Contador={
   constructor (private usuariosService: UsuariosService,private productosService: ProductoService, private router: Router, private activatedRoute:ActivatedRoute) { }
 
   ngOnInit() {
+  //// setear la variable del serverDir  , esto se hace para la aplicacion Android ...
+  this.API_URI=this.usuariosService.getServerDir()+'/';
+
+
+
+
+
     //sino esta logueado me redirecciona al login
     if(this.usuariosService.getSesionNombre()==''){
     console.log("No Logeado --productos-lista");
@@ -187,6 +195,13 @@ getComentarios(id:string){
           this.comentario.comentario='';
           this.getComentarios(this.id_producto.toString()); 
           this.Visualizar_Exito();
+
+          //////////////////////////////////////////////////////////
+let descripcion ='El usuario realizo un comentario el cual fue '+this.comentario.comentario;
+let tipo='Comentario';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
          
         },
         err=> console.error(err)
@@ -220,15 +235,17 @@ this.like.fk_producto=this.id_producto;
       },
       err => console.error(err)
       );
-       this.eliminarDisLikes();
 }
-eliminarLikes(){//elimina solo un like
+
+
+
+async eliminarLikes(){//elimina solo un like
   
   var id_user  =this.usuariosService.getSesionCod();
-  this.productosService.deleteLike(id_user,this.id_producto.toString()).subscribe(  //si el arregloComodinLikes esta vacio es porque no hay like
-  res => {
-   
-    location.reload();    ///refresco pagina
+  await this.productosService.deleteLike(id_user,this.id_producto.toString()).subscribe(  //si el arregloComodinLikes esta vacio es porque no hay like
+  async res => {
+      console.log(res)
+    //location.reload();    ///refresco pagina
 
   
   },
@@ -239,16 +256,7 @@ eliminarLikes(){//elimina solo un like
 
 
 
-//existLikes(){//pregunta si existe un like
- // var id_user  =this.usuariosService.getSesionCod();
-//  this.productosService.existLike(id_user,this.id_producto.toString()).subscribe(  //si el arregloComodinLikes esta vacio es porque no hay like
-//  res => {
- // this.haylikes=true;    ///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
-  
-//},
- // err => {console.error(err); }
- // );
-//}
+
 
 crearDislike(){
   delete this.Dislike.id_Dislikes;
@@ -261,19 +269,197 @@ crearDislike(){
         },
         err => console.error(err)
         );
-        this.eliminarLikes();
-
   }
+
+
   eliminarDisLikes(){//elimina solo un like
     var id_user  =this.usuariosService.getSesionCod();
     this.productosService.deleteDisLike(id_user,this.id_producto.toString()).subscribe(  //si el arregloComodinLikes esta vacio es porque no hay like
     res => {
-      location.reload();    ///refresco pagina
+     // location.reload();    ///refresco pagina
     
     },
     err => {console.error(err);}
     );
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+existLikes(){//pregunta si existe un like
+ var id_user  =this.usuariosService.getSesionCod();
+  let respuesta: any=[];
+  let numero=0;
+
+  this.productosService.existLike(id_user,this.id_producto.toString()).subscribe(  //si el arregloComodinLikes esta vacio es porque no hay like
+  async res => {
+
+   respuesta=res;
+   console.log(res)
+   console.log(respuesta.length);  numero=respuesta.length;
+ // this.hayDislikes=true;
+  if(numero===0){   console.log('<<<< No hay hay un likes de parte del usuario >>>>>>')
+ this.crearlike();
+ this. existDislikes22()
+//////////////////////////////////////////////////////////
+let descripcion ='El usuario realizo un Like ';
+let tipo='Like';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
+  }else if(numero ===1){    console.log('<<<< Si existe un likes de parte del usuario >>>>>>')
+ this.eliminarLikes();
+ this. existDislikes22()
+//////////////////////////////////////////////////////////
+let descripcion ='El usuario quito el like que habia dado';
+let tipo='Like';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
+
+
+  }    
+
+  
+
+},
+ err => {
+  console.error(err); }
+ );
+
+ setTimeout(( ) =>{     location.reload();       } , 3000);
+}
+
+existDisLikes(){//pregunta si existe un like
+  var id_user  =this.usuariosService.getSesionCod();
+   let respuesta: any=[];
+   let numero=0;
+ 
+   this.productosService.existDisLike(id_user,this.id_producto.toString()).subscribe(  //si el arregloComodinLikes esta vacio es porque no hay like
+   async res => {
+ 
+    respuesta=res;
+    console.log(res)
+    console.log(respuesta.length);  numero=respuesta.length;
+  // this.hayDislikes=true;
+   if(numero===0){   console.log('------ No hay hay un Dislike ------')
+  this.crearDislike();
+  this.existlikes22();
+//////////////////////////////////////////////////////////
+let descripcion ='El usuario realizo un Dislike (No me Gusta) ';
+let tipo='Like';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
+   }else if(numero ===1){    console.log('------ Si existe un likes  --------')
+  this.eliminarDisLikes();
+  this.existlikes22();
+  //////////////////////////////////////////////////////////
+let descripcion ='El usuario quito el Dislike que habia dado (No Me Gusta)';
+let tipo='Like';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
+   }    
+ 
+   
+ 
+ },
+  err => {
+   console.error(err); }
+  );
+
+  setTimeout(( ) =>{     location.reload();       } , 3000);
+ }
+ 
+
+
+ existDislikes22(){//pregunta si existe un like
+  var id_user  =this.usuariosService.getSesionCod();
+  let respuesta: any=[];
+  let numero=0;
+
+   this.productosService.existDisLike(id_user,this.id_producto.toString()).subscribe(  //si el arregloComodinLikes esta vacio es porque no hay like
+ res => { 
+
+  respuesta=res;
+  console.log(res)
+  console.log(respuesta.length);  numero=respuesta.length;
+
+ if(numero===0){   console.log('---- No hay hay un Dislikes de parte del usuario ---')
+
+ }else if(numero ===1){    console.log('--- Si existe un Dislikes de parte del usuario ---')
+this.eliminarDisLikes();
+
+ }    
+
+   
+
+   
+ },
+  err => {
+   
+   console.error(err); }
+  );
+ }
+
+
+
+
+
+ existlikes22(){//pregunta si existe un like
+  var id_user  =this.usuariosService.getSesionCod();
+  let respuesta: any=[];
+  let numero=0;
+
+   this.productosService.existLike(id_user,this.id_producto.toString()).subscribe(  //si el arregloComodinLikes esta vacio es porque no hay like
+ res => { 
+
+  respuesta=res;
+  console.log(res)
+  console.log(respuesta.length);  numero=respuesta.length;
+
+ if(numero===0){   console.log('<<<<<<< No hay hay un likes >>>>>>>>>')
+
+ }else if(numero ===1){    console.log('<<<<< Si existe un Likes >>>>>>')
+this.eliminarLikes();
+
+ }    
+
+   
+
+   
+ },
+  err => {
+   
+   console.error(err); }
+  );
+ }
+
+
+
+
+
+
 
 
 
@@ -310,5 +496,32 @@ crearDislike(){
         err => console.error(err)
         );
        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////guardo acciones para la Bitacora
+crearAccion(descripcion:string, tipo:string, usuario:string){   
+  this.productosService.saveAccion(descripcion,tipo,usuario)
+  .subscribe(
+  res=> {     console.log('accion registrada en bitacora')      },
+  err=>{                                                        })
+}
+
+
+
+
+
+
+
 
 }

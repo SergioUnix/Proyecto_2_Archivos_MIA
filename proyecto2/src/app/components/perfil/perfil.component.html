@@ -1,29 +1,31 @@
 
 
-
-
-
-
     <section class="jumbotron text-center">
         <div class="col-md-10">
+
+          <a class="btn btn-info my-2" (click)='refrescar()'>
+            <i class="fas fa-sync-alt"></i>
+        </a>
+
           <h1>Productos Disponibles</h1>
-          <p class="lead text-muted">ya escribire alguna descripcion aca, pero tengo que escribir algo grande para ver que llegue al tope</p>
+          <p class="lead text-muted">El Marketplace se refiere a un concepto más amplio de ventas online. En esta plataforma, diferentes tiendas pueden anunciar sus productos, ofreciéndole de esa forma, un abanico de opciones al cliente.
+            El concepto de Marketplace no es nuevo. En América Latina surgió en 2012 y, hoy en día, muchas grandes empresas digitales ya se han adherido. Algunos ejemplos de Marketplace son Amazon, Google Shopping y Mercado Libre.
+          </p>
           <p>
             <a class="btn btn-primary my-2" [routerLink]="['/carrito', id_usuario_logueado]">
               <i class="fas fa-cart-arrow-down"></i> Carrito
             </a>
-           
+            <a class="btn btn-outline-danger my-2" (click)='productosOrdenAscendente()'>   <i class="fas fa-sort-amount-up"></i> Categoria  </a>
+        <a class="btn btn-outline-dark my-2" (click)='productosOrdenDescendente()'>    <i class="fas fa-sort-amount-down"></i> Categoria     </a>
+     
+        <a class="btn btn-outline-warning my-2" (click)='productosOrdenAscendentePrecio()' >   <i class="fas fa-sort-amount-up"></i> Precio  </a>
+        <a class="btn btn-outline-secondary my-2" (click)='productosOrdenDescendentePrecio()' >    <i class="fas fa-sort-amount-down"></i> Precio    </a>
+                
 
           </p>
           <div class="form-group">
             <input type="text" class="form-control" name="filterPost" placeholder="Search..." [(ngModel)]="filterPost">
-        </div>
-        <a class="btn btn-outline-danger my-2" (click)='productosOrdenAscendente()'>    <i class="fas fa-braille"></i>   Orden por Categoria Ascendente     </a>
-        <a class="btn btn-outline-danger my-2" (click)='productosOrdenDescendente()'>    <i class="fas fa-braille"></i>   Orden por Categoria Descendente     </a>
-        <br>
-
-        <a class="btn btn-outline-warning my-2" (click)='productosOrdenAscendentePrecio()' >    <i class="fas fa-dollar-sign"></i>   Orden por Precio Ascendente     </a>
-        <a class="btn btn-outline-warning my-2" (click)='productosOrdenDescendentePrecio()' >    <i class="fas fa-dollar-sign"></i>   Orden por Precio Descendente     </a>
+          </div>
         </div>
       </section>
     

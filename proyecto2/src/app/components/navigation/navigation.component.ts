@@ -53,6 +53,9 @@ export class NavigationComponent implements OnInit {
    //console.log('Id_usuario = ');
    this.usuario_logueado_objeto=this.usuariosService.getSesionObjeto();
 
+   console.log('El server es:')
+   console.log(this.usuariosService.getServerDir());
+
 
 
 
@@ -80,7 +83,11 @@ export class NavigationComponent implements OnInit {
       this.admin_funcion = false; 
       this.cliente_funcion=true;
         
-    }}
+    }else if(this.usuariosService.getSesionTipo()==''){
+      this.router.navigate(['/login']);
+    }
+  
+  }
 
 
  

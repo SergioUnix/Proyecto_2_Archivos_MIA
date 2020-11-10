@@ -31,7 +31,7 @@ export class PerfilComponent implements OnInit {
 
   ///productos
   productos: any=[];
-  public API_URI='http://localhost:3000/';
+  public API_URI='';
 
   filterPost ='';
 
@@ -42,6 +42,11 @@ export class PerfilComponent implements OnInit {
   constructor(private usuariosService:UsuariosService,private productosService:ProductoService, private router: Router,private activatedRoute:ActivatedRoute) { }
 
   ngOnInit() {
+  //// setear la variable del serverDir  , esto se hace para la aplicacion Android ...
+  this.API_URI=this.usuariosService.getServerDir()+'/';
+
+
+
        // Obtengo los privilegios segun el tipo de rol
   this.onCheckUser();
     //metodo que verifica si hay usuario logueado
@@ -51,6 +56,7 @@ export class PerfilComponent implements OnInit {
 
   //guardo el codigo logueado
   this.id_usuario_logueado=this.usuariosService.getSesionCod();
+
 
 
 
@@ -242,7 +248,12 @@ enviarCorreBloqueo(correo:string, asunto:string, mensaje:string){
 
 
 
+//refrescar la pagina
 
+refrescar(){
+  location.reload();
+
+}
 
 
 

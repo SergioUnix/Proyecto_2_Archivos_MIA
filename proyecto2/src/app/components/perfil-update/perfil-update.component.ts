@@ -4,6 +4,7 @@ import {UsuariosService} from '../../servicios/usuarios.service'; ///importo el 
 import { Usuario } from 'src/app/modelos/Usuario';   //importo el tipo de dato,
 
 import { NgForm } from '@angular/forms';
+import { ProductoService } from 'src/app/servicios/producto.service';
 
 
 interface HtmlInputEvent extends Event{
@@ -75,7 +76,7 @@ photoSelected: string  | ArrayBuffer;
 public fecha;
 
 
-  constructor(private usuariosService:UsuariosService, private router: Router, private activatedRoute:ActivatedRoute) { }
+  constructor(private productosService: ProductoService,private usuariosService:UsuariosService, private router: Router, private activatedRoute:ActivatedRoute) { }
 
   async ngOnInit() {
 ///existe login?
@@ -98,7 +99,11 @@ this.captoUsuario(params.id);
           console.log("usuario traido de una consulta")
           console.log(res)
           this.usuario=res; 
-          this.API_URI="http://localhost:3000/"
+          
+  //// setear la variable del serverDir  , esto se hace para la aplicacion Android ...
+  this.API_URI=this.usuariosService.getServerDir()+'/';
+
+
          this.ponerfecha();
         },
           err => console.error(err)
@@ -175,7 +180,15 @@ this.captoUsuario(params.id);
     res =>{
       console.log(res);
 
-      this.usuariosService.setSesion(this.usuario);; 
+      this.usuariosService.setSesion(this.usuario);
+//////////////////////////////////////////////////////////
+let descripcion ='El usuario Actualizo sus datos ';
+let tipo='Actualizacion';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
+
+
       location.reload();
       
 
@@ -193,7 +206,14 @@ this.captoUsuario(params.id);
         res=> {
          console.log(res);
       
-         this.usuariosService.setSesion(this.usuario);; 
+         this.usuariosService.setSesion(this.usuario);
+//////////////////////////////////////////////////////////
+let descripcion ='El usuario Actualizo sus datos con una foto nueva';
+let tipo='Actualizacion';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
+
         location.reload();
          
 
@@ -214,6 +234,13 @@ this.captoUsuario(params.id);
 
 
 
+///////////////////////guardo acciones para la Bitacora
+crearAccion(descripcion:string, tipo:string, usuario:string){   
+  this.productosService.saveAccion(descripcion,tipo,usuario)
+  .subscribe(
+  res=> {     console.log('accion registrada en bitacora')      },
+  err=>{                                                        })
+}
 
 
 

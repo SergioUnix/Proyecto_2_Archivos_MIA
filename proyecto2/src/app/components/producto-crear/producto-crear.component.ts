@@ -17,7 +17,7 @@ interface HtmlInputEvent extends Event{
 export class ProductoCrearComponent implements OnInit {
 
 
-  public API_URI='http://localhost:3000/';
+  public API_URI='';
   @HostBinding('class') classes='row';  //necesario para desplegar un producto a la par de otro 
 
   categorias: any=[];
@@ -43,6 +43,10 @@ export class ProductoCrearComponent implements OnInit {
   constructor (private usuariosService: UsuariosService,private productosService: ProductoService, private router: Router, private activatedRoute:ActivatedRoute) { }
 
   ngOnInit() {
+  //// setear la variable del serverDir  , esto se hace para la aplicacion Android ...
+  this.API_URI=this.usuariosService.getServerDir()+'/';
+
+
        //sino esta logueado me redirecciona al login
        if(this.usuariosService.getSesionNombre()==''){
         console.log("No Logeado --productos-lista");
@@ -61,8 +65,12 @@ export class ProductoCrearComponent implements OnInit {
              console.log(res)
             this.producto=res; ///cuando accedo ala ruta game/edit/id ,, aca hago el objeto con el id recibido y eso me muestra en visualizacion
             this.edit= true;
-            this.API_URI='http://localhost:3000/';
-            this.accion='Actualizar Producto'
+  
+            //// setear la variable del serverDir  , esto se hace para la aplicacion Android ...
+              this.API_URI=this.usuariosService.getServerDir()+'/';
+  
+  
+              this.accion='Actualizar Producto'
            },
            err => console.error(err)
         )
@@ -83,6 +91,15 @@ export class ProductoCrearComponent implements OnInit {
     this.productosService.updateProducto(this.producto)
     .subscribe(
     res =>{
+
+//////////////////////////////////////////////////////////
+let descripcion ='Se creo una actualizacion del producto con el nombre '+this.producto.producto;
+let tipo='Actualizacion';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
+
+
       console.log(res);
     this.router.navigate(['/productos/mio']);
     },
@@ -95,6 +112,15 @@ export class ProductoCrearComponent implements OnInit {
       this.productosService.updateProducto2(this.producto.id_producto,this.producto.producto,this.producto.estado,this.producto.fk_usuario,this.producto.precio,this.producto.detalle,this.producto.fk_categoria, this.producto.foto , this.producto.palabras, this.producto.user_compra, this.file)
       .subscribe(
         res=> {
+
+//////////////////////////////////////////////////////////
+let descripcion ='Se creo una actualizacion del producto con el nombre '+this.producto.producto;
+let tipo='Actualizacion';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
+
+
          console.log(res);
           this.router.navigate(['/productos/mio']);
         },
@@ -140,7 +166,16 @@ onPhotoSelected(event:HtmlInputEvent):void{
     .subscribe(
       res=> {
        console.log(res);
-        this.router.navigate(['/productos/mio']);
+        
+//////////////////////////////////////////////////////////
+let descripcion ='Este usuario acaba de crear un producto con el nombre '+this.producto.producto;
+let tipo='Crear';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
+ 
+       
+       this.router.navigate(['/productos/mio']);
       },
       err=> console.error(err)
 
@@ -151,6 +186,19 @@ onPhotoSelected(event:HtmlInputEvent):void{
     this.productosService.saveProducto(this.producto.producto,this.producto.estado,this.producto.fk_usuario,this.producto.precio,this.producto.detalle,this.producto.fk_categoria, this.producto.foto , this.producto.palabras, this.producto.user_compra, this.file)
     .subscribe(
       res=> {
+
+
+//////////////////////////////////////////////////////////
+let descripcion ='Este usuario acaba de crear un producto con el nombre '+this.producto.producto;
+let tipo='Crear';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
+
+
+
+
+
        console.log(res);
       this.router.navigate(['/productos/mio']);
       },
@@ -179,6 +227,26 @@ getCategorias(){
     },
     err => console.error(err)
     );}
+
+
+
+
+
+
+
+
+
+
+///////////////////////guardo acciones para la Bitacora
+crearAccion(descripcion:string, tipo:string, usuario:string){   
+  this.productosService.saveAccion(descripcion,tipo,usuario)
+  .subscribe(
+  res=> {     console.log('accion registrada en bitacora')      },
+  err=>{                                                        })
+}
+
+
+
 
 
 

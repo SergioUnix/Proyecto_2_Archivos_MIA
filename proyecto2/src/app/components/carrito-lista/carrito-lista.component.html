@@ -1,3 +1,13 @@
+<div class="col-md-10">
+
+    <a class="btn btn-danger my-2" [routerLink]="['/perfil']">
+      <i class="fas fa-backward"></i> Perfil
+  </a>
+  
+  
+  </div>
+  
+
 <div class="col-md-12">
     <div class="card text-center">
 
@@ -81,13 +91,13 @@
         <th scope="row">{{producto.id_producto}}</th>
         <td>{{producto.producto}}</td>
         <td>{{producto.detalle}}</td>
-        <td> <input type="text"  value="{{producto.precio}}"class="form-control" id="P{{producto.id_producto}}"  name="N{{producto.id_producto}}"
+        <td> <input type="text"  value="{{producto.precio}}"class="form-control input-lg" id="P{{producto.id_producto}}"  name="N{{producto.id_producto}}"
              aria-describedby="emailHelp" placeholder="precio" disabled>  </td>
 
         <td> <input type="text"  value="1"class="form-control" id="C{{producto.id_producto}}" name="N2{{producto.id_producto}}"
              aria-describedby="emailHelp" placeholder="Ingresar Cantidad" >          </td>
 
-        <td> <input type="text"  value=""class="form-control" id="S{{producto.id_producto}}" 
+        <td> <input type="text"  value=""class="form-control input-lg" id="S{{producto.id_producto}}" 
              aria-describedby="emailHelp" placeholder="subtotal" disabled>           </td>
 
         <td> <button class="btn btn-primary" (click)="quitarACarrito2(producto.id_producto)"  ><i class="fas fa-minus-circle"></i></button>    </td>

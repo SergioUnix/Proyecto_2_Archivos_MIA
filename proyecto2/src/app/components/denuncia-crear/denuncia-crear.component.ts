@@ -157,6 +157,15 @@ this.productoDenunciaUsuario();
   this.productosService.saveDenuncia(this.denuncia)
     .subscribe(
       res=> {
+
+//////////////////////////////////////////////////////////
+let descripcion ='El usuario realizo una Denuncia ';
+let tipo='Denuncia';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
+
+
         console.log(res);
         location.reload();
         
@@ -170,12 +179,28 @@ this.productoDenunciaUsuario();
     var id_user  =this.usuariosService.getSesionCod();
     this.productosService.deleteDenuncia(id).subscribe(  //si el arregloComodinLikes esta vacio es porque no hay like
     res => {     
+    //////////////////////////////////////////////////////////
+let descripcion ='Elimino una denuncia ';
+let tipo='Denuncia';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
       location.reload();    ///refresco pagina     
     },
     err => {console.error(err);}
     );
   }
 
+
+
+
+///////////////////////guardo acciones para la Bitacora
+crearAccion(descripcion:string, tipo:string, usuario:string){   
+  this.productosService.saveAccion(descripcion,tipo,usuario)
+  .subscribe(
+  res=> {     console.log('accion registrada en bitacora')      },
+  err=>{                                                        })
+}
 
 
 

@@ -5,6 +5,7 @@ import {UsuariosService} from '../../servicios/usuarios.service'; ///importo el 
 import { Usuario } from 'src/app/modelos/Usuario';   //importo el tipo de dato,
 
 import { NgForm } from '@angular/forms';
+import { ProductoService } from 'src/app/servicios/producto.service';
 
 
 @Component({
@@ -22,6 +23,10 @@ export class LoginComponent implements OnInit {
   public formulario = false;
   
   public recuperaCorreo='';
+
+
+  public serverDir='http://localhost:3000';
+
 
     usuario: Usuario ={
       id_usuario: 0,
@@ -53,12 +58,16 @@ export class LoginComponent implements OnInit {
 
 
   
-    constructor(private usuariosService:UsuariosService, private router: Router) { }
+    constructor(private productosService:ProductoService, private usuariosService:UsuariosService, private router: Router) { }
   
     ngOnInit() {
       //metodo que verifica si hay usuario logueado
       this.loginExist();
   
+
+      ///el usuario aveces esta en null,, entonces es necesario setear ese valor a ''  vacio en este caso
+      //si el usuario es null
+      //this.esNull();
   
     
     
@@ -94,19 +103,30 @@ export class LoginComponent implements OnInit {
     setUsuario(){   
     this.usuario.correo=this.usuario.correo.toLowerCase();
     this.usuario.contrasenia=this.usuario.contrasenia.toLowerCase(); 
+    //this.usuariosService.setServerDir(this.serverDir);
+
     this.usuariosService.loginUsuario(this.usuario.correo,this.usuario.contrasenia)
     .subscribe(
     res=> {      
       this.usuario=res;
       this.usuariosService.setSesion(this.usuario);
+      this.usuariosService.setServerDir(this.serverDir);
       this.usuariosService.setlog();
       this.isError=false; 
-      location.reload();
-      },
-    err=>{
+//////////////////////////////////////////////////////////
+      let descripcion ='Este usuario '+this.usuario.nombre+' se acaba de loguear';
+      let tipo='Sesion';
+      let usuario=this.usuario.id_usuario.toString();
+      this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
 
-    }
-    )}
+setTimeout(( ) =>{        location.reload();     }, 2000);
+ 
+
+},
+err=>{
+}
+)}
   
   
   
@@ -173,16 +193,45 @@ public envio=false; ///envio de exito de correo
   
   
   
+
+
+
+
+
+
+
+///////////////////////guardo acciones para la Bitacora
+crearAccion(descripcion:string, tipo:string, usuario:string){   
+  this.productosService.saveAccion(descripcion,tipo,usuario)
+  .subscribe(
+  res=> {     console.log('accion registrada en bitacora')      },
+  err=>{                                                        })
+}
+
+
+  
+  
+  
+  
+//refrescar la pagina
+
+refrescar(){
+  location.reload();
+
+}
   
   
   
   
   
-  
-  
-  
-  
-  
+    esNull(){
+     ///si esta logueado redirecciona a productos
+     if(this.usuariosService.getSesionNombre()==null){
+     // console.log("Cambio de null a vacio ");
+    
+     
+    }else{}
+  }
   
   
   loginExist(){

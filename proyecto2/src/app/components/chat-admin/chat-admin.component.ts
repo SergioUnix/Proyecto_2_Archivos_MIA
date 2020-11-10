@@ -96,6 +96,13 @@ this.getCconversaciones();
         this.productosService.saveChat(this.chat)
           .subscribe(
             res=> {
+//////////////////////////////////////////////////////////
+let descripcion ='El usuario envio el siguiente mensaje '+this.chat.mensaje;
+let tipo='Chat';
+let usuario=this.usuariosService.getSesionCod();
+this.crearAccion(descripcion,tipo,usuario);
+//////////////////////////////////////////////////////////
+
               console.log(res);
               this.getMensajes(this.id_propietario.toString(),this.id_producto.toString());  
 
@@ -105,6 +112,16 @@ this.getCconversaciones();
           ) 
         }
   
+
+
+
+        ///////////////////////guardo acciones para la Bitacora
+crearAccion(descripcion:string, tipo:string, usuario:string){   
+  this.productosService.saveAccion(descripcion,tipo,usuario)
+  .subscribe(
+  res=> {     console.log('accion registrada en bitacora')      },
+  err=>{                                                        })
+}
 
 
 
@@ -138,7 +155,10 @@ getCconversaciones(){
   this.productosService.getConversaciones(id_vendedor.toString()).subscribe(  /// 
     res => {
     this.conversaciones= res;
-    this.API_URI='http://localhost:3000/';   
+    
+  //// setear la variable del serverDir  , esto se hace para la aplicacion Android ...
+  this.API_URI=this.usuariosService.getServerDir()+'/';
+
 
     },
     err => console.error(err)

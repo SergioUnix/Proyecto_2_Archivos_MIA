@@ -6,8 +6,37 @@ npm run dev
 
 
 
+
+## Implementación de capacitor y generación de la aplicacion movil
+
+* Instalación de capacitor
+```bash
+ng add @capacitor/angular
+```
+
+* Solucionar error 'spawn npx ENOENT' en Windows 
+```bash
+npx cap init
+```
+
+* Modificar el webDir con la carpeta de salida del compilado de angular en el archivo capacitor.config.json 
+```json
+{
+  "webDir" : "dist/proyecto2"
+}
+
+
+
+
+
+
+
 ////Instrucciones para compilar con Capacitor
-////compila el proyecto, preparandolo para Android
+///Preparacion del entorno para Android , Comando para crear el proyecto Android (este se ejecuta una vez, cuando no se ha ejecutado)
+npx cap add android
+
+
+////compila el proyecto, preparandolo para Android ( los siguientes comandos son para actualizar proyecto android una vez ya ejecutado el comando de arriba)
 ng build --prod --build-optimizer --output-hashing=none
 
 //// Sincroniza los cambios al proyecto ya creado, si ya fue creado por primera vez
@@ -22,7 +51,21 @@ npx cap update
 //abrir proyecto con android studio
 
 
+/// pagina para correr un servidor en linea
+https://dashboard.ngrok.com/get-started/setup
 
+
+//////////////////////////////////////////////////  PARA EL PROYECTO ANDROID STUDIO
+///Para cambiar el host en Androi poner esto en capacitor.config.json , en el proyecto de android
+"server": {
+    "hostname": "example.org",
+    "androidScheme": "https"
+}
+
+//se deben agregar algunos permisos al proyecto de Android los cuales son (estos van en el AndroidManifest)
+<application
+  android:usesCleartextTraffic="true">
+</application> 
 
 
 ///Para Oracle
