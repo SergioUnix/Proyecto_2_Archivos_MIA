@@ -44,10 +44,10 @@ END;
 COMMIT WORK;
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('sergio','ramirez',
-'sergiounix@gmail.com','1234','Confirmado',TO_DATE('12-08-1990','DD-MM-YYYY'),'Guatemala','uploads/default/usuarios/sergio.jpg',10000,1);
+'1sergiounix@gmail.com','1234','Confirmado',TO_DATE('12-08-1990','DD-MM-YYYY'),'Guatemala','uploads/default/usuarios/sergio.jpg',10000,1);
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('madelyn','barraza',
-'madesitalor@gmail.com','1234','Confirmado',TO_DATE('05-01-1993','DD-MM-YYYY'),'Guatemala','uploads/default/usuarios/made.jpg',10000,2); 
+'1madesitalor@gmail.com','1234','Confirmado',TO_DATE('05-01-1993','DD-MM-YYYY'),'Guatemala','uploads/default/usuarios/made.jpg',10000,2); 
 
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('alba','Al',
 '1albaunix@gmail.com','1234','Confirmado',TO_DATE('03-08-1992','DD-MM-YYYY'),'Guatemala','uploads/default/usuarios/alba.jpg',10000,2); 
@@ -433,12 +433,32 @@ COMMIT WORK;                                      select * from detalle;
 
 
 
+ /* =========================================================================    Bitacora*/
+CREATE TABLE bitacora(
+   id_bitacora number primary key,
+   descripcion VARCHAR2(300),
+   tipo VARCHAR2(50),
+   fecha_creacion TimesTamp DEFAULT SYSDATE,
+   fk_usuario NUMBER,
+   CONSTRAINT fk_bitacora_usuario FOREIGN KEY (fk_usuario) REFERENCES usuario (id_usuario)   
+   ON DELETE CASCADE
+);       
+
+CREATE SEQUENCE bit_uno START WITH 1 INCREMENT BY 1;
+CREATE TRIGGER T_bitacora BEFORE INSERT ON bitacora
+for EACH ROW BEGIN
+SELECT bit_uno.NEXTVAL INTO :NEW.id_bitacora from DUAL;
+END; 
+
+COMMIT WORK;                                      select * from bitacora;
 
 
 
 
 
 
+
+Drop SEQUENCE bit_uno; DROP TABLE bitacora;
 Drop SEQUENCE det_uno; DROP TABLE detalle;
 Drop SEQUENCE comp_uno; DROP TABLE compra;
 Drop SEQUENCE cha_uno; DROP TABLE chat;
