@@ -10,13 +10,24 @@ for EACH ROW BEGIN
 SELECT tip_uno.NEXTVAL INTO :NEW.id_tipo from DUAL;
 END;
 
-COMMIT WORK;
 
+
+
+
+COMMIT WORK;
 
 INSERT into tipo (tipo) values('Administrador');
 INSERT into tipo (tipo) values('Cliente'); 
 
+
 COMMIT WORK;            select * from tipo;
+
+
+
+
+
+
+
 
 
 
@@ -40,6 +51,11 @@ CREATE TRIGGER T_usuario BEFORE INSERT ON usuario
 for EACH ROW BEGIN
 SELECT usu_uno.NEXTVAL INTO :NEW.id_usuario from DUAL;
 END;
+
+
+
+
+
 
 COMMIT WORK;
 
@@ -103,11 +119,19 @@ insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,fo
 insert into usuario (nombre,apellido,correo,contrasenia,confirmacion,nac,pais,foto,creditos,fk_tipo) values('tom','To',
 '1tomunix@gmail.com','1234','Confirmado',TO_DATE('10-10-1980','DD-MM-YYYY'),'Paraguay','uploads/default/usuarios/tom.jpg',10000,2); 
 
+
+
 COMMIT WORK;                           select * from usuario;
+
+
 
 
 update usuario set pais='Guatemala'
             where id_usuario=3;
+
+
+
+
 
 
 
@@ -122,6 +146,12 @@ for EACH ROW BEGIN
 SELECT cat_uno.NEXTVAL INTO :NEW.id_categoria from DUAL;
 END; 
 
+
+
+
+
+
+
 COMMIT WORK;
 
 insert into categoria (categoria) values('Zapateria'); 
@@ -132,7 +162,19 @@ insert into categoria (categoria) values('Telefonia');
 insert into categoria (categoria) values('Exterior');
 insert into categoria (categoria) values('Accesorios');
 
+
+
 COMMIT WORK;                                     select * from categoria; 
+
+
+
+
+
+
+
+
+
+
 
  /* ======================================================================== Tabla Producto*/
 CREATE TABLE producto(
@@ -155,6 +197,12 @@ CREATE TRIGGER T_producto BEFORE INSERT ON producto
 for EACH ROW BEGIN
 SELECT pro_uno.NEXTVAL INTO :NEW.id_producto from DUAL;
 END; 
+
+
+
+
+
+
 
 COMMIT WORK;
 
@@ -195,7 +243,18 @@ insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, fo
 insert into producto (producto,estado,fk_usuario,precio,detalle,fk_categoria, foto,palabras,user_compra) values('Aspiradora portatil','Sin Bloquear',8,'1400.00','Accesorios para Autos',7,'uploads/default/productos/aspiradora.jpg','auto portatil',0);
 
 
+
+
+
+
 COMMIT WORK;                           select * from producto;
+
+
+
+
+
+
+
 
 
  /* =====================================================================   Tabla comentario*/
@@ -215,6 +274,11 @@ for EACH ROW BEGIN
 SELECT com_uno.NEXTVAL INTO :NEW.id_comentario from DUAL;
 END;
 
+
+
+
+
+
 COMMIT WORK;
 
 insert into comentario (comentario,fk_producto,fk_usuario) values('cualquier comentario hacia el producto 6',6,2);
@@ -225,7 +289,19 @@ insert into comentario (comentario,fk_producto,fk_usuario) values('cualquier com
 insert into comentario (comentario,fk_producto,fk_usuario) values('cualquier comentario hacia el producto 7',7,3); 
 insert into comentario (comentario,fk_producto,fk_usuario) values('segundo comentario hacia el producto 7',7,3); 
 
+
+
+
+
 COMMIT WORK;                          select * from comentario;
+
+
+
+
+
+
+
+
 
 
 
@@ -244,6 +320,11 @@ CREATE TRIGGER T_likes BEFORE INSERT ON likes
 for EACH ROW BEGIN
 SELECT lik_uno.NEXTVAL INTO :NEW.id_likes from DUAL;
 END;
+
+
+
+
+
 
 COMMIT WORK;
 
@@ -264,7 +345,18 @@ insert into likes (fk_producto,fk_usuario) values(9,17);
 insert into likes (fk_producto,fk_usuario) values(9,18); 
 insert into likes (fk_producto,fk_usuario) values(9,19); 
 
+
+
+
 COMMIT WORK;                             select * from likes; 
+
+
+
+
+
+
+
+
 
  /* =====================================================                Dislike*/
 CREATE TABLE Dislikes(
@@ -281,6 +373,11 @@ CREATE TRIGGER T_Dislikes BEFORE INSERT ON Dislikes
 for EACH ROW BEGIN
 SELECT Dis_uno.NEXTVAL INTO :NEW.id_Dislikes from DUAL;
 END; 
+
+
+
+
+
 
 insert into Dislikes (fk_producto,fk_usuario) values(10,4);
 insert into Dislikes (fk_producto,fk_usuario) values(10,5); 
@@ -299,6 +396,9 @@ insert into Dislikes (fk_producto,fk_usuario) values(13,17);
 insert into Dislikes (fk_producto,fk_usuario) values(13,18); 
 insert into Dislikes (fk_producto,fk_usuario) values(16,19); 
 
+
+
+
 COMMIT WORK;                select * from Dislikes; 
 
  /* ===================================================================== Estado*/
@@ -312,13 +412,29 @@ for EACH ROW BEGIN
 SELECT est_uno.NEXTVAL INTO :NEW.id_estado from DUAL;
 END; 
 
+
+
+
+
 COMMIT WORK;
 
 INSERT into estado (estado) values('Aceptado'); 
 INSERT into estado (estado) values('Rechazado');
 INSERT into estado (estado) values('Pendiente'); 
 
+
+
+
 COMMIT WORK;                             select * from estado; 
+
+
+
+
+
+
+
+
+
 
 
  /* ==================================================          Denuncia   */
@@ -342,6 +458,10 @@ for EACH ROW BEGIN
 SELECT den_uno.NEXTVAL INTO :NEW.id_denuncia from DUAL;
 END; 
 
+
+
+
+
 COMMIT WORK;
 
 INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('este producto no cumple con las especificaciones',1,2,6,3);
@@ -363,7 +483,19 @@ INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) va
 INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('Debe haber un error en el precio',1,5,18,3);
 INSERT into denuncia (descripcion,fk_admin, fk_usuario,fk_producto,fk_estado) values('Debe haber un error en el precio',1,5,19,3);
 
+
+
 COMMIT WORK;                              select * from denuncia; 
+
+
+
+
+
+
+
+
+
+
 
  /* ===========================================================          Chat */
 CREATE TABLE chat(
@@ -384,12 +516,18 @@ for EACH ROW BEGIN
 SELECT cha_uno.NEXTVAL INTO :NEW.id_chat from DUAL;
 END; 
 
+
+
+
 COMMIT WORK;
 
 INSERT into chat (mensaje,fk_vendedor,fk_cliente,fk_producto) values('Mensaje para chatear prueba',3,2,6);
 INSERT into chat (mensaje,fk_vendedor,fk_cliente,fk_producto) values('Mensaje de respuesta del producto',2,3,6);
 INSERT into chat (mensaje,fk_vendedor,fk_cliente,fk_producto) values('esto es solo para probar chat',3,2,6);
 INSERT into chat (mensaje,fk_vendedor,fk_cliente,fk_producto) values('esta bien pues',2,3,6);
+
+
+
 
 COMMIT WORK;                                                      select * from chat;
 
@@ -410,7 +548,19 @@ for EACH ROW BEGIN
 SELECT comp_uno.NEXTVAL INTO :NEW.id_compra from DUAL;
 END; 
 
+
+
+
 COMMIT WORK;                                                     select * from compra;
+
+
+
+
+
+
+
+
+
 
  /* =========================================================================    Detalle */
 CREATE TABLE detalle(
@@ -427,6 +577,10 @@ CREATE TRIGGER T_detalle BEFORE INSERT ON detalle
 for EACH ROW BEGIN
 SELECT det_uno.NEXTVAL INTO :NEW.id_detalle from DUAL;
 END; 
+
+
+
+
 
 COMMIT WORK;                                      select * from detalle;
 
@@ -450,6 +604,9 @@ for EACH ROW BEGIN
 SELECT bit_uno.NEXTVAL INTO :NEW.id_bitacora from DUAL;
 END; 
 
+
+
+
 COMMIT WORK;                                      select * from bitacora;
 
 
@@ -470,6 +627,7 @@ Drop SEQUENCE com_uno; DROP TABLE comentario;
 DROP SEQUENCE pro_uno; drop table producto; 
 DROP SEQUENCE cat_uno;  drop table categoria;
 DROP SEQUENCE usu_uno; drop table usuario; 
-DROP TRIGGER T_tipo; DROP SEQUENCE tip_uno; drop table tipo; 
-
+DROP SEQUENCE tip_uno; drop table tipo; 
+DROP TRIGGER T_tipo; 
 /*  para borrar y dejar null seria asi .....   ON DELETE SET NULL */
+

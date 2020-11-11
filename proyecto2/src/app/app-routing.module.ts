@@ -17,6 +17,7 @@ import {DenunciaListComponent} from './components/denuncia-list/denuncia-list.co
 import {CategoriaCrearComponent} from './components/categoria-crear/categoria-crear.component';
 import {ChatAdminComponent} from './components/chat-admin/chat-admin.component';
 import {ReporteComponent} from './components/reporte/reporte.component';
+import {BitacoraComponent} from './components/bitacora/bitacora.component';
 
 
 
@@ -25,6 +26,7 @@ const routes: Routes = [
 
   {
     path: '',
+    //redirectTo: '/login',
     redirectTo: '/login',
     pathMatch: 'full'
     
@@ -102,7 +104,11 @@ const routes: Routes = [
   path: 'reporte/:id',
   component: ReporteComponent
   }
-  
+  ,
+  {
+  path: 'variable',
+  component: BitacoraComponent
+  }
   
   
   
