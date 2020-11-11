@@ -36,10 +36,13 @@
             <h4 class="btn btn-outline-info my-2 my-sm-0"> <i class="fas fa-dice-d6"></i>  Gestión de Administrador </h4>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" routerLink="/denuncias">Ver Denuncias</a>
 
-            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" routerLink="productos/mio"><h4> Ver Mis productos</h4></a>
+            <a class="dropdown-item" routerLink="/chat-admin"><h4> Mis Chats</h4></a>
+            <a class="dropdown-item" routerLink="/denuncias">Ver Denuncias</a>
             <a class="dropdown-item" routerLink="/categoria-crear">Crear Categorias</a>
+            <div class="dropdown-divider"></div>
+            
 
             <a class="dropdown-item" [routerLink]="['/reporte', 1]">Reporte 1</a>
             <a class="dropdown-item" [routerLink]="['/reporte', 2]">Reporte 2</a>

@@ -36,6 +36,44 @@
   <div class="container">
     <!-- Example row of columns -->
     <div class="row">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class="col-md-4">
+        <h2>Denunciar</h2>
+        <img src="https://vetmarketportal.com.ar/uploads/noticias/5/20200617104716_denuncia.jpg" class="bd-placeholder-img card-img-top" width="100" height="150"focusable="false" role="img">
+        <p>Aca puedes crear una denuncia que va directamente al administrador de la pagina, notificando alguna anomalia sobre este producto.</p>
+        <a class="btn btn-info my-2 my-sm-0" [routerLink]="['/denuncia', producto.id_producto]">
+          <i class="fas fa-radiation"></i> Crear una Denuncia
+        </a>
+      </div>
+
+
+
+      <div class="col-md-4">
+        <h2>Chat Producto</h2>
+        <img src="https://www.antevenio.com/wp-content/uploads/2020/03/chat-marketing.jpg" class="bd-placeholder-img card-img-top" width="100" height="300"focusable="false" role="img">
+        <p>Este apartado de chat es para tener una conversaciòn entre el dueño del producto y tu persona.</p>
+        <a class="btn btn-info my-2 my-sm-0" [routerLink]="['/chat', producto.id_producto]">
+          <i class="fas fa-comments"></i> Abrir Chat
+        </a>
+      </div>
+
+
+
+
+
       <div class="col-md-4">
         <h2>Comentarios</h2>
         <div class="alert alert-success" role="alert" *ngIf="isExito">Se comento exitosamente</div>
@@ -96,47 +134,15 @@
         </div>
 
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       </div>
-      <div class="col-md-4">
-        <h2>Chat Producto</h2>
-        <img src="https://www.antevenio.com/wp-content/uploads/2020/03/chat-marketing.jpg" class="bd-placeholder-img card-img-top" width="100" height="300"focusable="false" role="img">
-        <p>Este apartado de chat es para tener una conversaciòn entre el dueño del producto y tu persona.</p>
-        <a class="btn btn-info my-2 my-sm-0" [routerLink]="['/chat', producto.id_producto]">
-          <i class="fas fa-comments"></i> Abrir Chat
-        </a>
-      </div>
-      <div class="col-md-4">
-        <h2>Denunciar</h2>
-        <img src="https://vetmarketportal.com.ar/uploads/noticias/5/20200617104716_denuncia.jpg" class="bd-placeholder-img card-img-top" width="100" height="150"focusable="false" role="img">
-        <p>Aca puedes crear una denuncia que va directamente al administrador de la pagina, notificando alguna anomalia sobre este producto.</p>
-        <a class="btn btn-info my-2 my-sm-0" [routerLink]="['/denuncia', producto.id_producto]">
-          <i class="fas fa-radiation"></i> Crear una Denuncia
-        </a>
-      </div>
+
+
+
+
+
+
+
+
     </div>
 
     <hr>

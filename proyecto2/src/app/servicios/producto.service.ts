@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 })
 export class ProductoService {
   // Creo una variable con mi dirección
- // API_URI = 'http://6f78e4fc0087.ngrok.io/api';  /// este es para la aplicacion Android
+ // API_URI = 'http://8e55d0587a1e.ngrok.io/api';  /// este es para la aplicacion Android
   // API_URI = 'http://localhost:3000/api';
   
   API_URI = '/api';

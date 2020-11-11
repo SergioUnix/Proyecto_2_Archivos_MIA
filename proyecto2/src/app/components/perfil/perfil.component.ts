@@ -86,7 +86,7 @@ export class PerfilComponent implements OnInit {
   console.log("Estado Cambio");
    this.enviarCorreBloqueo(correo,'Producto Bloqueado','Su producto fue bloqueado por causa de una Denuncia por parte de un usuario Cliente');
     this.productosVecinos;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
-
+    setTimeout(( ) =>{     location.reload();       } , 1000);
   },
   err => console.error(err)
   );
@@ -101,6 +101,7 @@ export class PerfilComponent implements OnInit {
   res => {
   console.log("Estado Cambio");
   this.productosVecinos;///aca almaceno la respuesta que me devuelve, y luego utilizarlo en la lista
+  setTimeout(( ) =>{     location.reload();       } , 1000);
   },
   err => console.error(err)
   );
@@ -208,7 +209,7 @@ export class PerfilComponent implements OnInit {
     this.productosService.updateEstadoCarrito(id_producto,'Carrito',this.id_usuario_logueado).subscribe(  /// 
     res => {
     console.log("Agregado al carrito");
-    location.reload();
+    setTimeout(( ) =>{     location.reload();       } , 1000);
    },
    err => console.error(err)
    );
@@ -271,7 +272,7 @@ refrescar(){
   onCheckUser(): void {
     if (this.usuariosService.getSesionTipo()=='1') {
       this.admin_funcion = true; 
-      this.cliente_funcion=true;
+      this.cliente_funcion=false;
     
     } else if(this.usuariosService.getSesionTipo()=='2') {
       this.admin_funcion = false; 
