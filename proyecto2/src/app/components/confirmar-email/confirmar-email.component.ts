@@ -34,25 +34,18 @@ export class ConfirmarEmailComponent implements OnInit {
 
 
 
-  ngOnInit() {
+   ngOnInit() {
 
 
 
-    const params =this.activatedRoute.snapshot.params;
+   const params =this.activatedRoute.snapshot.params;
     console.log(params);
-    if(params.contrasenia){        //este params.id me detecta el numero
+
+
+
+
+    setTimeout(( ) =>{    this.captousuario(params);     }   ,   2000);
     
-      this.usuariosService.confirmarUsuario(params.correo,params.contrasenia,params.nombre,params.apellido)
-      .subscribe(
-      res =>{
-       //console.log(res)
-        this.usuario=res;
-        console.log(this.usuario);
-        console.log('si existe el usuario dado') 
-       },
-        err => console.error(err)
-      ) 
-    }
   
   
   
@@ -61,6 +54,23 @@ export class ConfirmarEmailComponent implements OnInit {
   
   }
 
+
+  captousuario(params){
+    if(params.contrasenia){        //este params.id me detecta el numero
+    
+      this.usuariosService.confirmarUsuario(params.correo,params.contrasenia,params.nombre,params.apellido)
+       .subscribe(
+       async res =>{
+        //console.log(res)
+        this.usuario=res;
+         console.log(this.usuario);
+         console.log('si existe el usuario dado') 
+        },
+         err => console.error(err)
+       ) 
+     }
+
+  }
 
 
 

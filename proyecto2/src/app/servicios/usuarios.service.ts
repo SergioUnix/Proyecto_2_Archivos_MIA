@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 })
 export class UsuariosService {
   // Creo una variable con mi dirección
-  //API_URI = 'http://8e55d0587a1e.ngrok.io/api';  // este es para la aplicacion Android  
-  //API_URI = 'http://localhost:3000/api';
+  //API_URI = 'http://bfb55d13bb4c.ngrok.io/api';  // este es para la aplicacion Android  
+  //API_URI = 'http://192.168.0.4:3000/api';
   
   API_URI = '/api';
   

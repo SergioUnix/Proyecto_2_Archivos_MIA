@@ -70,7 +70,7 @@ router.post("/api/usuario/verificar",uploadImage, async (req, res) => {
     console.log(req.body)
   
     sql = `select * from usuario where correo='`+correo+ `' and contrasenia='`+pass +`' and nombre='`+nombre+`' and apellido='`+apellido+`'`;
-  //  console.log(sql);
+  console.log(sql);
     let result = await BD.Open(sql, [], false);
     Users = [];
 
